@@ -1,0 +1,30 @@
+-- Configuring done (0.2s)
+-- Generating done (0.0s)
+-- Build files have been written to: /home/ljw/low-latency-cpp-lab/build/release
+[  3%] Building CXX object CMakeFiles/lab_core.dir/src/linux_memory.cpp.o
+[  7%] Linking CXX static library liblab_core.a
+[ 15%] Built target lab_core
+[ 23%] Linking CXX executable lab_tests
+[ 23%] Building CXX object CMakeFiles/lab_phase2_tests.dir/tests/test_phase2.cpp.o
+[ 26%] Building CXX object CMakeFiles/lab_bench.dir/benchmarks/numa/numa_access.cpp.o
+[ 30%] Built target lab_tests
+[ 34%] Linking CXX executable lab_phase2_tests
+[ 34%] Built target lab_phase2_tests
+[ 38%] Linking CXX executable lab_bench
+[100%] Built target lab_bench
+Internal ctest changing into directory: /home/ljw/low-latency-cpp-lab/build/release
+Test project /home/ljw/low-latency-cpp-lab/build/release
+    Start 1: core
+1/5 Test #1: core .............................   Passed    0.05 sec
+    Start 2: cli_contract
+2/5 Test #2: cli_contract .....................   Passed    0.14 sec
+    Start 3: perf_reporting
+3/5 Test #3: perf_reporting ...................   Passed    0.09 sec
+    Start 4: phase2_core
+4/5 Test #4: phase2_core ......................   Passed    0.06 sec
+    Start 5: phase2_cli
+5/5 Test #5: phase2_cli .......................   Passed    0.39 sec
+
+100% tests passed, 0 tests failed out of 5
+
+Total Test time (real) =   0.73 sec

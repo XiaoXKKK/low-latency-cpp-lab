@@ -1,0 +1,23 @@
+-- Configuring done (0.2s)
+-- Generating done (0.0s)
+-- Build files have been written to: /home/ljw/low-latency-cpp-lab/build/tsan
+[  7%] Building CXX object CMakeFiles/lab_core.dir/src/benchmark.cpp.o
+[ 14%] Linking CXX static library liblab_core.a
+[ 14%] Built target lab_core
+[ 21%] Linking CXX executable lab_tests
+[ 28%] Building CXX object CMakeFiles/lab_bench.dir/benchmarks/cache/sequential_vs_random.cpp.o
+[ 35%] Built target lab_tests
+[ 42%] Linking CXX executable lab_bench
+[100%] Built target lab_bench
+Internal ctest changing into directory: /home/ljw/low-latency-cpp-lab/build/tsan
+Test project /home/ljw/low-latency-cpp-lab/build/tsan
+    Start 1: core
+1/3 Test #1: core .............................   Passed    0.55 sec
+    Start 2: cli_contract
+2/3 Test #2: cli_contract .....................   Passed    0.69 sec
+    Start 3: perf_reporting
+3/3 Test #3: perf_reporting ...................   Passed    0.09 sec
+
+100% tests passed, 0 tests failed out of 3
+
+Total Test time (real) =   1.34 sec

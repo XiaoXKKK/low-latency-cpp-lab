@@ -1,0 +1,116 @@
+{
+  "command": [
+    "./build/clang-release/lab_bench",
+    "--benchmark",
+    "branch",
+    "--variant",
+    "random_branch",
+    "--cpu",
+    "0",
+    "--iterations",
+    "100",
+    "--warmup",
+    "10",
+    "--batch",
+    "65536",
+    "--format",
+    "json"
+  ],
+  "status": "MEASURED",
+  "events": {
+    "task-clock": {
+      "available": true,
+      "status": "MEASURED",
+      "probe": "Performance counter stats for 'true':\n\n              0.94 msec task-clock                       #    0.466 CPUs utilized             \n\n       0.002024076 seconds time elapsed\n\n       0.000000000 seconds user\n       0.002089000 seconds sys",
+      "reason": "No numeric count in actual run",
+      "count": 32.34,
+      "raw": "32.34;msec;task-clock;32344386;100.00;0.965;CPUs utilized"
+    },
+    "context-switches": {
+      "available": true,
+      "status": "MEASURED",
+      "probe": "Performance counter stats for 'true':\n\n                 0      context-switches                                                      \n\n       0.001186846 seconds time elapsed\n\n       0.000000000 seconds user\n       0.001365000 seconds sys",
+      "reason": "No numeric count in actual run",
+      "count": 1.0,
+      "raw": "1;;context-switches;32344386;100.00;30.917;/sec"
+    },
+    "cpu-migrations": {
+      "available": true,
+      "status": "MEASURED",
+      "probe": "Performance counter stats for 'true':\n\n                 0      cpu-migrations                                                        \n\n       0.001524883 seconds time elapsed\n\n       0.000000000 seconds user\n       0.001939000 seconds sys",
+      "reason": "No numeric count in actual run",
+      "count": 1.0,
+      "raw": "1;;cpu-migrations;32344386;100.00;30.917;/sec"
+    },
+    "page-faults": {
+      "available": true,
+      "status": "MEASURED",
+      "probe": "Performance counter stats for 'true':\n\n                52      page-faults                                                           \n\n       0.001538017 seconds time elapsed\n\n       0.000000000 seconds user\n       0.001729000 seconds sys",
+      "reason": "No numeric count in actual run",
+      "count": 266.0,
+      "raw": "266;;page-faults;32344386;100.00;8.224;K/sec"
+    },
+    "cycles": {
+      "available": true,
+      "status": "MEASURED",
+      "probe": "Performance counter stats for 'true':\n\n         1,333,340      cycles                                                                \n\n       0.001493842 seconds time elapsed\n\n       0.000000000 seconds user\n       0.001696000 seconds sys",
+      "reason": "No numeric count in actual run",
+      "count": 95190729.0,
+      "raw": "95190729;;cycles;26368021;81.00;2.943;GHz"
+    },
+    "instructions": {
+      "available": true,
+      "status": "MEASURED",
+      "probe": "Performance counter stats for 'true':\n\n           887,951      instructions                                                          \n\n       0.001388873 seconds time elapsed\n\n       0.000000000 seconds user\n       0.001568000 seconds sys",
+      "reason": "No numeric count in actual run",
+      "count": 62074064.0,
+      "raw": "62074064;;instructions;26717356;82.00;0.65;insn per cycle"
+    },
+    "branches": {
+      "available": true,
+      "status": "MEASURED",
+      "probe": "Performance counter stats for 'true':\n\n           184,010      branches                                                              \n\n       0.001108136 seconds time elapsed\n\n       0.000000000 seconds user\n       0.001272000 seconds sys",
+      "reason": "No numeric count in actual run",
+      "count": 21019074.0,
+      "raw": "21019074;;branches;27355061;84.00;649.852;M/sec"
+    },
+    "branch-misses": {
+      "available": true,
+      "status": "MEASURED",
+      "probe": "Performance counter stats for 'true':\n\n            22,462      branch-misses                                                         \n\n       0.001030738 seconds time elapsed\n\n       0.000000000 seconds user\n       0.001216000 seconds sys",
+      "reason": "No numeric count in actual run",
+      "count": 3341781.0,
+      "raw": "3341781;;branch-misses;27345163;84.00;15.90;of all branches"
+    },
+    "cache-references": {
+      "available": true,
+      "status": "MEASURED",
+      "probe": "Performance counter stats for 'true':\n\n            87,974      cache-references                                                      \n\n       0.001482251 seconds time elapsed\n\n       0.000000000 seconds user\n       0.001656000 seconds sys",
+      "reason": "No numeric count in actual run",
+      "count": 1020511.0,
+      "raw": "1020511;;cache-references;27345082;84.00;31.551;M/sec"
+    },
+    "cache-misses": {
+      "available": true,
+      "status": "MEASURED",
+      "probe": "Performance counter stats for 'true':\n\n            26,632      cache-misses                                                          \n\n       0.001094771 seconds time elapsed\n\n       0.000000000 seconds user\n       0.001262000 seconds sys",
+      "reason": "No numeric count in actual run",
+      "count": 93513.0,
+      "raw": "93513;;cache-misses;26591247;82.00;9.16;of all cache refs"
+    }
+  },
+  "ipc": 0.6521019919912578,
+  "returncode": 0,
+  "counts": {
+    "task-clock": 32.34,
+    "context-switches": 1.0,
+    "cpu-migrations": 1.0,
+    "page-faults": 266.0,
+    "cycles": 95190729.0,
+    "instructions": 62074064.0,
+    "branches": 21019074.0,
+    "branch-misses": 3341781.0,
+    "cache-references": 1020511.0,
+    "cache-misses": 93513.0
+  }
+}

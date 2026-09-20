@@ -1,0 +1,136 @@
+0000000000051030 <std::_Function_handler<void (), lab::atomic_order(lab::Config const&)::{lambda<std::memory_order $N0>(std::__cxx11::basic_string<char, std::char_traits<char>, std::allocator<char> > const&)#1}::operator()<(std::memory_order)0>(std::__cxx11::basic_string<char, std::char_traits<char>, std::allocator<char> > const&) const::{lambda()#1}>::_M_invoke(std::_Any_data const&)>:
+   51030:	f3 0f 1e fa          	endbr64
+   51034:	48 8b 07             	mov    (%rdi),%rax
+   51037:	48 83 78 70 00       	cmpq   $0x0,0x70(%rax)
+   5103c:	74 18                	je     51056 <std::_Function_handler<void (), lab::atomic_order(lab::Config const&)::{lambda<std::memory_order $N0>(std::__cxx11::basic_string<char, std::char_traits<char>, std::allocator<char> > const&)#1}::operator()<(std::memory_order)0>(std::__cxx11::basic_string<char, std::char_traits<char>, std::allocator<char> > const&) const::{lambda()#1}>::_M_invoke(std::_Any_data const&)+0x26>
+   5103e:	31 c0                	xor    %eax,%eax
+   51040:	48 8b 57 08          	mov    0x8(%rdi),%rdx
+   51044:	f0 48 83 02 01       	lock addq $0x1,(%rdx)
+   51049:	48 8b 17             	mov    (%rdi),%rdx
+   5104c:	48 83 c0 01          	add    $0x1,%rax
+   51050:	48 3b 42 70          	cmp    0x70(%rdx),%rax
+   51054:	72 ea                	jb     51040 <std::_Function_handler<void (), lab::atomic_order(lab::Config const&)::{lambda<std::memory_order $N0>(std::__cxx11::basic_string<char, std::char_traits<char>, std::allocator<char> > const&)#1}::operator()<(std::memory_order)0>(std::__cxx11::basic_string<char, std::char_traits<char>, std::allocator<char> > const&) const::{lambda()#1}>::_M_invoke(std::_Any_data const&)+0x10>
+   51056:	48 8b 47 08          	mov    0x8(%rdi),%rax
+   5105a:	48 8b 00             	mov    (%rax),%rax
+   5105d:	c3                   	ret
+   5105e:	66 90                	xchg   %ax,%ax
+
+0000000000051060 <std::_Function_handler<void (), lab::atomic_order(lab::Config const&)::{lambda<std::memory_order $N0>(std::__cxx11::basic_string<char, std::char_traits<char>, std::allocator<char> > const&)#1}::operator()<(std::memory_order)2>(std::__cxx11::basic_string<char, std::char_traits<char>, std::allocator<char> > const&) const::{lambda()#1}>::_M_invoke(std::_Any_data const&)>:
+   51060:	f3 0f 1e fa          	endbr64
+   51064:	48 8b 07             	mov    (%rdi),%rax
+   51067:	48 83 78 70 00       	cmpq   $0x0,0x70(%rax)
+   5106c:	74 18                	je     51086 <std::_Function_handler<void (), lab::atomic_order(lab::Config const&)::{lambda<std::memory_order $N0>(std::__cxx11::basic_string<char, std::char_traits<char>, std::allocator<char> > const&)#1}::operator()<(std::memory_order)2>(std::__cxx11::basic_string<char, std::char_traits<char>, std::allocator<char> > const&) const::{lambda()#1}>::_M_invoke(std::_Any_data const&)+0x26>
+   5106e:	31 c0                	xor    %eax,%eax
+   51070:	48 8b 57 08          	mov    0x8(%rdi),%rdx
+   51074:	f0 48 83 02 01       	lock addq $0x1,(%rdx)
+   51079:	48 8b 17             	mov    (%rdi),%rdx
+   5107c:	48 83 c0 01          	add    $0x1,%rax
+   51080:	48 3b 42 70          	cmp    0x70(%rdx),%rax
+   51084:	72 ea                	jb     51070 <std::_Function_handler<void (), lab::atomic_order(lab::Config const&)::{lambda<std::memory_order $N0>(std::__cxx11::basic_string<char, std::char_traits<char>, std::allocator<char> > const&)#1}::operator()<(std::memory_order)2>(std::__cxx11::basic_string<char, std::char_traits<char>, std::allocator<char> > const&) const::{lambda()#1}>::_M_invoke(std::_Any_data const&)+0x10>
+   51086:	48 8b 47 08          	mov    0x8(%rdi),%rax
+   5108a:	48 8b 00             	mov    (%rax),%rax
+   5108d:	c3                   	ret
+   5108e:	66 90                	xchg   %ax,%ax
+
+0000000000051090 <std::_Function_handler<void (), lab::atomic_order(lab::Config const&)::{lambda<std::memory_order $N0>(std::__cxx11::basic_string<char, std::char_traits<char>, std::allocator<char> > const&)#1}::operator()<(std::memory_order)3>(std::__cxx11::basic_string<char, std::char_traits<char>, std::allocator<char> > const&) const::{lambda()#1}>::_M_invoke(std::_Any_data const&)>:
+   51090:	f3 0f 1e fa          	endbr64
+   51094:	48 8b 07             	mov    (%rdi),%rax
+   51097:	48 83 78 70 00       	cmpq   $0x0,0x70(%rax)
+   5109c:	74 18                	je     510b6 <std::_Function_handler<void (), lab::atomic_order(lab::Config const&)::{lambda<std::memory_order $N0>(std::__cxx11::basic_string<char, std::char_traits<char>, std::allocator<char> > const&)#1}::operator()<(std::memory_order)3>(std::__cxx11::basic_string<char, std::char_traits<char>, std::allocator<char> > const&) const::{lambda()#1}>::_M_invoke(std::_Any_data const&)+0x26>
+   5109e:	31 c0                	xor    %eax,%eax
+   510a0:	48 8b 57 08          	mov    0x8(%rdi),%rdx
+   510a4:	f0 48 83 02 01       	lock addq $0x1,(%rdx)
+   510a9:	48 8b 17             	mov    (%rdi),%rdx
+   510ac:	48 83 c0 01          	add    $0x1,%rax
+   510b0:	48 3b 42 70          	cmp    0x70(%rdx),%rax
+   510b4:	72 ea                	jb     510a0 <std::_Function_handler<void (), lab::atomic_order(lab::Config const&)::{lambda<std::memory_order $N0>(std::__cxx11::basic_string<char, std::char_traits<char>, std::allocator<char> > const&)#1}::operator()<(std::memory_order)3>(std::__cxx11::basic_string<char, std::char_traits<char>, std::allocator<char> > const&) const::{lambda()#1}>::_M_invoke(std::_Any_data const&)+0x10>
+   510b6:	48 8b 47 08          	mov    0x8(%rdi),%rax
+   510ba:	48 8b 00             	mov    (%rax),%rax
+   510bd:	c3                   	ret
+   510be:	66 90                	xchg   %ax,%ax
+
+00000000000510c0 <std::_Function_handler<void (), lab::atomic_order(lab::Config const&)::{lambda<std::memory_order $N0>(std::__cxx11::basic_string<char, std::char_traits<char>, std::allocator<char> > const&)#1}::operator()<(std::memory_order)4>(std::__cxx11::basic_string<char, std::char_traits<char>, std::allocator<char> > const&) const::{lambda()#1}>::_M_invoke(std::_Any_data const&)>:
+   510c0:	f3 0f 1e fa          	endbr64
+   510c4:	48 8b 07             	mov    (%rdi),%rax
+   510c7:	48 83 78 70 00       	cmpq   $0x0,0x70(%rax)
+   510cc:	74 18                	je     510e6 <std::_Function_handler<void (), lab::atomic_order(lab::Config const&)::{lambda<std::memory_order $N0>(std::__cxx11::basic_string<char, std::char_traits<char>, std::allocator<char> > const&)#1}::operator()<(std::memory_order)4>(std::__cxx11::basic_string<char, std::char_traits<char>, std::allocator<char> > const&) const::{lambda()#1}>::_M_invoke(std::_Any_data const&)+0x26>
+   510ce:	31 c0                	xor    %eax,%eax
+   510d0:	48 8b 57 08          	mov    0x8(%rdi),%rdx
+   510d4:	f0 48 83 02 01       	lock addq $0x1,(%rdx)
+   510d9:	48 8b 17             	mov    (%rdi),%rdx
+   510dc:	48 83 c0 01          	add    $0x1,%rax
+   510e0:	48 3b 42 70          	cmp    0x70(%rdx),%rax
+   510e4:	72 ea                	jb     510d0 <std::_Function_handler<void (), lab::atomic_order(lab::Config const&)::{lambda<std::memory_order $N0>(std::__cxx11::basic_string<char, std::char_traits<char>, std::allocator<char> > const&)#1}::operator()<(std::memory_order)4>(std::__cxx11::basic_string<char, std::char_traits<char>, std::allocator<char> > const&) const::{lambda()#1}>::_M_invoke(std::_Any_data const&)+0x10>
+   510e6:	48 8b 47 08          	mov    0x8(%rdi),%rax
+   510ea:	48 8b 00             	mov    (%rax),%rax
+   510ed:	c3                   	ret
+   510ee:	66 90                	xchg   %ax,%ax
+
+00000000000510f0 <std::_Function_handler<void (), lab::atomic_order(lab::Config const&)::{lambda<std::memory_order $N0>(std::__cxx11::basic_string<char, std::char_traits<char>, std::allocator<char> > const&)#1}::operator()<(std::memory_order)5>(std::__cxx11::basic_string<char, std::char_traits<char>, std::allocator<char> > const&) const::{lambda()#1}>::_M_invoke(std::_Any_data const&)>:
+   510f0:	f3 0f 1e fa          	endbr64
+   510f4:	48 8b 07             	mov    (%rdi),%rax
+   510f7:	48 83 78 70 00       	cmpq   $0x0,0x70(%rax)
+   510fc:	74 18                	je     51116 <std::_Function_handler<void (), lab::atomic_order(lab::Config const&)::{lambda<std::memory_order $N0>(std::__cxx11::basic_string<char, std::char_traits<char>, std::allocator<char> > const&)#1}::operator()<(std::memory_order)5>(std::__cxx11::basic_string<char, std::char_traits<char>, std::allocator<char> > const&) const::{lambda()#1}>::_M_invoke(std::_Any_data const&)+0x26>
+   510fe:	31 c0                	xor    %eax,%eax
+   51100:	48 8b 57 08          	mov    0x8(%rdi),%rdx
+   51104:	f0 48 83 02 01       	lock addq $0x1,(%rdx)
+   51109:	48 8b 17             	mov    (%rdi),%rdx
+   5110c:	48 83 c0 01          	add    $0x1,%rax
+   51110:	48 3b 42 70          	cmp    0x70(%rdx),%rax
+   51114:	72 ea                	jb     51100 <std::_Function_handler<void (), lab::atomic_order(lab::Config const&)::{lambda<std::memory_order $N0>(std::__cxx11::basic_string<char, std::char_traits<char>, std::allocator<char> > const&)#1}::operator()<(std::memory_order)5>(std::__cxx11::basic_string<char, std::char_traits<char>, std::allocator<char> > const&) const::{lambda()#1}>::_M_invoke(std::_Any_data const&)+0x10>
+   51116:	48 8b 47 08          	mov    0x8(%rdi),%rax
+   5111a:	48 8b 00             	mov    (%rax),%rax
+   5111d:	c3                   	ret
+   5111e:	66 90                	xchg   %ax,%ax
+
+0000000000051120 <std::_Function_handler<void (), lab::atomic_order(lab::Config const&)::{lambda<std::memory_order $N0>(std::__cxx11::basic_string<char, std::char_traits<char>, std::allocator<char> > const&)#2}::operator()<(std::memory_order)0>(std::__cxx11::basic_string<char, std::char_traits<char>, std::allocator<char> > const&) const::{lambda()#1}>::_M_invoke(std::_Any_data const&)>:
+   51120:	f3 0f 1e fa          	endbr64
+   51124:	48 8b 07             	mov    (%rdi),%rax
+   51127:	48 83 78 70 00       	cmpq   $0x0,0x70(%rax)
+   5112c:	74 16                	je     51144 <std::_Function_handler<void (), lab::atomic_order(lab::Config const&)::{lambda<std::memory_order $N0>(std::__cxx11::basic_string<char, std::char_traits<char>, std::allocator<char> > const&)#2}::operator()<(std::memory_order)0>(std::__cxx11::basic_string<char, std::char_traits<char>, std::allocator<char> > const&) const::{lambda()#1}>::_M_invoke(std::_Any_data const&)+0x24>
+   5112e:	31 c0                	xor    %eax,%eax
+   51130:	48 8b 57 08          	mov    0x8(%rdi),%rdx
+   51134:	48 89 02             	mov    %rax,(%rdx)
+   51137:	48 83 c0 01          	add    $0x1,%rax
+   5113b:	48 8b 17             	mov    (%rdi),%rdx
+   5113e:	48 3b 42 70          	cmp    0x70(%rdx),%rax
+   51142:	72 ec                	jb     51130 <std::_Function_handler<void (), lab::atomic_order(lab::Config const&)::{lambda<std::memory_order $N0>(std::__cxx11::basic_string<char, std::char_traits<char>, std::allocator<char> > const&)#2}::operator()<(std::memory_order)0>(std::__cxx11::basic_string<char, std::char_traits<char>, std::allocator<char> > const&) const::{lambda()#1}>::_M_invoke(std::_Any_data const&)+0x10>
+   51144:	48 8b 47 08          	mov    0x8(%rdi),%rax
+   51148:	48 8b 00             	mov    (%rax),%rax
+   5114b:	c3                   	ret
+   5114c:	0f 1f 40 00          	nopl   0x0(%rax)
+
+0000000000051150 <std::_Function_handler<void (), lab::atomic_order(lab::Config const&)::{lambda<std::memory_order $N0>(std::__cxx11::basic_string<char, std::char_traits<char>, std::allocator<char> > const&)#2}::operator()<(std::memory_order)3>(std::__cxx11::basic_string<char, std::char_traits<char>, std::allocator<char> > const&) const::{lambda()#1}>::_M_invoke(std::_Any_data const&)>:
+   51150:	f3 0f 1e fa          	endbr64
+   51154:	48 8b 07             	mov    (%rdi),%rax
+   51157:	48 83 78 70 00       	cmpq   $0x0,0x70(%rax)
+   5115c:	74 16                	je     51174 <std::_Function_handler<void (), lab::atomic_order(lab::Config const&)::{lambda<std::memory_order $N0>(std::__cxx11::basic_string<char, std::char_traits<char>, std::allocator<char> > const&)#2}::operator()<(std::memory_order)3>(std::__cxx11::basic_string<char, std::char_traits<char>, std::allocator<char> > const&) const::{lambda()#1}>::_M_invoke(std::_Any_data const&)+0x24>
+   5115e:	31 c0                	xor    %eax,%eax
+   51160:	48 8b 57 08          	mov    0x8(%rdi),%rdx
+   51164:	48 89 02             	mov    %rax,(%rdx)
+   51167:	48 83 c0 01          	add    $0x1,%rax
+   5116b:	48 8b 17             	mov    (%rdi),%rdx
+   5116e:	48 3b 42 70          	cmp    0x70(%rdx),%rax
+   51172:	72 ec                	jb     51160 <std::_Function_handler<void (), lab::atomic_order(lab::Config const&)::{lambda<std::memory_order $N0>(std::__cxx11::basic_string<char, std::char_traits<char>, std::allocator<char> > const&)#2}::operator()<(std::memory_order)3>(std::__cxx11::basic_string<char, std::char_traits<char>, std::allocator<char> > const&) const::{lambda()#1}>::_M_invoke(std::_Any_data const&)+0x10>
+   51174:	48 8b 47 08          	mov    0x8(%rdi),%rax
+   51178:	48 8b 00             	mov    (%rax),%rax
+   5117b:	c3                   	ret
+   5117c:	0f 1f 40 00          	nopl   0x0(%rax)
+
+0000000000051180 <std::_Function_handler<void (), lab::atomic_order(lab::Config const&)::{lambda<std::memory_order $N0>(std::__cxx11::basic_string<char, std::char_traits<char>, std::allocator<char> > const&)#2}::operator()<(std::memory_order)5>(std::__cxx11::basic_string<char, std::char_traits<char>, std::allocator<char> > const&) const::{lambda()#1}>::_M_invoke(std::_Any_data const&)>:
+   51180:	f3 0f 1e fa          	endbr64
+   51184:	48 8b 07             	mov    (%rdi),%rax
+   51187:	48 83 78 70 00       	cmpq   $0x0,0x70(%rax)
+   5118c:	74 19                	je     511a7 <std::_Function_handler<void (), lab::atomic_order(lab::Config const&)::{lambda<std::memory_order $N0>(std::__cxx11::basic_string<char, std::char_traits<char>, std::allocator<char> > const&)#2}::operator()<(std::memory_order)5>(std::__cxx11::basic_string<char, std::char_traits<char>, std::allocator<char> > const&) const::{lambda()#1}>::_M_invoke(std::_Any_data const&)+0x27>
+   5118e:	31 c0                	xor    %eax,%eax
+   51190:	48 8b 57 08          	mov    0x8(%rdi),%rdx
+   51194:	48 89 c1             	mov    %rax,%rcx
+   51197:	48 87 0a             	xchg   %rcx,(%rdx)
+   5119a:	48 8b 17             	mov    (%rdi),%rdx
+   5119d:	48 83 c0 01          	add    $0x1,%rax
+   511a1:	48 3b 42 70          	cmp    0x70(%rdx),%rax
+   511a5:	72 e9                	jb     51190 <std::_Function_handler<void (), lab::atomic_order(lab::Config const&)::{lambda<std::memory_order $N0>(std::__cxx11::basic_string<char, std::char_traits<char>, std::allocator<char> > const&)#2}::operator()<(std::memory_order)5>(std::__cxx11::basic_string<char, std::char_traits<char>, std::allocator<char> > const&) const::{lambda()#1}>::_M_invoke(std::_Any_data const&)+0x10>
+   511a7:	48 8b 47 08          	mov    0x8(%rdi),%rax
+   511ab:	48 8b 00             	mov    (%rax),%rax
+   511ae:	c3                   	ret
+   511af:	90                   	nop

@@ -1,0 +1,47 @@
+GCC 13.3 Release, objdump -d -C build/release/lab_bench
+
+00000000000119d0 <lab::branch_kernel(unsigned int const*, unsigned long)>:
+   119d0:	f3 0f 1e fa          	endbr64
+   119d4:	48 85 f6             	test   %rsi,%rsi
+   119d7:	74 27                	je     11a00 <lab::branch_kernel(unsigned int const*, unsigned long)+0x30>
+   119d9:	31 d2                	xor    %edx,%edx
+   119db:	31 c0                	xor    %eax,%eax
+   119dd:	0f 1f 00             	nopl   (%rax)
+   119e0:	83 3c 97 7f          	cmpl   $0x7f,(%rdi,%rdx,4)
+   119e4:	76 06                	jbe    119ec <lab::branch_kernel(unsigned int const*, unsigned long)+0x1c>
+   119e6:	8b 0c 97             	mov    (%rdi,%rdx,4),%ecx
+   119e9:	48 01 c8             	add    %rcx,%rax
+   119ec:	48 83 c2 01          	add    $0x1,%rdx
+   119f0:	48 39 d6             	cmp    %rdx,%rsi
+   119f3:	75 eb                	jne    119e0 <lab::branch_kernel(unsigned int const*, unsigned long)+0x10>
+   119f5:	c3                   	ret
+   119f6:	66 2e 0f 1f 84 00 00 	cs nopw 0x0(%rax,%rax,1)
+   119fd:	00 00 00
+   11a00:	31 c0                	xor    %eax,%eax
+   11a02:	c3                   	ret
+   11a03:	66 66 2e 0f 1f 84 00 	data16 cs nopw 0x0(%rax,%rax,1)
+   11a0a:	00 00 00 00
+   11a0e:	66 90                	xchg   %ax,%ax
+
+0000000000011a10 <lab::branchless_kernel(unsigned int const*, unsigned long)>:
+   11a10:	f3 0f 1e fa          	endbr64
+   11a14:	48 85 f6             	test   %rsi,%rsi
+   11a17:	74 2f                	je     11a48 <lab::branchless_kernel(unsigned int const*, unsigned long)+0x38>
+   11a19:	48 8d 34 b7          	lea    (%rdi,%rsi,4),%rsi
+   11a1d:	31 d2                	xor    %edx,%edx
+   11a1f:	31 c9                	xor    %ecx,%ecx
+   11a21:	0f 1f 80 00 00 00 00 	nopl   0x0(%rax)
+   11a28:	8b 07                	mov    (%rdi),%eax
+   11a2a:	83 f8 7f             	cmp    $0x7f,%eax
+   11a2d:	48 0f 46 c1          	cmovbe %rcx,%rax
+   11a31:	48 83 c7 04          	add    $0x4,%rdi
+   11a35:	48 01 c2             	add    %rax,%rdx
+   11a38:	48 39 fe             	cmp    %rdi,%rsi
+   11a3b:	75 eb                	jne    11a28 <lab::branchless_kernel(unsigned int const*, unsigned long)+0x18>
+   11a3d:	48 89 d0             	mov    %rdx,%rax
+   11a40:	c3                   	ret
+   11a41:	0f 1f 80 00 00 00 00 	nopl   0x0(%rax)
+   11a48:	31 d2                	xor    %edx,%edx
+   11a4a:	48 89 d0             	mov    %rdx,%rax
+   11a4d:	c3                   	ret
+   11a4e:	66 90                	xchg   %ax,%ax

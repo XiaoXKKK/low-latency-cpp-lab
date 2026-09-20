@@ -1,0 +1,16 @@
+Internal ctest changing into directory: /home/ljw/low-latency-cpp-lab/build/release
+Test project /home/ljw/low-latency-cpp-lab/build/release
+    Start 1: core
+1/5 Test #1: core .............................   Passed    0.05 sec
+    Start 2: cli_contract
+2/5 Test #2: cli_contract .....................   Passed    0.14 sec
+    Start 3: perf_reporting
+3/5 Test #3: perf_reporting ...................   Passed    0.09 sec
+    Start 4: phase2_core
+4/5 Test #4: phase2_core ......................   Passed    0.06 sec
+    Start 5: phase2_cli
+5/5 Test #5: phase2_cli .......................   Passed    0.37 sec
+
+100% tests passed, 0 tests failed out of 5
+
+Total Test time (real) =   0.71 sec

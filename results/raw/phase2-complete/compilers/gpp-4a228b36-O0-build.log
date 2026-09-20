@@ -1,0 +1,59 @@
+-- The CXX compiler identification is GNU 13.3.0
+-- Detecting CXX compiler ABI info
+-- Detecting CXX compiler ABI info - done
+-- Check for working CXX compiler: /usr/bin/g++ - skipped
+-- Detecting CXX compile features
+-- Detecting CXX compile features - done
+-- Performing Test CMAKE_HAVE_LIBC_PTHREAD
+-- Performing Test CMAKE_HAVE_LIBC_PTHREAD - Success
+-- Found Threads: TRUE
+-- Found Python3: /usr/bin/python3.12 (found version "3.12.3") found components: Interpreter
+-- Configuring done (0.5s)
+-- Generating done (0.0s)
+-- Build files have been written to: /home/ljw/low-latency-cpp-lab/build/compiler-matrix/gpp-4a228b36-O0
+[  3%] Building CXX object CMakeFiles/lab_core.dir/src/benchmark.cpp.o
+[  7%] Building CXX object CMakeFiles/lab_core.dir/src/results.cpp.o
+[ 11%] Building CXX object CMakeFiles/lab_core.dir/src/linux_memory.cpp.o
+[ 15%] Linking CXX static library liblab_core.a
+[ 15%] Built target lab_core
+[ 19%] Building CXX object CMakeFiles/lab_phase2_tests.dir/tests/test_phase2.cpp.o
+[ 23%] Building CXX object CMakeFiles/lab_tests.dir/tests/test_core.cpp.o
+[ 26%] Building CXX object CMakeFiles/lab_bench.dir/benchmarks/timer/timer_overhead.cpp.o
+[ 30%] Building CXX object CMakeFiles/lab_bench.dir/src/main.cpp.o
+[ 34%] Building CXX object CMakeFiles/lab_bench.dir/benchmarks/cache/sequential_vs_random.cpp.o
+[ 38%] Linking CXX executable lab_phase2_tests
+[ 38%] Built target lab_phase2_tests
+[ 42%] Building CXX object CMakeFiles/lab_bench.dir/benchmarks/cache/false_sharing.cpp.o
+[ 46%] Linking CXX executable lab_tests
+[ 46%] Built target lab_tests
+[ 50%] Building CXX object CMakeFiles/lab_bench.dir/benchmarks/branch/branch_prediction.cpp.o
+[ 53%] Building CXX object CMakeFiles/lab_bench.dir/benchmarks/memory/malloc_vs_pool.cpp.o
+[ 57%] Building CXX object CMakeFiles/lab_bench.dir/benchmarks/synchronization/mutex_vs_spinlock.cpp.o
+[ 61%] Building CXX object CMakeFiles/lab_bench.dir/benchmarks/synchronization/spsc_ring_buffer.cpp.o
+[ 65%] Building CXX object CMakeFiles/lab_bench.dir/benchmarks/scheduling/thread_affinity.cpp.o
+[ 69%] Building CXX object CMakeFiles/lab_bench.dir/benchmarks/timer/interval_timing.cpp.o
+[ 73%] Building CXX object CMakeFiles/lab_bench.dir/benchmarks/cache/cache_patterns.cpp.o
+[ 76%] Building CXX object CMakeFiles/lab_bench.dir/benchmarks/memory/allocator_batch.cpp.o
+[ 80%] Building CXX object CMakeFiles/lab_bench.dir/benchmarks/memory/page_behavior.cpp.o
+[ 84%] Building CXX object CMakeFiles/lab_bench.dir/benchmarks/synchronization/atomic_order.cpp.o
+[ 88%] Building CXX object CMakeFiles/lab_bench.dir/benchmarks/synchronization/rw_locks.cpp.o
+[ 92%] Building CXX object CMakeFiles/lab_bench.dir/benchmarks/scheduling/wait_and_arrival.cpp.o
+[ 96%] Building CXX object CMakeFiles/lab_bench.dir/benchmarks/numa/numa_access.cpp.o
+[100%] Linking CXX executable lab_bench
+[100%] Built target lab_bench
+Internal ctest changing into directory: /home/ljw/low-latency-cpp-lab/build/compiler-matrix/gpp-4a228b36-O0
+Test project /home/ljw/low-latency-cpp-lab/build/compiler-matrix/gpp-4a228b36-O0
+    Start 1: core
+1/5 Test #1: core .............................   Passed    0.15 sec
+    Start 2: cli_contract
+2/5 Test #2: cli_contract .....................   Passed    0.16 sec
+    Start 3: perf_reporting
+3/5 Test #3: perf_reporting ...................   Passed    0.09 sec
+    Start 4: phase2_core
+4/5 Test #4: phase2_core ......................   Passed    0.06 sec
+    Start 5: phase2_cli
+5/5 Test #5: phase2_cli .......................   Passed    0.92 sec
+
+100% tests passed, 0 tests failed out of 5
+
+Total Test time (real) =   1.38 sec

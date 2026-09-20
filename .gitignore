@@ -1,0 +1,8 @@
+/build*/
+/.tools/
+__pycache__/
+*.pyc
+/results/raw/*
+!/results/raw/.gitkeep
+/results/processed/*
+!/results/processed/.gitkeep

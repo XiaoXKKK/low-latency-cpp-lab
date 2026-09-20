@@ -1,0 +1,18 @@
+-- Configuring done (0.2s)
+-- Generating done (0.0s)
+-- Build files have been written to: /home/ljw/low-latency-cpp-lab/build/release
+[ 14%] Built target lab_core
+[ 28%] Built target lab_tests
+[100%] Built target lab_bench
+Internal ctest changing into directory: /home/ljw/low-latency-cpp-lab/build/release
+Test project /home/ljw/low-latency-cpp-lab/build/release
+    Start 1: core
+1/3 Test #1: core .............................   Passed    0.09 sec
+    Start 2: cli_contract
+2/3 Test #2: cli_contract .....................   Passed    0.13 sec
+    Start 3: perf_reporting
+3/3 Test #3: perf_reporting ...................   Passed    0.09 sec
+
+100% tests passed, 0 tests failed out of 3
+
+Total Test time (real) =   0.31 sec

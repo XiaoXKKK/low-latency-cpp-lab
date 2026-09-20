@@ -1,0 +1,41 @@
+Start testing: Sep 19 01:36 CST
+----------------------------------------------------------
+1/2 Testing: core
+1/2 Test: core
+Command: "/home/ljw/low-latency-cpp-lab/build/tsan/lab_tests"
+Directory: /home/ljw/low-latency-cpp-lab/build/tsan
+"core" start time: Sep 19 01:36 CST
+Output:
+----------------------------------------------------------
+FATAL: ThreadSanitizer: unexpected memory mapping 0x635e5cf91000-0x635e5cf96000
+<end of output>
+Test time =   0.01 sec
+----------------------------------------------------------
+Test Failed.
+"core" end time: Sep 19 01:36 CST
+"core" time elapsed: 00:00:00
+----------------------------------------------------------
+
+2/2 Testing: cli_contract
+2/2 Test: cli_contract
+Command: "/usr/bin/python3.12" "/home/ljw/low-latency-cpp-lab/tests/test_cli.py" "/home/ljw/low-latency-cpp-lab/build/tsan/lab_bench"
+Directory: /home/ljw/low-latency-cpp-lab/build/tsan
+"cli_contract" start time: Sep 19 01:36 CST
+Output:
+----------------------------------------------------------
+Traceback (most recent call last):
+  File "/home/ljw/low-latency-cpp-lab/tests/test_cli.py", line 19, in <module>
+    p = subprocess.run(base + ['--format', 'csv'], text=True, capture_output=True, timeout=30, check=True)
+        ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/usr/lib/python3.12/subprocess.py", line 571, in run
+    raise CalledProcessError(retcode, process.args,
+subprocess.CalledProcessError: Command '['/home/ljw/low-latency-cpp-lab/build/tsan/lab_bench', '--benchmark', 'timer', '--threads', '1', '--iterations', '3', '--warmup', '1', '--batch', '64', '--format', 'csv']' returned non-zero exit status 66.
+<end of output>
+Test time =   0.15 sec
+----------------------------------------------------------
+Test Failed.
+"cli_contract" end time: Sep 19 01:36 CST
+"cli_contract" time elapsed: 00:00:00
+----------------------------------------------------------
+
+End testing: Sep 19 01:36 CST

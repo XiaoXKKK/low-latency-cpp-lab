@@ -1,0 +1,6 @@
+uid=1003(ljw) gid=1003(ljw) groups=1003(ljw),27(sudo)
+CapInh:	0000004000000000
+CapPrm:	0000004000000000
+CapEff:	0000004000000000
+CapBnd:	000001ffffffffff
+CapAmb:	0000004000000000

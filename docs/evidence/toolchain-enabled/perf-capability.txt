@@ -1,0 +1,1 @@
+/home/ljw/.local/libexec/low-latency-lab/capsh cap_perfmon=ep
