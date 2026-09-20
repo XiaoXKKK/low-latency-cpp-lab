@@ -1,0 +1,12 @@
+# started on Sun Sep 20 21:28:27 2026
+
+40.13;msec;task-clock;40129283;100.00;0.973;CPUs utilized
+2;;context-switches;40129283;100.00;49.839;/sec
+1;;cpu-migrations;40129283;100.00;24.919;/sec
+272;;page-faults;40129283;100.00;6.778;K/sec
+17300869;;branches;32082306;79.00;431.128;M/sec
+3402352;;branch-misses;32156061;80.00;19.67;of all branches
+1127485;;cache-references;32130956;80.00;28.096;M/sec
+129516;;cache-misses;32129273;80.00;11.49;of all cache refs
+122614278;;cycles;32018536;79.00;;
+57528325;;instructions;32018536;79.00;0.47;insn per cycle

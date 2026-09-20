@@ -28,10 +28,13 @@ VARIANTS={
     'arrival_latency':['closed_idle','open_idle','open_cpu','open_memory'],
     'numa_access':['bound_streaming','bound_random','first_touch_streaming','first_touch_random'],
 }
+NETWORK={'network_rtt':['tcp_default','tcp_nodelay','tcp_unbatched','tcp_batched','udp_rtt','udp_batch'],
+         'network_io':['blocking','epoll_lt','epoll_et','busy_poll']}
 PHASE1=list(VARIANTS)[:8]
 PHASE2=['locks']+list(VARIANTS)[8:]
-DEFAULT_SIZES={'page_behavior':2097152,'numa_access':8388608,'cache_patterns':4194304,'arrival_latency':8388608}
-MULTITHREADED={'false_sharing','locks','spsc','allocation_handoff','rw_locks'}
+VARIANTS.update(NETWORK)
+DEFAULT_SIZES={'network_rtt':64,'network_io':64,'page_behavior':2097152,'numa_access':8388608,'cache_patterns':4194304,'arrival_latency':8388608}
+MULTITHREADED={'false_sharing','locks','spsc','allocation_handoff','rw_locks','network_rtt','network_io'}
 
 def write_summary(output,grouped,skipped):
     lines=['# Measured benchmark summary','',f'Raw data and environment: `{output}`','',
@@ -56,9 +59,9 @@ def main():
     p=argparse.ArgumentParser()
     p.add_argument('--binary',type=Path,default=ROOT/'build/release/lab_bench')
     p.add_argument('--benchmark',choices=list(VARIANTS)+['all'],default='all')
-    p.add_argument('--suite',choices=['phase1','phase2','all'],default='all')
+    p.add_argument('--suite',choices=['phase1','phase2','network','all'],default='all')
     p.add_argument('--variant')
-    for key,default in [('repeats',3),('iterations',100),('warmup',10),('batch',4096),('seed',42),
+    for key,default in [('timeout-ms',1000),('repeats',3),('iterations',100),('warmup',10),('batch',None),('seed',42),
                         ('locks',1),('critical',0),('stride',1),('distance',16),('interval-ns',100000),('read-percent',90),
                         ('memory-node',-1),('touch-cpu',-1),('background-cpu',-1)]:
         p.add_argument('--'+key,type=int,default=default)
@@ -84,7 +87,7 @@ def main():
     manifest['source_sha256']={str(f.relative_to(ROOT)):hashlib.sha256(f.read_bytes()).hexdigest() for f in sources}
     for filename in ['CMakeCache.txt','compile_commands.json']:
         if (binary.parent/filename).exists(): (output/filename).write_bytes((binary.parent/filename).read_bytes())
-    suites={'phase1':PHASE1,'phase2':PHASE2,'all':list(VARIANTS)}
+    suites={'phase1':PHASE1,'phase2':PHASE2,'network':list(NETWORK),'all':list(VARIANTS)}
     names=suites[a.suite] if a.benchmark=='all' else [a.benchmark]
     rng=random.Random(a.seed);grouped={};skipped={}
     try:
@@ -94,7 +97,8 @@ def main():
                 threads=a.threads if a.threads is not None else (2 if name in MULTITHREADED else 1)
                 size=a.size if a.size is not None else DEFAULT_SIZES.get(name,32768)
                 command=[str(binary),'--benchmark',name,'--variant',variant,'--threads',str(threads),'--cpu',cpus,'--size',str(size),'--format','json']
-                for key in ['iterations','warmup','batch','seed','locks','critical','duration','stride','distance','interval_ns','read_percent','memory_node','touch_cpu','background_cpu']:
+                command+=['--batch',str(a.batch if a.batch is not None else (16 if name in NETWORK else 4096))]
+                for key in ['timeout_ms','iterations','warmup','seed','locks','critical','duration','stride','distance','interval_ns','read_percent','memory_node','touch_cpu','background_cpu']:
                     command+=['--'+key.replace('_','-'),str(getattr(a,key))]
                 record={'repeat':repeat,'benchmark':name,'variant':variant,'command':command}
                 filename=f'{name}-{variant}-{repeat}.json'

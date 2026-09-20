@@ -1,0 +1,152 @@
+[
+{
+  "directory": "/home/ljw/low-latency-cpp-lab/build/compiler-matrix/gpp-4a228b36-O3-lto",
+  "command": "/usr/bin/g++ -DLAB_BUILD_TYPE=\\\"Release\\\" -DLAB_SANITIZER=\\\"none\\\" -D_GNU_SOURCE -I/home/ljw/low-latency-cpp-lab/include -O3 -DNDEBUG -std=c++20 -flto=auto -fno-fat-lto-objects -Wall -Wextra -Wpedantic -o CMakeFiles/lab_core.dir/src/benchmark.cpp.o -c /home/ljw/low-latency-cpp-lab/src/benchmark.cpp",
+  "file": "/home/ljw/low-latency-cpp-lab/src/benchmark.cpp",
+  "output": "CMakeFiles/lab_core.dir/src/benchmark.cpp.o"
+},
+{
+  "directory": "/home/ljw/low-latency-cpp-lab/build/compiler-matrix/gpp-4a228b36-O3-lto",
+  "command": "/usr/bin/g++ -DLAB_BUILD_TYPE=\\\"Release\\\" -DLAB_SANITIZER=\\\"none\\\" -D_GNU_SOURCE -I/home/ljw/low-latency-cpp-lab/include -O3 -DNDEBUG -std=c++20 -flto=auto -fno-fat-lto-objects -Wall -Wextra -Wpedantic -o CMakeFiles/lab_core.dir/src/results.cpp.o -c /home/ljw/low-latency-cpp-lab/src/results.cpp",
+  "file": "/home/ljw/low-latency-cpp-lab/src/results.cpp",
+  "output": "CMakeFiles/lab_core.dir/src/results.cpp.o"
+},
+{
+  "directory": "/home/ljw/low-latency-cpp-lab/build/compiler-matrix/gpp-4a228b36-O3-lto",
+  "command": "/usr/bin/g++ -DLAB_BUILD_TYPE=\\\"Release\\\" -DLAB_SANITIZER=\\\"none\\\" -D_GNU_SOURCE -I/home/ljw/low-latency-cpp-lab/include -O3 -DNDEBUG -std=c++20 -flto=auto -fno-fat-lto-objects -Wall -Wextra -Wpedantic -o CMakeFiles/lab_core.dir/src/linux_memory.cpp.o -c /home/ljw/low-latency-cpp-lab/src/linux_memory.cpp",
+  "file": "/home/ljw/low-latency-cpp-lab/src/linux_memory.cpp",
+  "output": "CMakeFiles/lab_core.dir/src/linux_memory.cpp.o"
+},
+{
+  "directory": "/home/ljw/low-latency-cpp-lab/build/compiler-matrix/gpp-4a228b36-O3-lto",
+  "command": "/usr/bin/g++ -DLAB_BUILD_TYPE=\\\"Release\\\" -DLAB_SANITIZER=\\\"none\\\" -D_GNU_SOURCE -I/home/ljw/low-latency-cpp-lab/include -O3 -DNDEBUG -std=c++20 -flto=auto -fno-fat-lto-objects -Wall -Wextra -Wpedantic -o CMakeFiles/lab_core.dir/src/network.cpp.o -c /home/ljw/low-latency-cpp-lab/src/network.cpp",
+  "file": "/home/ljw/low-latency-cpp-lab/src/network.cpp",
+  "output": "CMakeFiles/lab_core.dir/src/network.cpp.o"
+},
+{
+  "directory": "/home/ljw/low-latency-cpp-lab/build/compiler-matrix/gpp-4a228b36-O3-lto",
+  "command": "/usr/bin/g++ -DLAB_BUILD_TYPE=\\\"Release\\\" -DLAB_SANITIZER=\\\"none\\\" -D_GNU_SOURCE -I/home/ljw/low-latency-cpp-lab/include -O3 -DNDEBUG -std=c++20 -flto=auto -fno-fat-lto-objects -Wall -Wextra -Wpedantic -o CMakeFiles/lab_bench.dir/src/main.cpp.o -c /home/ljw/low-latency-cpp-lab/src/main.cpp",
+  "file": "/home/ljw/low-latency-cpp-lab/src/main.cpp",
+  "output": "CMakeFiles/lab_bench.dir/src/main.cpp.o"
+},
+{
+  "directory": "/home/ljw/low-latency-cpp-lab/build/compiler-matrix/gpp-4a228b36-O3-lto",
+  "command": "/usr/bin/g++ -DLAB_BUILD_TYPE=\\\"Release\\\" -DLAB_SANITIZER=\\\"none\\\" -D_GNU_SOURCE -I/home/ljw/low-latency-cpp-lab/include -O3 -DNDEBUG -std=c++20 -flto=auto -fno-fat-lto-objects -Wall -Wextra -Wpedantic -o CMakeFiles/lab_bench.dir/benchmarks/timer/timer_overhead.cpp.o -c /home/ljw/low-latency-cpp-lab/benchmarks/timer/timer_overhead.cpp",
+  "file": "/home/ljw/low-latency-cpp-lab/benchmarks/timer/timer_overhead.cpp",
+  "output": "CMakeFiles/lab_bench.dir/benchmarks/timer/timer_overhead.cpp.o"
+},
+{
+  "directory": "/home/ljw/low-latency-cpp-lab/build/compiler-matrix/gpp-4a228b36-O3-lto",
+  "command": "/usr/bin/g++ -DLAB_BUILD_TYPE=\\\"Release\\\" -DLAB_SANITIZER=\\\"none\\\" -D_GNU_SOURCE -I/home/ljw/low-latency-cpp-lab/include -O3 -DNDEBUG -std=c++20 -flto=auto -fno-fat-lto-objects -Wall -Wextra -Wpedantic -o CMakeFiles/lab_bench.dir/benchmarks/cache/sequential_vs_random.cpp.o -c /home/ljw/low-latency-cpp-lab/benchmarks/cache/sequential_vs_random.cpp",
+  "file": "/home/ljw/low-latency-cpp-lab/benchmarks/cache/sequential_vs_random.cpp",
+  "output": "CMakeFiles/lab_bench.dir/benchmarks/cache/sequential_vs_random.cpp.o"
+},
+{
+  "directory": "/home/ljw/low-latency-cpp-lab/build/compiler-matrix/gpp-4a228b36-O3-lto",
+  "command": "/usr/bin/g++ -DLAB_BUILD_TYPE=\\\"Release\\\" -DLAB_SANITIZER=\\\"none\\\" -D_GNU_SOURCE -I/home/ljw/low-latency-cpp-lab/include -O3 -DNDEBUG -std=c++20 -flto=auto -fno-fat-lto-objects -Wall -Wextra -Wpedantic -o CMakeFiles/lab_bench.dir/benchmarks/cache/false_sharing.cpp.o -c /home/ljw/low-latency-cpp-lab/benchmarks/cache/false_sharing.cpp",
+  "file": "/home/ljw/low-latency-cpp-lab/benchmarks/cache/false_sharing.cpp",
+  "output": "CMakeFiles/lab_bench.dir/benchmarks/cache/false_sharing.cpp.o"
+},
+{
+  "directory": "/home/ljw/low-latency-cpp-lab/build/compiler-matrix/gpp-4a228b36-O3-lto",
+  "command": "/usr/bin/g++ -DLAB_BUILD_TYPE=\\\"Release\\\" -DLAB_SANITIZER=\\\"none\\\" -D_GNU_SOURCE -I/home/ljw/low-latency-cpp-lab/include -O3 -DNDEBUG -std=c++20 -flto=auto -fno-fat-lto-objects -Wall -Wextra -Wpedantic -fno-if-conversion -fno-if-conversion2 -fno-tree-vectorize -o CMakeFiles/lab_bench.dir/benchmarks/branch/branch_prediction.cpp.o -c /home/ljw/low-latency-cpp-lab/benchmarks/branch/branch_prediction.cpp",
+  "file": "/home/ljw/low-latency-cpp-lab/benchmarks/branch/branch_prediction.cpp",
+  "output": "CMakeFiles/lab_bench.dir/benchmarks/branch/branch_prediction.cpp.o"
+},
+{
+  "directory": "/home/ljw/low-latency-cpp-lab/build/compiler-matrix/gpp-4a228b36-O3-lto",
+  "command": "/usr/bin/g++ -DLAB_BUILD_TYPE=\\\"Release\\\" -DLAB_SANITIZER=\\\"none\\\" -D_GNU_SOURCE -I/home/ljw/low-latency-cpp-lab/include -O3 -DNDEBUG -std=c++20 -flto=auto -fno-fat-lto-objects -Wall -Wextra -Wpedantic -o CMakeFiles/lab_bench.dir/benchmarks/memory/malloc_vs_pool.cpp.o -c /home/ljw/low-latency-cpp-lab/benchmarks/memory/malloc_vs_pool.cpp",
+  "file": "/home/ljw/low-latency-cpp-lab/benchmarks/memory/malloc_vs_pool.cpp",
+  "output": "CMakeFiles/lab_bench.dir/benchmarks/memory/malloc_vs_pool.cpp.o"
+},
+{
+  "directory": "/home/ljw/low-latency-cpp-lab/build/compiler-matrix/gpp-4a228b36-O3-lto",
+  "command": "/usr/bin/g++ -DLAB_BUILD_TYPE=\\\"Release\\\" -DLAB_SANITIZER=\\\"none\\\" -D_GNU_SOURCE -I/home/ljw/low-latency-cpp-lab/include -O3 -DNDEBUG -std=c++20 -flto=auto -fno-fat-lto-objects -Wall -Wextra -Wpedantic -o CMakeFiles/lab_bench.dir/benchmarks/synchronization/mutex_vs_spinlock.cpp.o -c /home/ljw/low-latency-cpp-lab/benchmarks/synchronization/mutex_vs_spinlock.cpp",
+  "file": "/home/ljw/low-latency-cpp-lab/benchmarks/synchronization/mutex_vs_spinlock.cpp",
+  "output": "CMakeFiles/lab_bench.dir/benchmarks/synchronization/mutex_vs_spinlock.cpp.o"
+},
+{
+  "directory": "/home/ljw/low-latency-cpp-lab/build/compiler-matrix/gpp-4a228b36-O3-lto",
+  "command": "/usr/bin/g++ -DLAB_BUILD_TYPE=\\\"Release\\\" -DLAB_SANITIZER=\\\"none\\\" -D_GNU_SOURCE -I/home/ljw/low-latency-cpp-lab/include -O3 -DNDEBUG -std=c++20 -flto=auto -fno-fat-lto-objects -Wall -Wextra -Wpedantic -o CMakeFiles/lab_bench.dir/benchmarks/synchronization/spsc_ring_buffer.cpp.o -c /home/ljw/low-latency-cpp-lab/benchmarks/synchronization/spsc_ring_buffer.cpp",
+  "file": "/home/ljw/low-latency-cpp-lab/benchmarks/synchronization/spsc_ring_buffer.cpp",
+  "output": "CMakeFiles/lab_bench.dir/benchmarks/synchronization/spsc_ring_buffer.cpp.o"
+},
+{
+  "directory": "/home/ljw/low-latency-cpp-lab/build/compiler-matrix/gpp-4a228b36-O3-lto",
+  "command": "/usr/bin/g++ -DLAB_BUILD_TYPE=\\\"Release\\\" -DLAB_SANITIZER=\\\"none\\\" -D_GNU_SOURCE -I/home/ljw/low-latency-cpp-lab/include -O3 -DNDEBUG -std=c++20 -flto=auto -fno-fat-lto-objects -Wall -Wextra -Wpedantic -o CMakeFiles/lab_bench.dir/benchmarks/scheduling/thread_affinity.cpp.o -c /home/ljw/low-latency-cpp-lab/benchmarks/scheduling/thread_affinity.cpp",
+  "file": "/home/ljw/low-latency-cpp-lab/benchmarks/scheduling/thread_affinity.cpp",
+  "output": "CMakeFiles/lab_bench.dir/benchmarks/scheduling/thread_affinity.cpp.o"
+},
+{
+  "directory": "/home/ljw/low-latency-cpp-lab/build/compiler-matrix/gpp-4a228b36-O3-lto",
+  "command": "/usr/bin/g++ -DLAB_BUILD_TYPE=\\\"Release\\\" -DLAB_SANITIZER=\\\"none\\\" -D_GNU_SOURCE -I/home/ljw/low-latency-cpp-lab/include -O3 -DNDEBUG -std=c++20 -flto=auto -fno-fat-lto-objects -Wall -Wextra -Wpedantic -o CMakeFiles/lab_bench.dir/benchmarks/timer/interval_timing.cpp.o -c /home/ljw/low-latency-cpp-lab/benchmarks/timer/interval_timing.cpp",
+  "file": "/home/ljw/low-latency-cpp-lab/benchmarks/timer/interval_timing.cpp",
+  "output": "CMakeFiles/lab_bench.dir/benchmarks/timer/interval_timing.cpp.o"
+},
+{
+  "directory": "/home/ljw/low-latency-cpp-lab/build/compiler-matrix/gpp-4a228b36-O3-lto",
+  "command": "/usr/bin/g++ -DLAB_BUILD_TYPE=\\\"Release\\\" -DLAB_SANITIZER=\\\"none\\\" -D_GNU_SOURCE -I/home/ljw/low-latency-cpp-lab/include -O3 -DNDEBUG -std=c++20 -flto=auto -fno-fat-lto-objects -Wall -Wextra -Wpedantic -o CMakeFiles/lab_bench.dir/benchmarks/cache/cache_patterns.cpp.o -c /home/ljw/low-latency-cpp-lab/benchmarks/cache/cache_patterns.cpp",
+  "file": "/home/ljw/low-latency-cpp-lab/benchmarks/cache/cache_patterns.cpp",
+  "output": "CMakeFiles/lab_bench.dir/benchmarks/cache/cache_patterns.cpp.o"
+},
+{
+  "directory": "/home/ljw/low-latency-cpp-lab/build/compiler-matrix/gpp-4a228b36-O3-lto",
+  "command": "/usr/bin/g++ -DLAB_BUILD_TYPE=\\\"Release\\\" -DLAB_SANITIZER=\\\"none\\\" -D_GNU_SOURCE -I/home/ljw/low-latency-cpp-lab/include -O3 -DNDEBUG -std=c++20 -flto=auto -fno-fat-lto-objects -Wall -Wextra -Wpedantic -o CMakeFiles/lab_bench.dir/benchmarks/memory/allocator_batch.cpp.o -c /home/ljw/low-latency-cpp-lab/benchmarks/memory/allocator_batch.cpp",
+  "file": "/home/ljw/low-latency-cpp-lab/benchmarks/memory/allocator_batch.cpp",
+  "output": "CMakeFiles/lab_bench.dir/benchmarks/memory/allocator_batch.cpp.o"
+},
+{
+  "directory": "/home/ljw/low-latency-cpp-lab/build/compiler-matrix/gpp-4a228b36-O3-lto",
+  "command": "/usr/bin/g++ -DLAB_BUILD_TYPE=\\\"Release\\\" -DLAB_SANITIZER=\\\"none\\\" -D_GNU_SOURCE -I/home/ljw/low-latency-cpp-lab/include -O3 -DNDEBUG -std=c++20 -flto=auto -fno-fat-lto-objects -Wall -Wextra -Wpedantic -o CMakeFiles/lab_bench.dir/benchmarks/memory/page_behavior.cpp.o -c /home/ljw/low-latency-cpp-lab/benchmarks/memory/page_behavior.cpp",
+  "file": "/home/ljw/low-latency-cpp-lab/benchmarks/memory/page_behavior.cpp",
+  "output": "CMakeFiles/lab_bench.dir/benchmarks/memory/page_behavior.cpp.o"
+},
+{
+  "directory": "/home/ljw/low-latency-cpp-lab/build/compiler-matrix/gpp-4a228b36-O3-lto",
+  "command": "/usr/bin/g++ -DLAB_BUILD_TYPE=\\\"Release\\\" -DLAB_SANITIZER=\\\"none\\\" -D_GNU_SOURCE -I/home/ljw/low-latency-cpp-lab/include -O3 -DNDEBUG -std=c++20 -flto=auto -fno-fat-lto-objects -Wall -Wextra -Wpedantic -o CMakeFiles/lab_bench.dir/benchmarks/synchronization/atomic_order.cpp.o -c /home/ljw/low-latency-cpp-lab/benchmarks/synchronization/atomic_order.cpp",
+  "file": "/home/ljw/low-latency-cpp-lab/benchmarks/synchronization/atomic_order.cpp",
+  "output": "CMakeFiles/lab_bench.dir/benchmarks/synchronization/atomic_order.cpp.o"
+},
+{
+  "directory": "/home/ljw/low-latency-cpp-lab/build/compiler-matrix/gpp-4a228b36-O3-lto",
+  "command": "/usr/bin/g++ -DLAB_BUILD_TYPE=\\\"Release\\\" -DLAB_SANITIZER=\\\"none\\\" -D_GNU_SOURCE -I/home/ljw/low-latency-cpp-lab/include -O3 -DNDEBUG -std=c++20 -flto=auto -fno-fat-lto-objects -Wall -Wextra -Wpedantic -o CMakeFiles/lab_bench.dir/benchmarks/synchronization/rw_locks.cpp.o -c /home/ljw/low-latency-cpp-lab/benchmarks/synchronization/rw_locks.cpp",
+  "file": "/home/ljw/low-latency-cpp-lab/benchmarks/synchronization/rw_locks.cpp",
+  "output": "CMakeFiles/lab_bench.dir/benchmarks/synchronization/rw_locks.cpp.o"
+},
+{
+  "directory": "/home/ljw/low-latency-cpp-lab/build/compiler-matrix/gpp-4a228b36-O3-lto",
+  "command": "/usr/bin/g++ -DLAB_BUILD_TYPE=\\\"Release\\\" -DLAB_SANITIZER=\\\"none\\\" -D_GNU_SOURCE -I/home/ljw/low-latency-cpp-lab/include -O3 -DNDEBUG -std=c++20 -flto=auto -fno-fat-lto-objects -Wall -Wextra -Wpedantic -o CMakeFiles/lab_bench.dir/benchmarks/scheduling/wait_and_arrival.cpp.o -c /home/ljw/low-latency-cpp-lab/benchmarks/scheduling/wait_and_arrival.cpp",
+  "file": "/home/ljw/low-latency-cpp-lab/benchmarks/scheduling/wait_and_arrival.cpp",
+  "output": "CMakeFiles/lab_bench.dir/benchmarks/scheduling/wait_and_arrival.cpp.o"
+},
+{
+  "directory": "/home/ljw/low-latency-cpp-lab/build/compiler-matrix/gpp-4a228b36-O3-lto",
+  "command": "/usr/bin/g++ -DLAB_BUILD_TYPE=\\\"Release\\\" -DLAB_SANITIZER=\\\"none\\\" -D_GNU_SOURCE -I/home/ljw/low-latency-cpp-lab/include -O3 -DNDEBUG -std=c++20 -flto=auto -fno-fat-lto-objects -Wall -Wextra -Wpedantic -o CMakeFiles/lab_bench.dir/benchmarks/numa/numa_access.cpp.o -c /home/ljw/low-latency-cpp-lab/benchmarks/numa/numa_access.cpp",
+  "file": "/home/ljw/low-latency-cpp-lab/benchmarks/numa/numa_access.cpp",
+  "output": "CMakeFiles/lab_bench.dir/benchmarks/numa/numa_access.cpp.o"
+},
+{
+  "directory": "/home/ljw/low-latency-cpp-lab/build/compiler-matrix/gpp-4a228b36-O3-lto",
+  "command": "/usr/bin/g++ -DLAB_BUILD_TYPE=\\\"Release\\\" -DLAB_SANITIZER=\\\"none\\\" -D_GNU_SOURCE -I/home/ljw/low-latency-cpp-lab/include -O3 -DNDEBUG -std=c++20 -flto=auto -fno-fat-lto-objects -Wall -Wextra -Wpedantic -o CMakeFiles/lab_bench.dir/benchmarks/network/loopback.cpp.o -c /home/ljw/low-latency-cpp-lab/benchmarks/network/loopback.cpp",
+  "file": "/home/ljw/low-latency-cpp-lab/benchmarks/network/loopback.cpp",
+  "output": "CMakeFiles/lab_bench.dir/benchmarks/network/loopback.cpp.o"
+},
+{
+  "directory": "/home/ljw/low-latency-cpp-lab/build/compiler-matrix/gpp-4a228b36-O3-lto",
+  "command": "/usr/bin/g++ -DLAB_BUILD_TYPE=\\\"Release\\\" -DLAB_SANITIZER=\\\"none\\\" -D_GNU_SOURCE -I/home/ljw/low-latency-cpp-lab/include -O3 -DNDEBUG -std=c++20 -flto=auto -fno-fat-lto-objects -Wall -Wextra -Wpedantic -o CMakeFiles/lab_tests.dir/tests/test_core.cpp.o -c /home/ljw/low-latency-cpp-lab/tests/test_core.cpp",
+  "file": "/home/ljw/low-latency-cpp-lab/tests/test_core.cpp",
+  "output": "CMakeFiles/lab_tests.dir/tests/test_core.cpp.o"
+},
+{
+  "directory": "/home/ljw/low-latency-cpp-lab/build/compiler-matrix/gpp-4a228b36-O3-lto",
+  "command": "/usr/bin/g++ -DLAB_BUILD_TYPE=\\\"Release\\\" -DLAB_SANITIZER=\\\"none\\\" -D_GNU_SOURCE -I/home/ljw/low-latency-cpp-lab/include -O3 -DNDEBUG -std=c++20 -flto=auto -fno-fat-lto-objects -Wall -Wextra -Wpedantic -o CMakeFiles/lab_phase2_tests.dir/tests/test_phase2.cpp.o -c /home/ljw/low-latency-cpp-lab/tests/test_phase2.cpp",
+  "file": "/home/ljw/low-latency-cpp-lab/tests/test_phase2.cpp",
+  "output": "CMakeFiles/lab_phase2_tests.dir/tests/test_phase2.cpp.o"
+},
+{
+  "directory": "/home/ljw/low-latency-cpp-lab/build/compiler-matrix/gpp-4a228b36-O3-lto",
+  "command": "/usr/bin/g++ -DLAB_BUILD_TYPE=\\\"Release\\\" -DLAB_SANITIZER=\\\"none\\\" -D_GNU_SOURCE -I/home/ljw/low-latency-cpp-lab/include -O3 -DNDEBUG -std=c++20 -flto=auto -fno-fat-lto-objects -Wall -Wextra -Wpedantic -o CMakeFiles/lab_network_tests.dir/tests/test_network.cpp.o -c /home/ljw/low-latency-cpp-lab/tests/test_network.cpp",
+  "file": "/home/ljw/low-latency-cpp-lab/tests/test_network.cpp",
+  "output": "CMakeFiles/lab_network_tests.dir/tests/test_network.cpp.o"
+}
+]

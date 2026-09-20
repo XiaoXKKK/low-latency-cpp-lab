@@ -1,6 +1,6 @@
 # Low-Latency C++ Performance Lab
 
-以 **假设 → baseline → 单变量修改 → 多轮测量 → profiler → 有边界的解释** 学习 C++ / CPU / Linux / HFT performance engineering。当前交付包含 **Phase 1 八个实验 + Phase 2 首批测量/Cache/Memory/同步调度/NUMA扩展**。网络、数据结构、order book 留在[后续路线图](docs/phase2.md)。[Phase 2 实测与验收](docs/phase2_results.md)记录本次进展。
+以 **假设 → baseline → 单变量修改 → 多轮测量 → profiler → 有边界的解释** 学习 C++ / CPU / Linux / HFT performance engineering。当前交付包含 **Phase 1 八个实验 + Phase 2 首批测量/Cache/Memory/同步调度/NUMA扩展**。现已扩展 TCP/UDP、epoll LT/ET 与忙轮询实验；数据结构、order book 留在[后续路线图](docs/phase2.md)。[Phase 2 实测与验收](docs/phase2_results.md)记录本次进展。
 
 ## Quick start
 
@@ -22,6 +22,20 @@ ctest --test-dir build/release --output-on-failure
 ```
 
 CPU 编号只是示例，先运行 `tools/cpu_info.sh` 和 `taskset -pc $$`，选择允许集合内、拓扑明确的 CPU。本机缺少系统 CMake，已在 `.tools/` 安装官方 CMake 3.31.6，构建脚本自动使用它；该目录不纳入 Git。
+
+## Networking 与工具链补测
+
+- [网络实验说明](benchmarks/network/README.md)：TCP/UDP RTT、NODELAY、窗口批量发送、阻塞/epoll LT/ET/用户态忙轮询。
+- [网络实测与验收](docs/network_results.md)：消息大小与 batch sweep、双核/同核比较、CPU 与超时统计。
+- [GCC/Clang 完整矩阵](docs/toolchain_results.md)：O0/O1/O2/O3/native/LTO，汇编与 PMU，历史原始结果独立保留。
+
+```bash
+./build/release/lab_bench --benchmark network_io --threads 2 --cpu 0,1 --format json
+lab-perf python3 scripts/run_network_campaign.py --cpu 0,1 --output results/raw/network-new
+lab-perf python3 tools/compiler_matrix.py --cpu 0 --output results/raw/matrix-new
+```
+
+`--suite network` 包含两组共 10 个变体。网络默认消息 64 字节、window 16 条；RTT 变体一次一个请求。完整矩阵逐个构建、测试、测量，运行时不要同时编译。`lab-perf` 为当前机器的启动器，其他机器需自行具备 PMU 权限。
 
 ## Architecture
 

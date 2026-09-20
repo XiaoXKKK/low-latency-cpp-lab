@@ -45,6 +45,7 @@ static std::size_t positive_integer(const std::string& v, bool zero=false) {
 }
 Config parse(int argc, char** argv) {
     Config c;
+    bool explicit_size=false, explicit_batch=false;
     for (int i=1; i<argc; ++i) {
         std::string key=argv[i];
         if (i+1==argc) throw std::invalid_argument("missing value for " + key);
@@ -54,8 +55,12 @@ Config parse(int argc, char** argv) {
         else if (key=="--format") c.format=v;
         else if (key=="--iterations") c.iterations=positive_integer(v);
         else if (key=="--warmup") c.warmup=positive_integer(v,true);
-        else if (key=="--batch") c.batch=positive_integer(v);
-        else if (key=="--size") c.size=positive_integer(v);
+        else if (key=="--batch") { c.batch=positive_integer(v); explicit_batch=true; }
+        else if (key=="--size") { c.size=positive_integer(v); explicit_size=true; }
+        else if (key=="--timeout-ms") {
+            auto n=positive_integer(v); if(n>60000) throw std::invalid_argument("network timeout <=60000 ms required");
+            c.timeout_ms=static_cast<unsigned>(n);
+        }
         else if (key=="--seed") c.seed=positive_integer(v,true);
         else if (key=="--critical") c.critical=positive_integer(v,true);
         else if (key=="--locks") c.locks=positive_integer(v);
@@ -87,6 +92,10 @@ Config parse(int argc, char** argv) {
                 c.cpus.push_back(static_cast<int>(cpu));
             }
         } else throw std::invalid_argument("unknown option: " + key);
+    }
+    if(c.benchmark=="network_rtt" || c.benchmark=="network_io") {
+        if(!explicit_size) c.size=64;
+        if(!explicit_batch) c.batch=16;
     }
     if(c.format!="table" && c.format!="json" && c.format!="csv") throw std::invalid_argument("format: table/json/csv");
     if(c.iterations>10000000 || c.warmup>1000000 || c.batch>100000000 || c.size>1073741824 || c.critical>1000000 || c.locks>100000)

@@ -37,7 +37,7 @@ if(LAB_LTO)
   set(CMAKE_INTERPROCEDURAL_OPTIMIZATION ON)
 endif()
 find_package(Threads REQUIRED)
-add_library(lab_core src/benchmark.cpp src/results.cpp src/linux_memory.cpp)
+add_library(lab_core src/benchmark.cpp src/results.cpp src/linux_memory.cpp src/network.cpp)
 target_include_directories(lab_core PUBLIC include)
 target_link_libraries(lab_core PUBLIC Threads::Threads)
 target_compile_definitions(lab_core PUBLIC _GNU_SOURCE LAB_BUILD_TYPE="${CMAKE_BUILD_TYPE}" LAB_SANITIZER="${LAB_SANITIZER}")
@@ -49,7 +49,7 @@ add_executable(lab_bench src/main.cpp benchmarks/timer/timer_overhead.cpp
   benchmarks/timer/interval_timing.cpp benchmarks/cache/cache_patterns.cpp
   benchmarks/memory/allocator_batch.cpp benchmarks/memory/page_behavior.cpp
   benchmarks/synchronization/atomic_order.cpp benchmarks/synchronization/rw_locks.cpp
-  benchmarks/scheduling/wait_and_arrival.cpp benchmarks/numa/numa_access.cpp)
+  benchmarks/scheduling/wait_and_arrival.cpp benchmarks/numa/numa_access.cpp benchmarks/network/loopback.cpp)
 target_link_libraries(lab_bench PRIVATE lab_core)
 # Keep the branch experiment's conditional jump observable. Inspect assembly too.
 if(CMAKE_CXX_COMPILER_ID STREQUAL "GNU")
@@ -70,3 +70,8 @@ target_link_libraries(lab_phase2_tests PRIVATE lab_core)
 add_test(NAME phase2_core COMMAND lab_phase2_tests)
 add_test(NAME phase2_cli COMMAND ${Python3_EXECUTABLE} ${CMAKE_SOURCE_DIR}/tests/test_phase2_cli.py $<TARGET_FILE:lab_bench>)
 set_tests_properties(phase2_core phase2_cli PROPERTIES TIMEOUT 120)
+add_executable(lab_network_tests tests/test_network.cpp)
+target_link_libraries(lab_network_tests PRIVATE lab_core)
+add_test(NAME network_core COMMAND lab_network_tests)
+add_test(NAME network_cli COMMAND ${Python3_EXECUTABLE} ${CMAKE_SOURCE_DIR}/tests/test_network_cli.py $<TARGET_FILE:lab_bench>)
+set_tests_properties(network_core network_cli PROPERTIES TIMEOUT 90)

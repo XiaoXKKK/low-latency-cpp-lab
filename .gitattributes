@@ -1,0 +1,2 @@
+# Raw evidence retains the exact output of tools, including assembly spacing.
+results/raw/** -whitespace

@@ -37,7 +37,7 @@ void output(const Config& c,const Results& results) {
         std::cout<<"{\"schema_version\":2,\"compiler\":"<<quote(__VERSION__)<<",\"build_type\":"<<quote(LAB_BUILD_TYPE)
                  <<",\"sanitizer\":"<<quote(LAB_SANITIZER)<<",\"config\":{\"iterations\":"<<c.iterations<<",\"warmup\":"<<c.warmup
                  <<",\"batch\":"<<c.batch<<",\"size_bytes\":"<<c.size<<",\"threads\":"<<c.threads<<",\"duration_seconds\":"<<number(c.duration)
-                 <<",\"seed\":"<<c.seed<<",\"critical\":"<<c.critical<<",\"locks\":"<<c.locks
+                 <<",\"timeout_ms\":"<<c.timeout_ms<<",\"seed\":"<<c.seed<<",\"critical\":"<<c.critical<<",\"locks\":"<<c.locks
                  <<",\"stride\":"<<c.stride<<",\"distance\":"<<c.distance<<",\"interval_ns\":"<<c.interval_ns<<",\"read_percent\":"<<c.read_percent
                  <<",\"memory_node\":"<<c.memory_node<<",\"touch_cpu\":"<<c.touch_cpu<<",\"background_cpu\":"<<c.background_cpu<<",\"cpus\":[";
         for(std::size_t i=0;i<c.cpus.size();++i) std::cout<<(i?",":"")<<c.cpus[i];

@@ -1,0 +1,68 @@
+-- The CXX compiler identification is Clang 18.1.3
+-- Detecting CXX compiler ABI info
+-- Detecting CXX compiler ABI info - done
+-- Check for working CXX compiler: /usr/bin/clang++ - skipped
+-- Detecting CXX compile features
+-- Detecting CXX compile features - done
+-- Performing Test CMAKE_HAVE_LIBC_PTHREAD
+-- Performing Test CMAKE_HAVE_LIBC_PTHREAD - Success
+-- Found Threads: TRUE
+-- Found Python3: /usr/bin/python3.12 (found version "3.12.3") found components: Interpreter
+-- Configuring done (0.9s)
+-- Generating done (0.0s)
+-- Build files have been written to: /home/ljw/low-latency-cpp-lab/build/compiler-matrix/clangpp-92810474-O3
+[  6%] Building CXX object CMakeFiles/lab_core.dir/src/benchmark.cpp.o
+[  6%] Building CXX object CMakeFiles/lab_core.dir/src/results.cpp.o
+[ 10%] Building CXX object CMakeFiles/lab_core.dir/src/linux_memory.cpp.o
+[ 13%] Building CXX object CMakeFiles/lab_core.dir/src/network.cpp.o
+[ 16%] Linking CXX static library liblab_core.a
+[ 16%] Built target lab_core
+[ 20%] Building CXX object CMakeFiles/lab_tests.dir/tests/test_core.cpp.o
+[ 23%] Building CXX object CMakeFiles/lab_phase2_tests.dir/tests/test_phase2.cpp.o
+[ 26%] Building CXX object CMakeFiles/lab_network_tests.dir/tests/test_network.cpp.o
+[ 30%] Building CXX object CMakeFiles/lab_bench.dir/src/main.cpp.o
+[ 33%] Building CXX object CMakeFiles/lab_bench.dir/benchmarks/timer/timer_overhead.cpp.o
+[ 36%] Linking CXX executable lab_phase2_tests
+[ 40%] Linking CXX executable lab_network_tests
+[ 40%] Built target lab_network_tests
+[ 43%] Building CXX object CMakeFiles/lab_bench.dir/benchmarks/cache/sequential_vs_random.cpp.o
+[ 43%] Built target lab_phase2_tests
+[ 46%] Building CXX object CMakeFiles/lab_bench.dir/benchmarks/cache/false_sharing.cpp.o
+[ 50%] Linking CXX executable lab_tests
+[ 50%] Built target lab_tests
+[ 53%] Building CXX object CMakeFiles/lab_bench.dir/benchmarks/branch/branch_prediction.cpp.o
+[ 56%] Building CXX object CMakeFiles/lab_bench.dir/benchmarks/memory/malloc_vs_pool.cpp.o
+[ 60%] Building CXX object CMakeFiles/lab_bench.dir/benchmarks/synchronization/mutex_vs_spinlock.cpp.o
+[ 63%] Building CXX object CMakeFiles/lab_bench.dir/benchmarks/synchronization/spsc_ring_buffer.cpp.o
+[ 66%] Building CXX object CMakeFiles/lab_bench.dir/benchmarks/scheduling/thread_affinity.cpp.o
+[ 70%] Building CXX object CMakeFiles/lab_bench.dir/benchmarks/timer/interval_timing.cpp.o
+[ 73%] Building CXX object CMakeFiles/lab_bench.dir/benchmarks/cache/cache_patterns.cpp.o
+[ 76%] Building CXX object CMakeFiles/lab_bench.dir/benchmarks/memory/allocator_batch.cpp.o
+[ 80%] Building CXX object CMakeFiles/lab_bench.dir/benchmarks/memory/page_behavior.cpp.o
+[ 83%] Building CXX object CMakeFiles/lab_bench.dir/benchmarks/synchronization/atomic_order.cpp.o
+[ 86%] Building CXX object CMakeFiles/lab_bench.dir/benchmarks/synchronization/rw_locks.cpp.o
+[ 90%] Building CXX object CMakeFiles/lab_bench.dir/benchmarks/scheduling/wait_and_arrival.cpp.o
+[ 93%] Building CXX object CMakeFiles/lab_bench.dir/benchmarks/numa/numa_access.cpp.o
+[ 96%] Building CXX object CMakeFiles/lab_bench.dir/benchmarks/network/loopback.cpp.o
+[100%] Linking CXX executable lab_bench
+[100%] Built target lab_bench
+Internal ctest changing into directory: /home/ljw/low-latency-cpp-lab/build/compiler-matrix/clangpp-92810474-O3
+Test project /home/ljw/low-latency-cpp-lab/build/compiler-matrix/clangpp-92810474-O3
+    Start 1: core
+1/7 Test #1: core .............................   Passed    0.05 sec
+    Start 2: cli_contract
+2/7 Test #2: cli_contract .....................   Passed    0.15 sec
+    Start 3: perf_reporting
+3/7 Test #3: perf_reporting ...................   Passed    0.10 sec
+    Start 4: phase2_core
+4/7 Test #4: phase2_core ......................   Passed    0.05 sec
+    Start 5: phase2_cli
+5/7 Test #5: phase2_cli .......................   Passed    0.46 sec
+    Start 6: network_core
+6/7 Test #6: network_core .....................   Passed    0.31 sec
+    Start 7: network_cli
+7/7 Test #7: network_cli ......................   Passed    0.08 sec
+
+100% tests passed, 0 tests failed out of 7
+
+Total Test time (real) =   1.20 sec

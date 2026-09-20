@@ -14,6 +14,7 @@ struct Config {
     std::string benchmark = "timer", variant, format = "table";
     std::size_t iterations = 100, warmup = 10, batch = 4096, size = 32768;
     unsigned threads = 1;
+    unsigned timeout_ms = 1000;
     double duration = 0;
     std::uint64_t seed = 42;
     std::vector<int> cpus;
@@ -77,4 +78,5 @@ Results allocation_handoff(const Config&); Results page_behavior(const Config&);
 Results atomic_order(const Config&); Results rw_locks(const Config&);
 Results wait_strategy(const Config&); Results arrival_latency(const Config&);
 Results numa_access(const Config&);
+Results network_rtt(const Config&); Results network_io(const Config&);
 } // namespace lab

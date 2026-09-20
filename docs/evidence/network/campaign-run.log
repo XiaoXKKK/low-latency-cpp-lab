@@ -1,0 +1,118 @@
+round 1: network_io/epoll_lt: MEASURED
+round 1: network_rtt/tcp_batched: MEASURED
+round 1: network_rtt/tcp_unbatched: MEASURED
+round 1: network_io/epoll_et: MEASURED
+round 1: network_rtt/udp_batch: MEASURED
+round 1: network_io/blocking: MEASURED
+round 1: network_io/busy_poll: MEASURED
+round 1: network_rtt/udp_rtt: MEASURED
+round 1: network_rtt/tcp_default: MEASURED
+round 1: network_rtt/tcp_nodelay: MEASURED
+round 2: network_rtt/tcp_batched: MEASURED
+round 2: network_rtt/udp_batch: MEASURED
+round 2: network_rtt/tcp_unbatched: MEASURED
+round 2: network_rtt/udp_rtt: MEASURED
+round 2: network_rtt/tcp_nodelay: MEASURED
+round 2: network_io/epoll_et: MEASURED
+round 2: network_io/epoll_lt: MEASURED
+round 2: network_rtt/tcp_default: MEASURED
+round 2: network_io/blocking: MEASURED
+round 2: network_io/busy_poll: MEASURED
+round 3: network_io/epoll_lt: MEASURED
+round 3: network_rtt/udp_batch: MEASURED
+round 3: network_rtt/tcp_default: MEASURED
+round 3: network_rtt/tcp_unbatched: MEASURED
+round 3: network_rtt/udp_rtt: MEASURED
+round 3: network_io/busy_poll: MEASURED
+round 3: network_rtt/tcp_nodelay: MEASURED
+round 3: network_io/blocking: MEASURED
+round 3: network_rtt/tcp_batched: MEASURED
+round 3: network_io/epoll_et: MEASURED
+Saved /home/ljw/low-latency-cpp-lab/results/raw/network-complete/baseline/summary.md
+round 1: network_rtt/tcp_batched: MEASURED
+round 1: network_rtt/tcp_nodelay: MEASURED
+round 1: network_rtt/tcp_unbatched: MEASURED
+round 1: network_rtt/udp_rtt: MEASURED
+round 1: network_rtt/tcp_default: MEASURED
+round 1: network_rtt/udp_batch: MEASURED
+round 2: network_rtt/tcp_batched: MEASURED
+round 2: network_rtt/tcp_default: MEASURED
+round 2: network_rtt/tcp_unbatched: MEASURED
+round 2: network_rtt/udp_rtt: MEASURED
+round 2: network_rtt/udp_batch: MEASURED
+round 2: network_rtt/tcp_nodelay: MEASURED
+round 3: network_rtt/tcp_batched: MEASURED
+round 3: network_rtt/tcp_nodelay: MEASURED
+round 3: network_rtt/tcp_unbatched: MEASURED
+round 3: network_rtt/tcp_default: MEASURED
+round 3: network_rtt/udp_rtt: MEASURED
+round 3: network_rtt/udp_batch: MEASURED
+Saved /home/ljw/low-latency-cpp-lab/results/raw/network-complete/payload-512/summary.md
+round 1: network_rtt/tcp_batched: MEASURED
+round 1: network_rtt/tcp_nodelay: MEASURED
+round 1: network_rtt/tcp_unbatched: MEASURED
+round 1: network_rtt/udp_rtt: MEASURED
+round 1: network_rtt/tcp_default: MEASURED
+round 1: network_rtt/udp_batch: MEASURED
+round 2: network_rtt/tcp_batched: MEASURED
+round 2: network_rtt/tcp_default: MEASURED
+round 2: network_rtt/tcp_unbatched: MEASURED
+round 2: network_rtt/udp_rtt: MEASURED
+round 2: network_rtt/udp_batch: MEASURED
+round 2: network_rtt/tcp_nodelay: MEASURED
+round 3: network_rtt/tcp_batched: MEASURED
+round 3: network_rtt/tcp_nodelay: MEASURED
+round 3: network_rtt/tcp_unbatched: MEASURED
+round 3: network_rtt/tcp_default: MEASURED
+round 3: network_rtt/udp_rtt: MEASURED
+round 3: network_rtt/udp_batch: MEASURED
+Saved /home/ljw/low-latency-cpp-lab/results/raw/network-complete/payload-4096/summary.md
+round 1: network_rtt/tcp_unbatched: MEASURED
+round 2: network_rtt/tcp_unbatched: MEASURED
+round 3: network_rtt/tcp_unbatched: MEASURED
+Saved /home/ljw/low-latency-cpp-lab/results/raw/network-complete/window-1-tcp_unbatched/summary.md
+round 1: network_rtt/tcp_batched: MEASURED
+round 2: network_rtt/tcp_batched: MEASURED
+round 3: network_rtt/tcp_batched: MEASURED
+Saved /home/ljw/low-latency-cpp-lab/results/raw/network-complete/window-1-tcp_batched/summary.md
+round 1: network_rtt/udp_batch: MEASURED
+round 2: network_rtt/udp_batch: MEASURED
+round 3: network_rtt/udp_batch: MEASURED
+Saved /home/ljw/low-latency-cpp-lab/results/raw/network-complete/window-1-udp_batch/summary.md
+round 1: network_rtt/tcp_unbatched: MEASURED
+round 2: network_rtt/tcp_unbatched: MEASURED
+round 3: network_rtt/tcp_unbatched: MEASURED
+Saved /home/ljw/low-latency-cpp-lab/results/raw/network-complete/window-8-tcp_unbatched/summary.md
+round 1: network_rtt/tcp_batched: MEASURED
+round 2: network_rtt/tcp_batched: MEASURED
+round 3: network_rtt/tcp_batched: MEASURED
+Saved /home/ljw/low-latency-cpp-lab/results/raw/network-complete/window-8-tcp_batched/summary.md
+round 1: network_rtt/udp_batch: MEASURED
+round 2: network_rtt/udp_batch: MEASURED
+round 3: network_rtt/udp_batch: MEASURED
+Saved /home/ljw/low-latency-cpp-lab/results/raw/network-complete/window-8-udp_batch/summary.md
+round 1: network_rtt/tcp_unbatched: MEASURED
+round 2: network_rtt/tcp_unbatched: MEASURED
+round 3: network_rtt/tcp_unbatched: MEASURED
+Saved /home/ljw/low-latency-cpp-lab/results/raw/network-complete/window-64-tcp_unbatched/summary.md
+round 1: network_rtt/tcp_batched: MEASURED
+round 2: network_rtt/tcp_batched: MEASURED
+round 3: network_rtt/tcp_batched: MEASURED
+Saved /home/ljw/low-latency-cpp-lab/results/raw/network-complete/window-64-tcp_batched/summary.md
+round 1: network_rtt/udp_batch: MEASURED
+round 2: network_rtt/udp_batch: MEASURED
+round 3: network_rtt/udp_batch: MEASURED
+Saved /home/ljw/low-latency-cpp-lab/results/raw/network-complete/window-64-udp_batch/summary.md
+round 1: network_io/epoll_et: MEASURED
+round 1: network_io/epoll_lt: MEASURED
+round 1: network_io/busy_poll: MEASURED
+round 1: network_io/blocking: MEASURED
+round 2: network_io/busy_poll: MEASURED
+round 2: network_io/epoll_et: MEASURED
+round 2: network_io/blocking: MEASURED
+round 2: network_io/epoll_lt: MEASURED
+round 3: network_io/epoll_lt: MEASURED
+round 3: network_io/busy_poll: MEASURED
+round 3: network_io/epoll_et: MEASURED
+round 3: network_io/blocking: MEASURED
+Saved /home/ljw/low-latency-cpp-lab/results/raw/network-complete/same-cpu/summary.md

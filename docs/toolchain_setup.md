@@ -47,8 +47,8 @@ Clang Release 构建成功，全部 **5/5 CTest** 通过。构建配置与验证
 lab-perf .tools/bin/ctest --test-dir build/clang-release --output-on-failure
 ```
 
-区间 PMU 实验的 empty 与 dependent_chain 各执行 3 轮，共 **6/6 MEASURED**，保存了 cycles、instructions 与 enabled/running 时间；见 [原始结果与环境](../results/raw/toolchain-enabled-clang-perf/manifest.json) 和 [汇总](../results/raw/toolchain-enabled-clang-perf/summary.md)。这是安装后的功能验证，尚未补跑完整 Clang 优化级别矩阵。
+区间 PMU 实验的 empty 与 dependent_chain 各执行 3 轮，共 **6/6 MEASURED**，保存了 cycles、instructions 与 enabled/running 时间；见 [原始结果与环境](../results/raw/toolchain-enabled-clang-perf/manifest.json) 和 [汇总](../results/raw/toolchain-enabled-clang-perf/summary.md)。这是安装后的功能验证；后续完整矩阵见[工具链补测报告](toolchain_results.md)。
 
-全进程 `perf stat` 的 10 个事件全部采集成功，包含 cycles、instructions、branch-misses、cache-misses；见 [perf.json](../results/raw/toolchain-enabled-perf-stat/perf.json) 和 [原始计数](../results/raw/toolchain-enabled-perf-stat/perf-stat.csv)。本次部分硬件事件运行比例为 81%–84%，存在 multiplex，缩放计数及派生 IPC 仅作为工具可用性验证。JSON 中 MEASURED 事件仍残留 runner 预置的 `No numeric count in actual run` reason 字段；实际状态由 status、count 与原始 CSV 共同确认。
+全进程 `perf stat` 的 10 个事件全部采集成功，包含 cycles、instructions、branch-misses、cache-misses；见 [perf.json](../results/raw/toolchain-enabled-perf-stat/perf.json) 和 [原始计数](../results/raw/toolchain-enabled-perf-stat/perf-stat.csv)。本次部分硬件事件运行比例为 81%–84%，存在 multiplex，缩放计数及派生 IPC 仅作为工具可用性验证。JSON 中 MEASURED 事件仍残留 runner 预置的 `No numeric count in actual run` reason 字段；实际状态由 status、count 与原始 CSV 共同确认。后续 runner 已修正该字段，并增加运行比例、multiplex 与 scaled IPC；本目录保留原始输出。
 
 此前 `phase2-complete` 的结果和归档保留不变，不将新能力追溯写入历史测量。

@@ -1,8 +1,8 @@
 # Phase 2 roadmap
 
-当前状态：**首批（前四组）已完成实现、测试、review与本机实测**。详见[本轮范围](phase2_scope.md)、[实测报告](phase2_results.md)。perf/Clang/显式hugetlb等不可用能力按原始证据记录；THP部分成功与NUMA不合格页放置也保留。MPSC仍为可选后续工作。
+当前状态：**首批（前四组）已完成实现、测试、review与本机实测**。详见[本轮范围](phase2_scope.md)、[实测报告](phase2_results.md)。历史 perf/Clang 限制按原始证据记录；安装后的完整补测见[工具链报告](toolchain_results.md)。显式 hugetlb、THP 部分成功与 NUMA 不合格页放置按原始结果保留。MPSC仍为可选后续工作。
 
-下一批从第5组Networking开始，再推进Data structures和Order book；不重复生成已完成的第一批。
+第5组 Networking 已实现 TCP/UDP、NODELAY、batching、epoll LT/ET 与用户态忙轮询，见[实测验收](network_results.md)。下一批推进 Data structures / AoS vs SoA，然后 Order book。
 
 按依赖关系推进，每项延续 question/baseline/单变量/三轮/perf/边界说明。
 

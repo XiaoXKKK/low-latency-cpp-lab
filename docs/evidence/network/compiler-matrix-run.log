@@ -1,0 +1,156 @@
+round 1: cache_patterns/streaming: MEASURED
+round 2: cache_patterns/streaming: MEASURED
+round 3: cache_patterns/streaming: MEASURED
+Saved /home/ljw/low-latency-cpp-lab/results/raw/phase2-toolchain-matrix/gpp-4a228b36-O0-cache_patterns/summary.md
+round 1: branch/random_branch: MEASURED
+round 2: branch/random_branch: MEASURED
+round 3: branch/random_branch: MEASURED
+Saved /home/ljw/low-latency-cpp-lab/results/raw/phase2-toolchain-matrix/gpp-4a228b36-O0-branch/summary.md
+round 1: perf_interval/dependent_chain: MEASURED
+round 2: perf_interval/dependent_chain: MEASURED
+round 3: perf_interval/dependent_chain: MEASURED
+Saved /home/ljw/low-latency-cpp-lab/results/raw/phase2-toolchain-matrix/gpp-4a228b36-O0-perf_interval/summary.md
+gpp-4a228b36-O0 complete
+round 1: cache_patterns/streaming: MEASURED
+round 2: cache_patterns/streaming: MEASURED
+round 3: cache_patterns/streaming: MEASURED
+Saved /home/ljw/low-latency-cpp-lab/results/raw/phase2-toolchain-matrix/gpp-4a228b36-O1-cache_patterns/summary.md
+round 1: branch/random_branch: MEASURED
+round 2: branch/random_branch: MEASURED
+round 3: branch/random_branch: MEASURED
+Saved /home/ljw/low-latency-cpp-lab/results/raw/phase2-toolchain-matrix/gpp-4a228b36-O1-branch/summary.md
+round 1: perf_interval/dependent_chain: MEASURED
+round 2: perf_interval/dependent_chain: MEASURED
+round 3: perf_interval/dependent_chain: MEASURED
+Saved /home/ljw/low-latency-cpp-lab/results/raw/phase2-toolchain-matrix/gpp-4a228b36-O1-perf_interval/summary.md
+gpp-4a228b36-O1 complete
+round 1: cache_patterns/streaming: MEASURED
+round 2: cache_patterns/streaming: MEASURED
+round 3: cache_patterns/streaming: MEASURED
+Saved /home/ljw/low-latency-cpp-lab/results/raw/phase2-toolchain-matrix/gpp-4a228b36-O2-cache_patterns/summary.md
+round 1: branch/random_branch: MEASURED
+round 2: branch/random_branch: MEASURED
+round 3: branch/random_branch: MEASURED
+Saved /home/ljw/low-latency-cpp-lab/results/raw/phase2-toolchain-matrix/gpp-4a228b36-O2-branch/summary.md
+round 1: perf_interval/dependent_chain: MEASURED
+round 2: perf_interval/dependent_chain: MEASURED
+round 3: perf_interval/dependent_chain: MEASURED
+Saved /home/ljw/low-latency-cpp-lab/results/raw/phase2-toolchain-matrix/gpp-4a228b36-O2-perf_interval/summary.md
+gpp-4a228b36-O2 complete
+round 1: cache_patterns/streaming: MEASURED
+round 2: cache_patterns/streaming: MEASURED
+round 3: cache_patterns/streaming: MEASURED
+Saved /home/ljw/low-latency-cpp-lab/results/raw/phase2-toolchain-matrix/gpp-4a228b36-O3-cache_patterns/summary.md
+round 1: branch/random_branch: MEASURED
+round 2: branch/random_branch: MEASURED
+round 3: branch/random_branch: MEASURED
+Saved /home/ljw/low-latency-cpp-lab/results/raw/phase2-toolchain-matrix/gpp-4a228b36-O3-branch/summary.md
+round 1: perf_interval/dependent_chain: MEASURED
+round 2: perf_interval/dependent_chain: MEASURED
+round 3: perf_interval/dependent_chain: MEASURED
+Saved /home/ljw/low-latency-cpp-lab/results/raw/phase2-toolchain-matrix/gpp-4a228b36-O3-perf_interval/summary.md
+gpp-4a228b36-O3 complete
+round 1: cache_patterns/streaming: MEASURED
+round 2: cache_patterns/streaming: MEASURED
+round 3: cache_patterns/streaming: MEASURED
+Saved /home/ljw/low-latency-cpp-lab/results/raw/phase2-toolchain-matrix/gpp-4a228b36-O3-native-cache_patterns/summary.md
+round 1: branch/random_branch: MEASURED
+round 2: branch/random_branch: MEASURED
+round 3: branch/random_branch: MEASURED
+Saved /home/ljw/low-latency-cpp-lab/results/raw/phase2-toolchain-matrix/gpp-4a228b36-O3-native-branch/summary.md
+round 1: perf_interval/dependent_chain: MEASURED
+round 2: perf_interval/dependent_chain: MEASURED
+round 3: perf_interval/dependent_chain: MEASURED
+Saved /home/ljw/low-latency-cpp-lab/results/raw/phase2-toolchain-matrix/gpp-4a228b36-O3-native-perf_interval/summary.md
+gpp-4a228b36-O3-native complete
+round 1: cache_patterns/streaming: MEASURED
+round 2: cache_patterns/streaming: MEASURED
+round 3: cache_patterns/streaming: MEASURED
+Saved /home/ljw/low-latency-cpp-lab/results/raw/phase2-toolchain-matrix/gpp-4a228b36-O3-lto-cache_patterns/summary.md
+round 1: branch/random_branch: MEASURED
+round 2: branch/random_branch: MEASURED
+round 3: branch/random_branch: MEASURED
+Saved /home/ljw/low-latency-cpp-lab/results/raw/phase2-toolchain-matrix/gpp-4a228b36-O3-lto-branch/summary.md
+round 1: perf_interval/dependent_chain: MEASURED
+round 2: perf_interval/dependent_chain: MEASURED
+round 3: perf_interval/dependent_chain: MEASURED
+Saved /home/ljw/low-latency-cpp-lab/results/raw/phase2-toolchain-matrix/gpp-4a228b36-O3-lto-perf_interval/summary.md
+gpp-4a228b36-O3-lto complete
+round 1: cache_patterns/streaming: MEASURED
+round 2: cache_patterns/streaming: MEASURED
+round 3: cache_patterns/streaming: MEASURED
+Saved /home/ljw/low-latency-cpp-lab/results/raw/phase2-toolchain-matrix/clangpp-92810474-O0-cache_patterns/summary.md
+round 1: branch/random_branch: MEASURED
+round 2: branch/random_branch: MEASURED
+round 3: branch/random_branch: MEASURED
+Saved /home/ljw/low-latency-cpp-lab/results/raw/phase2-toolchain-matrix/clangpp-92810474-O0-branch/summary.md
+round 1: perf_interval/dependent_chain: MEASURED
+round 2: perf_interval/dependent_chain: MEASURED
+round 3: perf_interval/dependent_chain: MEASURED
+Saved /home/ljw/low-latency-cpp-lab/results/raw/phase2-toolchain-matrix/clangpp-92810474-O0-perf_interval/summary.md
+clangpp-92810474-O0 complete
+round 1: cache_patterns/streaming: MEASURED
+round 2: cache_patterns/streaming: MEASURED
+round 3: cache_patterns/streaming: MEASURED
+Saved /home/ljw/low-latency-cpp-lab/results/raw/phase2-toolchain-matrix/clangpp-92810474-O1-cache_patterns/summary.md
+round 1: branch/random_branch: MEASURED
+round 2: branch/random_branch: MEASURED
+round 3: branch/random_branch: MEASURED
+Saved /home/ljw/low-latency-cpp-lab/results/raw/phase2-toolchain-matrix/clangpp-92810474-O1-branch/summary.md
+round 1: perf_interval/dependent_chain: MEASURED
+round 2: perf_interval/dependent_chain: MEASURED
+round 3: perf_interval/dependent_chain: MEASURED
+Saved /home/ljw/low-latency-cpp-lab/results/raw/phase2-toolchain-matrix/clangpp-92810474-O1-perf_interval/summary.md
+clangpp-92810474-O1 complete
+round 1: cache_patterns/streaming: MEASURED
+round 2: cache_patterns/streaming: MEASURED
+round 3: cache_patterns/streaming: MEASURED
+Saved /home/ljw/low-latency-cpp-lab/results/raw/phase2-toolchain-matrix/clangpp-92810474-O2-cache_patterns/summary.md
+round 1: branch/random_branch: MEASURED
+round 2: branch/random_branch: MEASURED
+round 3: branch/random_branch: MEASURED
+Saved /home/ljw/low-latency-cpp-lab/results/raw/phase2-toolchain-matrix/clangpp-92810474-O2-branch/summary.md
+round 1: perf_interval/dependent_chain: MEASURED
+round 2: perf_interval/dependent_chain: MEASURED
+round 3: perf_interval/dependent_chain: MEASURED
+Saved /home/ljw/low-latency-cpp-lab/results/raw/phase2-toolchain-matrix/clangpp-92810474-O2-perf_interval/summary.md
+clangpp-92810474-O2 complete
+round 1: cache_patterns/streaming: MEASURED
+round 2: cache_patterns/streaming: MEASURED
+round 3: cache_patterns/streaming: MEASURED
+Saved /home/ljw/low-latency-cpp-lab/results/raw/phase2-toolchain-matrix/clangpp-92810474-O3-cache_patterns/summary.md
+round 1: branch/random_branch: MEASURED
+round 2: branch/random_branch: MEASURED
+round 3: branch/random_branch: MEASURED
+Saved /home/ljw/low-latency-cpp-lab/results/raw/phase2-toolchain-matrix/clangpp-92810474-O3-branch/summary.md
+round 1: perf_interval/dependent_chain: MEASURED
+round 2: perf_interval/dependent_chain: MEASURED
+round 3: perf_interval/dependent_chain: MEASURED
+Saved /home/ljw/low-latency-cpp-lab/results/raw/phase2-toolchain-matrix/clangpp-92810474-O3-perf_interval/summary.md
+clangpp-92810474-O3 complete
+round 1: cache_patterns/streaming: MEASURED
+round 2: cache_patterns/streaming: MEASURED
+round 3: cache_patterns/streaming: MEASURED
+Saved /home/ljw/low-latency-cpp-lab/results/raw/phase2-toolchain-matrix/clangpp-92810474-O3-native-cache_patterns/summary.md
+round 1: branch/random_branch: MEASURED
+round 2: branch/random_branch: MEASURED
+round 3: branch/random_branch: MEASURED
+Saved /home/ljw/low-latency-cpp-lab/results/raw/phase2-toolchain-matrix/clangpp-92810474-O3-native-branch/summary.md
+round 1: perf_interval/dependent_chain: MEASURED
+round 2: perf_interval/dependent_chain: MEASURED
+round 3: perf_interval/dependent_chain: MEASURED
+Saved /home/ljw/low-latency-cpp-lab/results/raw/phase2-toolchain-matrix/clangpp-92810474-O3-native-perf_interval/summary.md
+clangpp-92810474-O3-native complete
+round 1: cache_patterns/streaming: MEASURED
+round 2: cache_patterns/streaming: MEASURED
+round 3: cache_patterns/streaming: MEASURED
+Saved /home/ljw/low-latency-cpp-lab/results/raw/phase2-toolchain-matrix/clangpp-92810474-O3-lto-cache_patterns/summary.md
+round 1: branch/random_branch: MEASURED
+round 2: branch/random_branch: MEASURED
+round 3: branch/random_branch: MEASURED
+Saved /home/ljw/low-latency-cpp-lab/results/raw/phase2-toolchain-matrix/clangpp-92810474-O3-lto-branch/summary.md
+round 1: perf_interval/dependent_chain: MEASURED
+round 2: perf_interval/dependent_chain: MEASURED
+round 3: perf_interval/dependent_chain: MEASURED
+Saved /home/ljw/low-latency-cpp-lab/results/raw/phase2-toolchain-matrix/clangpp-92810474-O3-lto-perf_interval/summary.md
+clangpp-92810474-O3-lto complete

@@ -1,0 +1,27 @@
+{
+  "command": [
+    "./build/release/lab_bench",
+    "--benchmark",
+    "network_rtt",
+    "--variant",
+    "udp_batch",
+    "--threads",
+    "2",
+    "--cpu",
+    "0,1",
+    "--size",
+    "4096",
+    "--batch",
+    "256",
+    "--iterations",
+    "3",
+    "--warmup",
+    "0",
+    "--timeout-ms",
+    "20",
+    "--format",
+    "json"
+  ],
+  "binary_sha256": "9778e68c68a64455f5b0d4b93ba4a90993f41349c255809c12c5123613a43153",
+  "environment_reference": "results/raw/network-complete/baseline/environment.txt"
+}

@@ -44,9 +44,12 @@ def main():
                         subprocess.run(['objdump','-d','-C',str(build/'lab_bench')],stdout=assembly,check=True)
                     stage='benchmark'
                     for benchmark,variant in [('cache_patterns','streaming'),('branch','random_branch'),('perf_interval','dependent_chain')]:
-                        subprocess.run([sys.executable,str(ROOT/'tools/run_benchmark.py'),'--binary',str(build/'lab_bench'),
+                        benchmark_command=[sys.executable,str(ROOT/'tools/run_benchmark.py'),'--binary',str(build/'lab_bench'),
                             '--benchmark',benchmark,'--variant',variant,'--repeats','3','--iterations','100','--warmup','10',
-                            '--size','1048576','--batch','65536','--cpu',args.cpu,'--output',str(out/f'{tag}-{benchmark}')],check=True)
+                            '--size','1048576','--batch','65536','--cpu',args.cpu,'--output',str(out/f'{tag}-{benchmark}')]
+                        # Avoid nesting whole-process counters around an interval PMU group.
+                        if benchmark!='perf_interval': benchmark_command.append('--perf')
+                        subprocess.run(benchmark_command,check=True)
                     item['status']='MEASURED';print(tag,'complete',flush=True)
                 except FileNotFoundError as error:
                     item.update(status="NOT MEASURED",reason=f"{stage} tool unavailable: {error}")

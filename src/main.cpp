@@ -7,11 +7,12 @@ int main(int argc,char** argv) {
         if(argc==2 && std::string(argv[1])=="--help") {
             std::cout<<"lab_bench --benchmark timer|memory_access|false_sharing|branch|allocation|locks|spsc|affinity\n"
                        "tsc_interval|perf_interval|cache_patterns|allocator_batch|allocation_handoff|page_behavior\n"
-                       "atomic_order|rw_locks|wait_strategy|arrival_latency|numa_access\n"
+                       "atomic_order|rw_locks|wait_strategy|arrival_latency|numa_access|network_rtt|network_io\n"
                        "--iterations 100 --warmup 10 --threads 1 --cpu -1|0,1 --duration 0\n"
                        "--batch 4096 --size 32768 --seed 42 --critical 0 --locks 1\n"
                        "--stride 1 --distance 16 --interval-ns 100000 --read-percent 90\n"
                        "--memory-node -1 --touch-cpu -1 --background-cpu -1\n"
+                       "--timeout-ms 1000 (network operation timeout)\n"
                        "--variant NAME --format table|json|csv\n"
                        "iterations = measured samples; warmup = discarded samples; duration = per-result wall-time cap (seconds).\n"
                        "Workers reuse cpu list cyclically; one CPU means intentional oversubscription.\n";
@@ -26,7 +27,7 @@ int main(int argc,char** argv) {
             {"allocation_handoff",lab::allocation_handoff},{"page_behavior",lab::page_behavior},
             {"atomic_order",lab::atomic_order},{"rw_locks",lab::rw_locks},
             {"wait_strategy",lab::wait_strategy},{"arrival_latency",lab::arrival_latency},
-            {"numa_access",lab::numa_access}};
+            {"numa_access",lab::numa_access},{"network_rtt",lab::network_rtt},{"network_io",lab::network_io}};
         auto it=registry.find(c.benchmark);
         if(it==registry.end()) throw std::invalid_argument("unknown benchmark");
         lab::AffinityGuard restore;

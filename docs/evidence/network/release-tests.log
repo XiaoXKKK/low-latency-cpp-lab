@@ -1,0 +1,33 @@
+[  3%] Building CXX object CMakeFiles/lab_core.dir/src/network.cpp.o
+[  6%] Linking CXX static library liblab_core.a
+[ 16%] Built target lab_core
+[ 20%] Linking CXX executable lab_tests
+[ 23%] Linking CXX executable lab_phase2_tests
+[ 26%] Building CXX object CMakeFiles/lab_network_tests.dir/tests/test_network.cpp.o
+[ 30%] Building CXX object CMakeFiles/lab_bench.dir/benchmarks/network/loopback.cpp.o
+[ 33%] Built target lab_tests
+[ 36%] Built target lab_phase2_tests
+[ 40%] Linking CXX executable lab_network_tests
+[ 40%] Built target lab_network_tests
+[ 43%] Linking CXX executable lab_bench
+[100%] Built target lab_bench
+Internal ctest changing into directory: /home/ljw/low-latency-cpp-lab/build/release
+Test project /home/ljw/low-latency-cpp-lab/build/release
+    Start 1: core
+1/7 Test #1: core .............................   Passed    0.04 sec
+    Start 2: cli_contract
+2/7 Test #2: cli_contract .....................   Passed    0.14 sec
+    Start 3: perf_reporting
+3/7 Test #3: perf_reporting ...................   Passed    0.09 sec
+    Start 4: phase2_core
+4/7 Test #4: phase2_core ......................   Passed    0.08 sec
+    Start 5: phase2_cli
+5/7 Test #5: phase2_cli .......................   Passed    0.39 sec
+    Start 6: network_core
+6/7 Test #6: network_core .....................   Passed    0.31 sec
+    Start 7: network_cli
+7/7 Test #7: network_cli ......................   Passed    0.07 sec
+
+100% tests passed, 0 tests failed out of 7
+
+Total Test time (real) =   1.12 sec
