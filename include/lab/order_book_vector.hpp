@@ -142,7 +142,8 @@ public:
     VectorBook& operator=(const VectorBook&) = delete;
     VectorBook(VectorBook&&) = delete;
     VectorBook& operator=(VectorBook&&) = delete;
-    Outcome apply(const Event& e, std::span<Trade> output) {
+    // Match the baseline translation-unit boundary in every timed variant.
+    [[gnu::noinline]] Outcome apply(const Event& e, std::span<Trade> output) {
         const auto valid_price = [&](Price p) { return p >= limits_.min_price && p <= limits_.max_price; };
         const auto valid_side = [](Side side) { return side == Side::buy || side == Side::sell; };
         if(e.kind == Kind::match) {

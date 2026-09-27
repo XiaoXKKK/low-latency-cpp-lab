@@ -58,6 +58,10 @@ def load_campaign(path):
             signature += (stable_sections, cpu_model, governors, m.get('pmu_measured'),
                           tuple(m.get(key) for key in ['accepted_events', 'not_found_events', 'rejected_events', 'trades',
                                                      'matched_quantity', 'unfilled_market_quantity', 'final_orders_per_replay']))
+            # A larger PMU group can affect scheduling/control cost; do not
+            # silently compare the historical two-counter group with five.
+            signature += (tuple(key for key in ('cycles_raw', 'instructions_raw', 'branches_raw',
+                                                'branch_misses_raw', 'cache_misses_raw') if key in m),)
             rows.append({'signature': signature, 'row': row, 'file': str(folder / record['file']), 'repeat': record['repeat']})
         if len(rows) < 3 or len({entry['signature'] for entry in rows}) != 1:
             raise ValueError('need >=3 independent compatible rounds')

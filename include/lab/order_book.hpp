@@ -61,7 +61,8 @@ public:
     // For operations capable of matching, output.size() >= size() is required
     // before any state change (conservative bound: one trade per resting order).
     // Add at capacity is rejected even when it could immediately execute.
-    Outcome apply(const Event& event, std::span<Trade> output);
+    // Match the baseline translation-unit boundary in every timed variant.
+    [[gnu::noinline]] Outcome apply(const Event& event, std::span<Trade> output);
     std::size_t size() const { return index_.size(); }
     std::optional<Price> best_bid() const;
     std::optional<Price> best_ask() const;
