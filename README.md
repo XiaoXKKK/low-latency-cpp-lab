@@ -1,10 +1,12 @@
 # Low-Latency C++ Performance Lab
 
-以 **假设 → baseline → 单变量修改 → 多轮测量 → profiler → 有边界的解释** 学习 C++ / CPU / Linux / HFT performance engineering。当前交付包含 **Phase 1 八个实验 + Phase 2 首批测量/Cache/Memory/同步调度/NUMA扩展**。现已扩展 TCP/UDP、epoll LT/ET 与忙轮询实验；数据结构、order book 留在[后续路线图](docs/phase2.md)。[Phase 2 实测与验收](docs/phase2_results.md)记录本次进展。
+以 **假设 → baseline → 单变量修改 → 多轮测量 → profiler → 有边界的解释** 学习 C++ / CPU / Linux / HFT performance engineering。当前交付包含 **Phase 1 八个实验 + Phase 2 首批测量/Cache/Memory/同步调度/NUMA扩展**。现已扩展 TCP/UDP、epoll LT/ET 与忙轮询实验；各阶段进度见[路线图](docs/phase2.md)。[Phase 2 实测与验收](docs/phase2_results.md)记录本次进展。
 
 2026-09-20 后续批次：网络回归增加真实 TCP partial I/O；容器与 AoS/SoA 候选代码进入验证，**本轮保持待验收，不将 Next batch 整体标为已实现**。运行方式与阶段证据见[本批记录](docs/containers_results.md)。Order book 先固定[语义与三轮优化验收方案](docs/order_book_plan.md)，MPSC 仍需正确性证明后再推进。
 
-2026-09-27：OrderBook 开始落地 `map + unordered_map + list` 基线，包含 Add/Cancel/Modify/Match、独立 reference 对照、逐事件延迟、批量吞吐与可复用的版本对比绘图。参见[实验说明](benchmarks/order_book/README.md)、[基线数据与图表](docs/order_book_results.md)和[CppCon 参考边界](docs/order_book_cppcon_reference.md)。后续优化尚未执行。基线已保存为 commit `e82ed12`；新增与讲义风格一致的[延迟直方图](docs/evidence/order-book/histograms-v0/order-book-histogram-n256.png)，后续按[CppCon 顺序](docs/order_book_plan.md)推进。
+2026-09-27：OrderBook 开始落地 `map + unordered_map + list` 基线，包含 Add/Cancel/Modify/Match、独立 reference 对照、逐事件延迟、批量吞吐与可复用的版本对比绘图。参见[实验说明](benchmarks/order_book/README.md)、[基线数据与图表](docs/order_book_results.md)和[CppCon 参考边界](docs/order_book_cppcon_reference.md)。该段为基线阶段记录；后续进展见下段。基线已保存为 commit `e82ed12`；新增与讲义风格一致的[延迟直方图](docs/evidence/order-book/histograms-v0/order-book-histogram-n256.png)，后续按[CppCon 顺序](docs/order_book_plan.md)推进。
+
+2026-09-27 继续推进：已完成分配布局对照及 CppCon 主线四轮（vector → 最佳价末端 → branchless → linear），每步保留真实 before/after 直方图、尾部与吞吐。[逐轮结果](docs/order_book_cppcon_results.md)包含退化结果；126 个独立进程测量，三种构建各 13/13 测试通过。初始 256 单时 linear 吞吐比本轮 map 高约 23.5%，4096 单时低约 7.5%；不概括为全场景加速。
 
 ```bash
 ./build/release/lab_bench --benchmark order_book_latency --variant map_list --size 256 --iterations 20000 --warmup 1000 --cpu 0 --format json

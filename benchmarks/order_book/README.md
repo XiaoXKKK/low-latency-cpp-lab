@@ -6,7 +6,7 @@
 
 ## Hypothesis
 
-树查找、节点分配和哈希增长可能影响热点与尾部。它们只是待验证的假设，不能凭一次延迟尖峰就认定 allocator 或 cache miss 是原因。本轮只建立 `map_list`，未进行三轮优化。
+树查找、节点分配和哈希增长可能影响热点与尾部。它们只是待验证的假设，不能凭一次延迟尖峰就认定 allocator 或 cache miss 是原因。`map_list` 基线保留；后续四轮已单独实测，见[逐轮报告](../../docs/order_book_cppcon_results.md)。
 
 ## Setup / Baseline / Variant
 
@@ -37,7 +37,7 @@
 | order_book_latency | 事件样本数，最多 100000 | 不使用 | 丢弃事件数，之后恢复初始状态 | single_event，ns/event，含 timer 开销 |
 | order_book_throughput | 完整 replay 样本数 | 每 replay 事件数，最多 100000，默认 1000 | 丢弃的完整 replay 数 | replay_mean，ns/event 与 events/sec |
 
-统一 `--variant map_list`。campaign 让 latency iterations 等于 throughput batch，保证两者相同 trace；分别做不同计时粒度的运行。latency 在 apply 前后取 steady_clock，样本存储及 offset 更新在计时外；throughput 包含事件循环、outcome journal 写入及 offset 更新。创建簿、初始填充、数据生成、恢复、校验均在计时外。duration 至少完成一个样本，latency 截断时重新计算独立 reference 前缀来校验。
+基线为 `--variant map_list`；现可选 `map_slots_ordered`、`map_slots_random`、`vector_front`、`vector_back`、`vector_branchless`、`vector_linear`。campaign 让 latency iterations 等于 throughput batch，保证两者相同 trace；分别做不同计时粒度的运行。latency 在 apply 前后取 steady_clock，样本存储及 offset 更新在计时外；throughput 包含事件循环、outcome journal 写入及 offset 更新。创建簿、初始填充、数据生成、恢复、校验均在计时外。duration 至少完成一个样本，latency 截断时重新计算独立 reference 前缀来校验。
 
 latency 的 p99/p999 是该闭环 synthetic 混合事件流的逐事件分位数；不是网络端到端或开放到达排队延迟。throughput 的 p99 是整段均值分位数，不能作单事件尾延迟。样本仅 20000 时 p999 约依赖最慢 20 个事件，需看三次独立运行的离散度。
 
@@ -59,14 +59,14 @@ python3 tools/plot_order_book.py --campaign results/raw/order-book-v0 --output r
 
 ## Result / perf analysis / Explanation
 
-本批数据、图表和验证日志见[基线结果](../../docs/order_book_results.md)。throughput 自带调用线程的 cycles/instructions perf group，每轮在重建后启用、校验前禁用；排除初始化、reference 生成、预热及内核/虚拟机计数，包含 timer/control 开销。enabled/running 使用每段增量累积；复用时不输出 cycles/event、instructions/event 或精确 IPC。失败不输出伪造零计数。
+历史基线数据见[基线结果](../../docs/order_book_results.md)，新一批对照、图表和日志见[逐轮结果](../../docs/order_book_cppcon_results.md)。throughput 自带调用线程的 cycles/instructions/branches/branch-misses/cache-misses perf group，每轮在重建后启用、校验前禁用；排除初始化、reference 生成、预热及内核/虚拟机计数，包含 timer/control 开销。enabled/running 使用每段增量累积；复用时不输出 cycles/event、instructions/event 或精确 IPC。失败不输出伪造零计数。
 
 ## Subsequent optimization and plots
 
-为每版保留新的输出目录、不同 label 和同一个事件流版本，不覆盖旧记录。例如未来注册新 variant 后：
+为每版保留新的输出目录、不同 label 和同一个事件流版本，不覆盖旧记录。例如单独测量已有 vector_front（正式七版交错测量使用逐轮报告中的 sequence runner）：
 
 ```bash
-python3 scripts/run_order_book_campaign.py --variant NEW_VARIANT --label 'v1 single change' --output results/raw/order-book-v1 --cpu 0
+python3 scripts/run_order_book_campaign.py --variant vector_front --label 'v1 single change' --output results/raw/order-book-v1 --cpu 0
 python3 tools/plot_order_book.py --campaign results/raw/order-book-v0 --campaign results/raw/order-book-v1 --output results/processed/order-book-v0-v1
 ```
 
@@ -74,7 +74,7 @@ python3 tools/plot_order_book.py --campaign results/raw/order-book-v0 --campaign
 
 ## CppCon 风格直方图
 
-基线 commit 为 `e82ed12`。主图使用同一轮逐事件原始样本：半透明频数直方图、共享分箱、同色 median 虚线。当前只画真实 v0；未来提供第二个 `--campaign` 即可叠加黄/蓝分布。
+基线 commit 为 `e82ed12`。主图使用同一轮逐事件原始样本：半透明频数直方图、共享分箱、同色 median 虚线。v0 历史图保留，后续各轮已使用两个实测 `--campaign` 叠加黄/蓝分布。
 
 ```bash
 python3 tools/plot_order_book.py --campaign results/raw/order-book-v0-20260927 --style histogram --hist-round 0 --bin-width-ns 5 --output results/processed/order-book-v0-histograms
@@ -88,7 +88,7 @@ python3 tools/plot_order_book.py --campaign results/raw/order-book-v0 --campaign
 - 默认纵轴为 frequency，叠图要求样本数相等。`--hist-stat probability` 用全部样本归一化，不能将窗口内柱高重新归一化到 100%。campaign 的 workload/测量配置兼容检查仍然适用。
 - 输出 `order-book-histogram-n*.png/.svg` 与 `histograms.json`，记录分箱、计数、溢出、样本路径、轮次和脚本哈希；输出目录必须不存在，避免覆盖旧证据。
 
-后续顺序为随机化分配测量对照 → vector/lower_bound → 最佳价位放末端 → 热点分析 → branchless 二分 → 线性搜索，具体关卡见[计划](../../docs/order_book_plan.md)。随机化分配对照尚未实现，也不计作加速优化。
+后续顺序为随机化分配测量对照 → vector/lower_bound → 最佳价位放末端 → 热点分析 → branchless 二分 → 线性搜索，具体关卡见[计划](../../docs/order_book_plan.md)。顺序/随机槽位对照和四轮优化均已实测，详见[结果](../../docs/order_book_cppcon_results.md)。布局对照不计作加速优化。
 
 ## When help / When hurt
 

@@ -1,0 +1,7 @@
+PASS: final call-boundary-controlled binary, 126 independent processes, one binary hash.
+PASS: 1260000 event samples and 1890 replay samples; archive bytes verified against every source file.
+PASS: all 63 throughput processes have PMU running/enabled=1.
+PASS: five pairwise comparisons passed workload/build/environment/counter-group compatibility checks.
+PASS: 15 histograms have two measured series, common bins, fixed repeat 0 and exact visible+overflow count conservation.
+PASS: all five pairs retain overview and full CCDF; 25 PNG and 25 SVG files.
+PASS: historical two-counter vs five-counter campaign comparison rejected before output creation.

@@ -1,6 +1,6 @@
 # OrderBook v0 基线：实现、实测与图表
 
-2026-09-27。本轮仅实现 `map + unordered_map + list` 基线 `map_list`；后续优化尚未执行。本报告是实现者测试与自查，不声称独立审查。
+2026-09-27。本轮仅实现 `map + unordered_map + list` 基线 `map_list`；本文件保留基线时点记录；后续四轮已完成，见[逐轮报告](order_book_cppcon_results.md)。本报告是实现者测试与自查，不声称独立审查。
 
 ## 可运行内容
 

@@ -1,0 +1,343 @@
+{
+  "campaigns": [
+    {
+      "label": "vector + branchless (best back)",
+      "metrics": [
+        {
+          "size": 16,
+          "mode": "latency",
+          "metric": "mean",
+          "median": 119.22715,
+          "rounds": [
+            121.8334,
+            117.483,
+            119.22715
+          ],
+          "unit": "ns/event"
+        },
+        {
+          "size": 256,
+          "mode": "latency",
+          "metric": "mean",
+          "median": 122.7283,
+          "rounds": [
+            122.7283,
+            136.2479,
+            122.41785
+          ],
+          "unit": "ns/event"
+        },
+        {
+          "size": 4096,
+          "mode": "latency",
+          "metric": "mean",
+          "median": 172.4835,
+          "rounds": [
+            172.0534,
+            173.38595,
+            172.4835
+          ],
+          "unit": "ns/event"
+        },
+        {
+          "size": 16,
+          "mode": "latency",
+          "metric": "p99",
+          "median": 330.0,
+          "rounds": [
+            331.0,
+            321.0,
+            330.0
+          ],
+          "unit": "ns/event"
+        },
+        {
+          "size": 256,
+          "mode": "latency",
+          "metric": "p99",
+          "median": 371.0,
+          "rounds": [
+            371.0,
+            371.0,
+            371.0
+          ],
+          "unit": "ns/event"
+        },
+        {
+          "size": 4096,
+          "mode": "latency",
+          "metric": "p99",
+          "median": 782.0,
+          "rounds": [
+            781.0,
+            782.0,
+            792.0
+          ],
+          "unit": "ns/event"
+        },
+        {
+          "size": 16,
+          "mode": "latency",
+          "metric": "p999",
+          "median": 521.0,
+          "rounds": [
+            531.0,
+            521.0,
+            521.0
+          ],
+          "unit": "ns/event"
+        },
+        {
+          "size": 256,
+          "mode": "latency",
+          "metric": "p999",
+          "median": 581.01,
+          "rounds": [
+            592.0,
+            581.01,
+            581.0
+          ],
+          "unit": "ns/event"
+        },
+        {
+          "size": 4096,
+          "mode": "latency",
+          "metric": "p999",
+          "median": 1223.019,
+          "rounds": [
+            1223.019,
+            1222.021,
+            1272.0
+          ],
+          "unit": "ns/event"
+        },
+        {
+          "size": 16,
+          "mode": "throughput",
+          "metric": "ops_per_sec",
+          "median": 10.6943159889,
+          "rounds": [
+            10.6882348596,
+            10.6943159889,
+            10.700184209000001
+          ],
+          "unit": "million events/s"
+        },
+        {
+          "size": 256,
+          "mode": "throughput",
+          "metric": "ops_per_sec",
+          "median": 10.179295912699999,
+          "rounds": [
+            10.1837358101,
+            10.0856478256,
+            10.179295912699999
+          ],
+          "unit": "million events/s"
+        },
+        {
+          "size": 4096,
+          "mode": "throughput",
+          "metric": "ops_per_sec",
+          "median": 6.69699377977,
+          "rounds": [
+            6.69699377977,
+            6.748733591710001,
+            6.6680090850700005
+          ],
+          "unit": "million events/s"
+        }
+      ],
+      "files": [
+        "/home/ljw/low-latency-cpp-lab/results/raw/order-book-cppcon-controlled-20260927/vector_branchless/n256-throughput/order_book_throughput-vector_branchless-0.json",
+        "/home/ljw/low-latency-cpp-lab/results/raw/order-book-cppcon-controlled-20260927/vector_branchless/n256-throughput/order_book_throughput-vector_branchless-1.json",
+        "/home/ljw/low-latency-cpp-lab/results/raw/order-book-cppcon-controlled-20260927/vector_branchless/n256-throughput/order_book_throughput-vector_branchless-2.json",
+        "/home/ljw/low-latency-cpp-lab/results/raw/order-book-cppcon-controlled-20260927/vector_branchless/n4096-throughput/order_book_throughput-vector_branchless-0.json",
+        "/home/ljw/low-latency-cpp-lab/results/raw/order-book-cppcon-controlled-20260927/vector_branchless/n4096-throughput/order_book_throughput-vector_branchless-1.json",
+        "/home/ljw/low-latency-cpp-lab/results/raw/order-book-cppcon-controlled-20260927/vector_branchless/n4096-throughput/order_book_throughput-vector_branchless-2.json",
+        "/home/ljw/low-latency-cpp-lab/results/raw/order-book-cppcon-controlled-20260927/vector_branchless/n4096-latency/order_book_latency-vector_branchless-0.json",
+        "/home/ljw/low-latency-cpp-lab/results/raw/order-book-cppcon-controlled-20260927/vector_branchless/n4096-latency/order_book_latency-vector_branchless-1.json",
+        "/home/ljw/low-latency-cpp-lab/results/raw/order-book-cppcon-controlled-20260927/vector_branchless/n4096-latency/order_book_latency-vector_branchless-2.json",
+        "/home/ljw/low-latency-cpp-lab/results/raw/order-book-cppcon-controlled-20260927/vector_branchless/n16-latency/order_book_latency-vector_branchless-0.json",
+        "/home/ljw/low-latency-cpp-lab/results/raw/order-book-cppcon-controlled-20260927/vector_branchless/n16-latency/order_book_latency-vector_branchless-1.json",
+        "/home/ljw/low-latency-cpp-lab/results/raw/order-book-cppcon-controlled-20260927/vector_branchless/n16-latency/order_book_latency-vector_branchless-2.json",
+        "/home/ljw/low-latency-cpp-lab/results/raw/order-book-cppcon-controlled-20260927/vector_branchless/n256-latency/order_book_latency-vector_branchless-0.json",
+        "/home/ljw/low-latency-cpp-lab/results/raw/order-book-cppcon-controlled-20260927/vector_branchless/n256-latency/order_book_latency-vector_branchless-1.json",
+        "/home/ljw/low-latency-cpp-lab/results/raw/order-book-cppcon-controlled-20260927/vector_branchless/n256-latency/order_book_latency-vector_branchless-2.json",
+        "/home/ljw/low-latency-cpp-lab/results/raw/order-book-cppcon-controlled-20260927/vector_branchless/n16-throughput/order_book_throughput-vector_branchless-0.json",
+        "/home/ljw/low-latency-cpp-lab/results/raw/order-book-cppcon-controlled-20260927/vector_branchless/n16-throughput/order_book_throughput-vector_branchless-1.json",
+        "/home/ljw/low-latency-cpp-lab/results/raw/order-book-cppcon-controlled-20260927/vector_branchless/n16-throughput/order_book_throughput-vector_branchless-2.json"
+      ]
+    },
+    {
+      "label": "vector + linear (best back)",
+      "metrics": [
+        {
+          "size": 16,
+          "mode": "latency",
+          "metric": "mean",
+          "median": 110.89165,
+          "rounds": [
+            110.89165,
+            112.30245,
+            110.54085
+          ],
+          "unit": "ns/event"
+        },
+        {
+          "size": 256,
+          "mode": "latency",
+          "metric": "mean",
+          "median": 115.289,
+          "rounds": [
+            115.289,
+            115.83815,
+            114.90825
+          ],
+          "unit": "ns/event"
+        },
+        {
+          "size": 4096,
+          "mode": "latency",
+          "metric": "mean",
+          "median": 180.32035,
+          "rounds": [
+            178.85625,
+            180.32035,
+            182.6487
+          ],
+          "unit": "ns/event"
+        },
+        {
+          "size": 16,
+          "mode": "latency",
+          "metric": "p99",
+          "median": 281.0,
+          "rounds": [
+            281.0,
+            281.0,
+            281.0
+          ],
+          "unit": "ns/event"
+        },
+        {
+          "size": 256,
+          "mode": "latency",
+          "metric": "p99",
+          "median": 341.0,
+          "rounds": [
+            341.0,
+            341.0,
+            341.0
+          ],
+          "unit": "ns/event"
+        },
+        {
+          "size": 4096,
+          "mode": "latency",
+          "metric": "p99",
+          "median": 631.0,
+          "rounds": [
+            631.0,
+            631.0,
+            631.0
+          ],
+          "unit": "ns/event"
+        },
+        {
+          "size": 16,
+          "mode": "latency",
+          "metric": "p999",
+          "median": 440.001,
+          "rounds": [
+            431.009,
+            461.0,
+            440.001
+          ],
+          "unit": "ns/event"
+        },
+        {
+          "size": 256,
+          "mode": "latency",
+          "metric": "p999",
+          "median": 531.0,
+          "rounds": [
+            561.011,
+            531.0,
+            531.0
+          ],
+          "unit": "ns/event"
+        },
+        {
+          "size": 4096,
+          "mode": "latency",
+          "metric": "p999",
+          "median": 1242.001,
+          "rounds": [
+            1222.0,
+            1293.02,
+            1242.001
+          ],
+          "unit": "ns/event"
+        },
+        {
+          "size": 16,
+          "mode": "throughput",
+          "metric": "ops_per_sec",
+          "median": 11.566783029100002,
+          "rounds": [
+            11.5858181244,
+            11.566783029100002,
+            11.478157725800001
+          ],
+          "unit": "million events/s"
+        },
+        {
+          "size": 256,
+          "mode": "throughput",
+          "metric": "ops_per_sec",
+          "median": 10.985130381,
+          "rounds": [
+            11.0138015232,
+            10.985130381,
+            10.949255965199999
+          ],
+          "unit": "million events/s"
+        },
+        {
+          "size": 4096,
+          "mode": "throughput",
+          "metric": "ops_per_sec",
+          "median": 6.418908770100001,
+          "rounds": [
+            6.418908770100001,
+            6.4253709283600005,
+            6.37705809985
+          ],
+          "unit": "million events/s"
+        }
+      ],
+      "files": [
+        "/home/ljw/low-latency-cpp-lab/results/raw/order-book-cppcon-controlled-20260927/vector_linear/n256-throughput/order_book_throughput-vector_linear-0.json",
+        "/home/ljw/low-latency-cpp-lab/results/raw/order-book-cppcon-controlled-20260927/vector_linear/n256-throughput/order_book_throughput-vector_linear-1.json",
+        "/home/ljw/low-latency-cpp-lab/results/raw/order-book-cppcon-controlled-20260927/vector_linear/n256-throughput/order_book_throughput-vector_linear-2.json",
+        "/home/ljw/low-latency-cpp-lab/results/raw/order-book-cppcon-controlled-20260927/vector_linear/n4096-throughput/order_book_throughput-vector_linear-0.json",
+        "/home/ljw/low-latency-cpp-lab/results/raw/order-book-cppcon-controlled-20260927/vector_linear/n4096-throughput/order_book_throughput-vector_linear-1.json",
+        "/home/ljw/low-latency-cpp-lab/results/raw/order-book-cppcon-controlled-20260927/vector_linear/n4096-throughput/order_book_throughput-vector_linear-2.json",
+        "/home/ljw/low-latency-cpp-lab/results/raw/order-book-cppcon-controlled-20260927/vector_linear/n4096-latency/order_book_latency-vector_linear-0.json",
+        "/home/ljw/low-latency-cpp-lab/results/raw/order-book-cppcon-controlled-20260927/vector_linear/n4096-latency/order_book_latency-vector_linear-1.json",
+        "/home/ljw/low-latency-cpp-lab/results/raw/order-book-cppcon-controlled-20260927/vector_linear/n4096-latency/order_book_latency-vector_linear-2.json",
+        "/home/ljw/low-latency-cpp-lab/results/raw/order-book-cppcon-controlled-20260927/vector_linear/n16-latency/order_book_latency-vector_linear-0.json",
+        "/home/ljw/low-latency-cpp-lab/results/raw/order-book-cppcon-controlled-20260927/vector_linear/n16-latency/order_book_latency-vector_linear-1.json",
+        "/home/ljw/low-latency-cpp-lab/results/raw/order-book-cppcon-controlled-20260927/vector_linear/n16-latency/order_book_latency-vector_linear-2.json",
+        "/home/ljw/low-latency-cpp-lab/results/raw/order-book-cppcon-controlled-20260927/vector_linear/n256-latency/order_book_latency-vector_linear-0.json",
+        "/home/ljw/low-latency-cpp-lab/results/raw/order-book-cppcon-controlled-20260927/vector_linear/n256-latency/order_book_latency-vector_linear-1.json",
+        "/home/ljw/low-latency-cpp-lab/results/raw/order-book-cppcon-controlled-20260927/vector_linear/n256-latency/order_book_latency-vector_linear-2.json",
+        "/home/ljw/low-latency-cpp-lab/results/raw/order-book-cppcon-controlled-20260927/vector_linear/n16-throughput/order_book_throughput-vector_linear-0.json",
+        "/home/ljw/low-latency-cpp-lab/results/raw/order-book-cppcon-controlled-20260927/vector_linear/n16-throughput/order_book_throughput-vector_linear-1.json",
+        "/home/ljw/low-latency-cpp-lab/results/raw/order-book-cppcon-controlled-20260927/vector_linear/n16-throughput/order_book_throughput-vector_linear-2.json"
+      ]
+    }
+  ],
+  "plot_script_sha256": "c58adac1e02afb1e7fe1cf276a63ba20e83e4331c12326f72cd7f3fd0d4a3c21"
+}

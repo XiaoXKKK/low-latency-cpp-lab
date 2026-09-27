@@ -1,0 +1,343 @@
+{
+  "campaigns": [
+    {
+      "label": "map (ordered level slots)",
+      "metrics": [
+        {
+          "size": 16,
+          "mode": "latency",
+          "metric": "mean",
+          "median": 126.11415,
+          "rounds": [
+            126.11415,
+            125.56285,
+            128.15755
+          ],
+          "unit": "ns/event"
+        },
+        {
+          "size": 256,
+          "mode": "latency",
+          "metric": "mean",
+          "median": 127.78685,
+          "rounds": [
+            129.45355,
+            126.88485,
+            127.78685
+          ],
+          "unit": "ns/event"
+        },
+        {
+          "size": 4096,
+          "mode": "latency",
+          "metric": "mean",
+          "median": 158.98175,
+          "rounds": [
+            158.0934,
+            158.98175,
+            159.0483
+          ],
+          "unit": "ns/event"
+        },
+        {
+          "size": 16,
+          "mode": "latency",
+          "metric": "p99",
+          "median": 330.0,
+          "rounds": [
+            330.0,
+            330.0,
+            340.0
+          ],
+          "unit": "ns/event"
+        },
+        {
+          "size": 256,
+          "mode": "latency",
+          "metric": "p99",
+          "median": 351.0,
+          "rounds": [
+            361.0,
+            341.0,
+            351.0
+          ],
+          "unit": "ns/event"
+        },
+        {
+          "size": 4096,
+          "mode": "latency",
+          "metric": "p99",
+          "median": 592.09,
+          "rounds": [
+            592.09,
+            601.0,
+            592.0
+          ],
+          "unit": "ns/event"
+        },
+        {
+          "size": 16,
+          "mode": "latency",
+          "metric": "p999",
+          "median": 531.01,
+          "rounds": [
+            531.01,
+            531.0,
+            541.0
+          ],
+          "unit": "ns/event"
+        },
+        {
+          "size": 256,
+          "mode": "latency",
+          "metric": "p999",
+          "median": 561.001,
+          "rounds": [
+            601.01,
+            561.001,
+            551.01
+          ],
+          "unit": "ns/event"
+        },
+        {
+          "size": 4096,
+          "mode": "latency",
+          "metric": "p999",
+          "median": 871.001,
+          "rounds": [
+            852.009,
+            871.001,
+            892.019
+          ],
+          "unit": "ns/event"
+        },
+        {
+          "size": 16,
+          "mode": "throughput",
+          "metric": "ops_per_sec",
+          "median": 9.875186204870001,
+          "rounds": [
+            9.88534319935,
+            9.875186204870001,
+            9.63063574571
+          ],
+          "unit": "million events/s"
+        },
+        {
+          "size": 256,
+          "mode": "throughput",
+          "metric": "ops_per_sec",
+          "median": 9.66184881796,
+          "rounds": [
+            9.61511157087,
+            9.663367415869999,
+            9.66184881796
+          ],
+          "unit": "million events/s"
+        },
+        {
+          "size": 4096,
+          "mode": "throughput",
+          "metric": "ops_per_sec",
+          "median": 7.4242312654,
+          "rounds": [
+            7.44649987698,
+            7.4242312654,
+            7.39821590051
+          ],
+          "unit": "million events/s"
+        }
+      ],
+      "files": [
+        "/home/ljw/low-latency-cpp-lab/results/raw/order-book-cppcon-controlled-20260927/map_slots_ordered/n256-throughput/order_book_throughput-map_slots_ordered-0.json",
+        "/home/ljw/low-latency-cpp-lab/results/raw/order-book-cppcon-controlled-20260927/map_slots_ordered/n256-throughput/order_book_throughput-map_slots_ordered-1.json",
+        "/home/ljw/low-latency-cpp-lab/results/raw/order-book-cppcon-controlled-20260927/map_slots_ordered/n256-throughput/order_book_throughput-map_slots_ordered-2.json",
+        "/home/ljw/low-latency-cpp-lab/results/raw/order-book-cppcon-controlled-20260927/map_slots_ordered/n4096-throughput/order_book_throughput-map_slots_ordered-0.json",
+        "/home/ljw/low-latency-cpp-lab/results/raw/order-book-cppcon-controlled-20260927/map_slots_ordered/n4096-throughput/order_book_throughput-map_slots_ordered-1.json",
+        "/home/ljw/low-latency-cpp-lab/results/raw/order-book-cppcon-controlled-20260927/map_slots_ordered/n4096-throughput/order_book_throughput-map_slots_ordered-2.json",
+        "/home/ljw/low-latency-cpp-lab/results/raw/order-book-cppcon-controlled-20260927/map_slots_ordered/n4096-latency/order_book_latency-map_slots_ordered-0.json",
+        "/home/ljw/low-latency-cpp-lab/results/raw/order-book-cppcon-controlled-20260927/map_slots_ordered/n4096-latency/order_book_latency-map_slots_ordered-1.json",
+        "/home/ljw/low-latency-cpp-lab/results/raw/order-book-cppcon-controlled-20260927/map_slots_ordered/n4096-latency/order_book_latency-map_slots_ordered-2.json",
+        "/home/ljw/low-latency-cpp-lab/results/raw/order-book-cppcon-controlled-20260927/map_slots_ordered/n16-latency/order_book_latency-map_slots_ordered-0.json",
+        "/home/ljw/low-latency-cpp-lab/results/raw/order-book-cppcon-controlled-20260927/map_slots_ordered/n16-latency/order_book_latency-map_slots_ordered-1.json",
+        "/home/ljw/low-latency-cpp-lab/results/raw/order-book-cppcon-controlled-20260927/map_slots_ordered/n16-latency/order_book_latency-map_slots_ordered-2.json",
+        "/home/ljw/low-latency-cpp-lab/results/raw/order-book-cppcon-controlled-20260927/map_slots_ordered/n256-latency/order_book_latency-map_slots_ordered-0.json",
+        "/home/ljw/low-latency-cpp-lab/results/raw/order-book-cppcon-controlled-20260927/map_slots_ordered/n256-latency/order_book_latency-map_slots_ordered-1.json",
+        "/home/ljw/low-latency-cpp-lab/results/raw/order-book-cppcon-controlled-20260927/map_slots_ordered/n256-latency/order_book_latency-map_slots_ordered-2.json",
+        "/home/ljw/low-latency-cpp-lab/results/raw/order-book-cppcon-controlled-20260927/map_slots_ordered/n16-throughput/order_book_throughput-map_slots_ordered-0.json",
+        "/home/ljw/low-latency-cpp-lab/results/raw/order-book-cppcon-controlled-20260927/map_slots_ordered/n16-throughput/order_book_throughput-map_slots_ordered-1.json",
+        "/home/ljw/low-latency-cpp-lab/results/raw/order-book-cppcon-controlled-20260927/map_slots_ordered/n16-throughput/order_book_throughput-map_slots_ordered-2.json"
+      ]
+    },
+    {
+      "label": "map (randomized level slots)",
+      "metrics": [
+        {
+          "size": 16,
+          "mode": "latency",
+          "metric": "mean",
+          "median": 126.9485,
+          "rounds": [
+            127.47845,
+            125.75045,
+            126.9485
+          ],
+          "unit": "ns/event"
+        },
+        {
+          "size": 256,
+          "mode": "latency",
+          "metric": "mean",
+          "median": 128.2715,
+          "rounds": [
+            128.2715,
+            127.0852,
+            129.0401
+          ],
+          "unit": "ns/event"
+        },
+        {
+          "size": 4096,
+          "mode": "latency",
+          "metric": "mean",
+          "median": 165.8361,
+          "rounds": [
+            164.6888,
+            168.1591,
+            165.8361
+          ],
+          "unit": "ns/event"
+        },
+        {
+          "size": 16,
+          "mode": "latency",
+          "metric": "p99",
+          "median": 330.0,
+          "rounds": [
+            330.0,
+            330.0,
+            331.0
+          ],
+          "unit": "ns/event"
+        },
+        {
+          "size": 256,
+          "mode": "latency",
+          "metric": "p99",
+          "median": 351.0,
+          "rounds": [
+            351.0,
+            351.0,
+            351.0
+          ],
+          "unit": "ns/event"
+        },
+        {
+          "size": 4096,
+          "mode": "latency",
+          "metric": "p99",
+          "median": 611.0,
+          "rounds": [
+            611.0,
+            611.0,
+            611.0
+          ],
+          "unit": "ns/event"
+        },
+        {
+          "size": 16,
+          "mode": "latency",
+          "metric": "p999",
+          "median": 541.0,
+          "rounds": [
+            521.01,
+            541.0,
+            541.0
+          ],
+          "unit": "ns/event"
+        },
+        {
+          "size": 256,
+          "mode": "latency",
+          "metric": "p999",
+          "median": 571.0,
+          "rounds": [
+            561.01,
+            571.0,
+            571.0
+          ],
+          "unit": "ns/event"
+        },
+        {
+          "size": 4096,
+          "mode": "latency",
+          "metric": "p999",
+          "median": 891.001,
+          "rounds": [
+            872.0,
+            892.0,
+            891.001
+          ],
+          "unit": "ns/event"
+        },
+        {
+          "size": 16,
+          "mode": "throughput",
+          "metric": "ops_per_sec",
+          "median": 9.822424962889999,
+          "rounds": [
+            9.858181839090001,
+            9.822424962889999,
+            9.73204232601
+          ],
+          "unit": "million events/s"
+        },
+        {
+          "size": 256,
+          "mode": "throughput",
+          "metric": "ops_per_sec",
+          "median": 9.56433421514,
+          "rounds": [
+            9.56433421514,
+            9.542080790990001,
+            9.65797955551
+          ],
+          "unit": "million events/s"
+        },
+        {
+          "size": 4096,
+          "mode": "throughput",
+          "metric": "ops_per_sec",
+          "median": 7.06304257557,
+          "rounds": [
+            7.074231622019999,
+            7.06304257557,
+            7.04897768324
+          ],
+          "unit": "million events/s"
+        }
+      ],
+      "files": [
+        "/home/ljw/low-latency-cpp-lab/results/raw/order-book-cppcon-controlled-20260927/map_slots_random/n256-throughput/order_book_throughput-map_slots_random-0.json",
+        "/home/ljw/low-latency-cpp-lab/results/raw/order-book-cppcon-controlled-20260927/map_slots_random/n256-throughput/order_book_throughput-map_slots_random-1.json",
+        "/home/ljw/low-latency-cpp-lab/results/raw/order-book-cppcon-controlled-20260927/map_slots_random/n256-throughput/order_book_throughput-map_slots_random-2.json",
+        "/home/ljw/low-latency-cpp-lab/results/raw/order-book-cppcon-controlled-20260927/map_slots_random/n4096-throughput/order_book_throughput-map_slots_random-0.json",
+        "/home/ljw/low-latency-cpp-lab/results/raw/order-book-cppcon-controlled-20260927/map_slots_random/n4096-throughput/order_book_throughput-map_slots_random-1.json",
+        "/home/ljw/low-latency-cpp-lab/results/raw/order-book-cppcon-controlled-20260927/map_slots_random/n4096-throughput/order_book_throughput-map_slots_random-2.json",
+        "/home/ljw/low-latency-cpp-lab/results/raw/order-book-cppcon-controlled-20260927/map_slots_random/n4096-latency/order_book_latency-map_slots_random-0.json",
+        "/home/ljw/low-latency-cpp-lab/results/raw/order-book-cppcon-controlled-20260927/map_slots_random/n4096-latency/order_book_latency-map_slots_random-1.json",
+        "/home/ljw/low-latency-cpp-lab/results/raw/order-book-cppcon-controlled-20260927/map_slots_random/n4096-latency/order_book_latency-map_slots_random-2.json",
+        "/home/ljw/low-latency-cpp-lab/results/raw/order-book-cppcon-controlled-20260927/map_slots_random/n16-latency/order_book_latency-map_slots_random-0.json",
+        "/home/ljw/low-latency-cpp-lab/results/raw/order-book-cppcon-controlled-20260927/map_slots_random/n16-latency/order_book_latency-map_slots_random-1.json",
+        "/home/ljw/low-latency-cpp-lab/results/raw/order-book-cppcon-controlled-20260927/map_slots_random/n16-latency/order_book_latency-map_slots_random-2.json",
+        "/home/ljw/low-latency-cpp-lab/results/raw/order-book-cppcon-controlled-20260927/map_slots_random/n256-latency/order_book_latency-map_slots_random-0.json",
+        "/home/ljw/low-latency-cpp-lab/results/raw/order-book-cppcon-controlled-20260927/map_slots_random/n256-latency/order_book_latency-map_slots_random-1.json",
+        "/home/ljw/low-latency-cpp-lab/results/raw/order-book-cppcon-controlled-20260927/map_slots_random/n256-latency/order_book_latency-map_slots_random-2.json",
+        "/home/ljw/low-latency-cpp-lab/results/raw/order-book-cppcon-controlled-20260927/map_slots_random/n16-throughput/order_book_throughput-map_slots_random-0.json",
+        "/home/ljw/low-latency-cpp-lab/results/raw/order-book-cppcon-controlled-20260927/map_slots_random/n16-throughput/order_book_throughput-map_slots_random-1.json",
+        "/home/ljw/low-latency-cpp-lab/results/raw/order-book-cppcon-controlled-20260927/map_slots_random/n16-throughput/order_book_throughput-map_slots_random-2.json"
+      ]
+    }
+  ],
+  "plot_script_sha256": "c58adac1e02afb1e7fe1cf276a63ba20e83e4331c12326f72cd7f3fd0d4a3c21"
+}
