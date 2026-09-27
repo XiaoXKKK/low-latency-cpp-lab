@@ -90,4 +90,16 @@ AMD EPYC 7C13，单线程固定 CPU 0；GCC 13.3 Release -O3 -DNDEBUG，native/L
 - [n4096-latency](evidence/order-book/n4096-latency-summary.md)
 - [n4096-throughput](evidence/order-book/n4096-throughput-summary.md)
 
-复现与后续多版比较命令见[README](../benchmarks/order_book/README.md)。按[优化关卡](order_book_plan.md)，三次独立测量不计作三轮优化；下一轮先根据 profile 选一个主要因素，保留相同语义和输入，展示收益或退化。
+复现与后续多版比较命令见[README](../benchmarks/order_book/README.md)。按[优化关卡](order_book_plan.md)，三次独立测量不计作三轮优化；后续按照 CppCon 讲义先做随机化分配测量对照，再逐步改变价位结构、方向和搜索方法，保留相同语义和输入，展示收益或退化。
+
+## 基线 commit 与讲义风格直方图
+
+基线已保存为 commit `e82ed12`。此次仅改绘图和后续计划，重用原始 campaign；没有重跑性能测量或改动 C++ 撮合代码，也没有新增优化结果。
+
+![OrderBookMap latency histogram, initial orders 256, run 0](evidence/order-book/histograms-v0/order-book-histogram-n256.png)
+
+示例选定第 0 轮、初始挂单 256、20,000 个事件、5 ns 分箱；完整样本 median 为 **120 ns**。默认视窗按 p99.5 向上取整到 495 ns；超出窗口的 96 个事件（0.48%）仍参与统计，max 为 8,056 ns。该图是单轮分布，前表仍是三轮统计量的中位数。两者不混用。
+
+现有数据仅支持黄色基线分布。绘图工具已支持以后真实测得的版本以相同 bin 边界叠加蓝色分布和 median 虚线；没有使用讲义中的 33/63 ns 充当本机结果。对应 [SVG](evidence/order-book/histograms-v0/order-book-histogram-n256.svg)、[分箱与轮次数据](evidence/order-book/histograms-v0/histograms.json)及[验证日志](evidence/order-book/histograms-v0/validation.log)另行保存；旧 summary/CCDF 和原始证据保持原样。
+
+绘图更新后的 Release CTest 为 **12/12 PASS**，包含新增的 5 个 histogram contract 用例；另用真实基线数据的临时副本验证双 campaign 叠图、all 轮次及裁剪后计数守恒。副本只是绘图自测，不作为新测量留档。

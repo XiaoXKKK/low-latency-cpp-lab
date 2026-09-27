@@ -1,0 +1,39 @@
+Internal ctest changing into directory: /home/ljw/low-latency-cpp-lab/build/release
+Test project /home/ljw/low-latency-cpp-lab/build/release
+      Start  1: core
+ 1/12 Test  #1: core .............................   Passed    0.05 sec
+      Start  2: cli_contract
+ 2/12 Test  #2: cli_contract .....................   Passed    0.14 sec
+      Start  3: perf_reporting
+ 3/12 Test  #3: perf_reporting ...................   Passed    0.10 sec
+      Start  4: phase2_core
+ 4/12 Test  #4: phase2_core ......................   Passed    0.05 sec
+      Start  5: phase2_cli
+ 5/12 Test  #5: phase2_cli .......................   Passed    0.33 sec
+      Start  6: network_core
+ 6/12 Test  #6: network_core .....................   Passed    0.43 sec
+      Start  7: network_cli
+ 7/12 Test  #7: network_cli ......................   Passed    0.07 sec
+      Start  8: containers_core
+ 8/12 Test  #8: containers_core ..................   Passed    0.10 sec
+      Start  9: containers_cli
+ 9/12 Test  #9: containers_cli ...................   Passed    0.07 sec
+      Start 10: order_book_core
+10/12 Test #10: order_book_core ..................   Passed    0.14 sec
+      Start 11: order_book_cli
+11/12 Test #11: order_book_cli ...................   Passed    0.07 sec
+      Start 12: order_book_plot_contract
+12/12 Test #12: order_book_plot_contract .........   Passed    0.06 sec
+
+100% tests passed, 0 tests failed out of 12
+
+Total Test time (real) =   1.63 sec
+
+Plot validation (2026-09-27):
+PASS: 5 stdlib histogram contract cases via order_book_plot_contract.
+PASS: actual-data two-campaign overlay with identical temporary copy; three pooled rounds (60000 events per series), identical shared-bin counts and full medians.
+PASS: 200 ns viewport retains count conservation including overflow; PNG/SVG, overview and CCDF generated.
+Temporary duplicate is only a plumbing self-check, not a new benchmark or optimization measurement.
+Baseline n16: run 0, n=20000, viewport=445 ns, median=111 ns, overflow=99, max=7745 ns.
+Baseline n256: run 0, n=20000, viewport=495 ns, median=120 ns, overflow=96, max=8056 ns.
+Baseline n4096: run 0, n=20000, viewport=765 ns, median=141 ns, overflow=97, max=7986 ns.

@@ -1,8 +1,10 @@
 #!/usr/bin/env python3
 """Plot only measured runs; refuse different traces or incompatible settings."""
 import argparse
+import bisect
 import hashlib
 import json
+import math
 from pathlib import Path
 from statistics import median
 
@@ -56,7 +58,7 @@ def load_campaign(path):
             signature += (stable_sections, cpu_model, governors, m.get('pmu_measured'),
                           tuple(m.get(key) for key in ['accepted_events', 'not_found_events', 'rejected_events', 'trades',
                                                      'matched_quantity', 'unfilled_market_quantity', 'final_orders_per_replay']))
-            rows.append({'signature': signature, 'row': row, 'file': str(folder / record['file'])})
+            rows.append({'signature': signature, 'row': row, 'file': str(folder / record['file']), 'repeat': record['repeat']})
         if len(rows) < 3 or len({entry['signature'] for entry in rows}) != 1:
             raise ValueError('need >=3 independent compatible rounds')
         key = (job['size'], job['mode'])
@@ -73,11 +75,122 @@ def load_campaign(path):
     return campaign['label'], groups
 
 
+def histogram_data(series, bin_width=5.0, x_max=None, view_percentile=99.5, stat='count'):
+    """Full-sample medians, shared edges, explicit overflow; no sample replication.
+
+    series contains (label, selected independent-run entries) for ONE workload.
+    This helper uses only stdlib so counting/tail semantics need no plot runtime.
+    """
+    if not math.isfinite(bin_width) or bin_width <= 0:
+        raise ValueError('bin width must be finite and positive')
+    if x_max is not None and (not math.isfinite(x_max) or x_max <= 0):
+        raise ValueError('x max must be finite and positive')
+    if not 0 < view_percentile <= 100 or stat not in ('count', 'probability'):
+        raise ValueError('invalid viewport percentile or histogram statistic')
+    if not series:
+        raise ValueError('histogram requires measured series')
+    prepared, quantiles = [], []
+    for label, entries in series:
+        values, run_medians, repeats = [], [], []
+        for entry in entries:
+            row = entry['row']
+            samples = row['raw_samples']
+            if row['sample_kind'] != 'single_event' or row['unit'] != 'ns/event' or row['operations_per_sample'] != 1:
+                raise ValueError('histograms require single-event ns/event samples, never replay means')
+            if not samples or len(samples) != row['sample_count']:
+                raise ValueError('incomplete raw samples')
+            if any(not math.isfinite(value) or value < 0 for value in samples):
+                raise ValueError('latencies must be finite and nonnegative')
+            values.extend(samples); run_medians.append(median(samples)); repeats.append(entry['repeat'])
+        if not values or len(repeats) != len(set(repeats)):
+            raise ValueError('empty series or duplicate rounds')
+        values.sort()
+        position = (len(values) - 1) * view_percentile / 100
+        lo, hi = math.floor(position), math.ceil(position)
+        quantiles.append(values[lo] + (values[hi] - values[lo]) * (position - lo))
+        prepared.append({'label': label, 'values': values, 'sample_count': len(values),
+                         'median_ns': median(values), 'round_medians_ns': run_medians, 'round_ids': repeats,
+                         'max_ns': values[-1], 'files': [entry['file'] for entry in entries]})
+    if stat == 'count' and len({row['sample_count'] for row in prepared}) != 1:
+        raise ValueError('frequency overlays require equal sample counts; select equal rounds or use --hist-stat probability')
+    upper = x_max if x_max is not None else max(quantiles)
+    ratio = max(upper, bin_width) / bin_width
+    if not math.isfinite(ratio) or ratio > 20000:
+        raise ValueError('more than 20000 bins; increase --bin-width-ns or reduce --x-max-ns')
+    bins = max(1, math.ceil(ratio))
+    edges = [i * bin_width for i in range(bins + 1)]
+    for row in prepared:
+        values = row.pop('values')
+        counts, overflow = [0] * bins, 0
+        for value in values:
+            if value > edges[-1]:
+                overflow += 1
+            else:
+                counts[min(bisect.bisect_right(edges, value) - 1, bins - 1)] += 1
+        row.update(counts=counts, overflow_count=overflow, overflow_fraction=overflow / len(values),
+                   heights=counts if stat == 'count' else [100 * count / len(values) for count in counts])
+    return {'edges_ns': edges, 'bin_width_ns': bin_width, 'x_max_ns': edges[-1],
+            'view_percentile': view_percentile if x_max is None else None, 'stat': stat, 'series': prepared}
+
+
+def draw_histograms(campaigns, sizes, args, plt):
+    palette = ['#e4ce39', '#70b2df', '#db8574', '#66ad88', '#ae8bc3']
+    artifact = {'plot_script_sha256': hashlib.sha256(Path(__file__).read_bytes()).hexdigest(),
+                'round_selection': args.hist_round, 'histograms': []}
+    for n in sizes:
+        series = []
+        for label, groups in campaigns:
+            entries = sorted(groups[(n, 'latency')], key=lambda entry: entry['repeat'])
+            if args.hist_round != 'all':
+                entries = [entry for entry in entries if entry['repeat'] == int(args.hist_round)]
+                if not entries:
+                    raise ValueError(f'round {args.hist_round} not found for {label}, N={n}')
+            series.append((label, entries))
+        data = histogram_data(series, args.bin_width_ns, args.x_max_ns, args.view_percentile, args.hist_stat)
+        data['initial_orders'] = n
+        fig, axis = plt.subplots(figsize=(10, 6), layout='constrained')
+        title = 'OrderBookMap Latencies — Baseline' if len(series) == 1 else 'OrderBook Latencies — Comparison'
+        fig.suptitle(title, fontfamily='DejaVu Serif', fontsize=22, color='#20354b')
+        selection = f'run {args.hist_round}' if args.hist_round != 'all' else 'runs pooled for display'
+        axis.set_title(f'OrderBook Latency Distribution · Initial orders: {n} · {selection}', fontsize=12)
+        notes = [f'{args.bin_width_ns:g} ns common bins; medians use ALL samples, including the tail outside this view.']
+        for i, row in enumerate(data['series']):
+            color = palette[i % len(palette)]
+            axis.stairs(row['heights'], data['edges_ns'], fill=True, alpha=.58, color=color,
+                        linewidth=.5, label=row['label'])
+            outside = ' (outside view)' if row['median_ns'] > data['x_max_ns'] else ''
+            axis.axvline(row['median_ns'], color=color, linestyle='--', linewidth=1.6,
+                         label=f"Median: {row['median_ns']:.1f} ns{outside}")
+            notes.append(f"{row['label']}: n={row['sample_count']:,}; outside view={row['overflow_count']:,} "
+                         f"({100 * row['overflow_fraction']:.2f}%); max={row['max_ns']:,.0f} ns")
+        axis.set(xlim=(0, data['x_max_ns']), ylim=(0, None), xlabel='Latency (ns)',
+                 ylabel='Frequency (events)' if args.hist_stat == 'count' else 'Probability per bin (%)')
+        axis.grid(axis='y', alpha=.15); axis.set_axisbelow(True)
+        axis.legend(loc='upper right', fontsize=9, framealpha=.95)
+        fig.supxlabel('\n'.join(notes), fontsize=8)
+        for ext in ['png', 'svg']:
+            fig.savefig(args.output / f'order-book-histogram-n{n}.{ext}', dpi=160)
+        plt.close(fig)
+        artifact['histograms'].append(data)
+    (args.output / 'histograms.json').write_text(json.dumps(artifact, indent=2) + '\n')
+
+
 def main():
     p = argparse.ArgumentParser()
     p.add_argument('--campaign', type=Path, action='append', required=True)
     p.add_argument('--output', type=Path, required=True)
+    p.add_argument('--style', choices=['all', 'histogram', 'overview'], default='all')
+    p.add_argument('--bin-width-ns', type=float, default=5)
+    p.add_argument('--x-max-ns', type=float, help='viewport only, rounded up to a whole bin; tails remain in statistics')
+    p.add_argument('--view-percentile', type=float, default=99.5, help='automatic viewport percentile if x max omitted')
+    p.add_argument('--hist-round', default='0', help='independent repeat ID (default 0), or all to pool for display')
+    p.add_argument('--hist-stat', choices=['count', 'probability'], default='count')
     a = p.parse_args()
+    if a.hist_round != 'all' and (not a.hist_round.isdigit() or int(a.hist_round) < 0):
+        p.error('hist-round must be a nonnegative repeat ID or all')
+    if (not math.isfinite(a.bin_width_ns) or a.bin_width_ns <= 0 or not 0 < a.view_percentile <= 100 or
+        (a.x_max_ns is not None and (not math.isfinite(a.x_max_ns) or a.x_max_ns <= 0))):
+        p.error('positive finite bin width/x max and percentile in (0,100] required')
     campaigns = [load_campaign(path) for path in a.campaign]
     baseline = campaigns[0][1]
     for _, groups in campaigns[1:]:
@@ -95,6 +208,11 @@ def main():
     a.output.mkdir(parents=True, exist_ok=False)
     sizes = sorted({n for n, _ in baseline})
     plt.rcParams.update({'font.size': 10, 'axes.spines.top': False, 'axes.spines.right': False})
+    if a.style in ('all', 'histogram'):
+        draw_histograms(campaigns, sizes, a, plt)
+        print(a.output / f'order-book-histogram-n{sizes[0]}.png')
+    if a.style == 'histogram':
+        return
     fig, axes = plt.subplots(2, 2, figsize=(12, 8), layout='constrained')
     summary = {'campaigns': [], 'plot_script_sha256': hashlib.sha256(Path(__file__).read_bytes()).hexdigest()}
     for label, groups in campaigns:

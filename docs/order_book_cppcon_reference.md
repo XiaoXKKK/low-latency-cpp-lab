@@ -19,3 +19,11 @@
 4. 每次优化记录 before/after 的独立进程测量、相同事件流与构建信息，画单事件尾延迟和批量吞吐图。展示重复运行离散度，保留变慢结果。三次重复测量不算三轮优化。
 
 讲义中的延迟数值不移植为本仓库结果；当前教学撮合工作负载也不能据此宣称重现 Optiver 系统性能。讲义建议中的“最佳价位在末端”是否适用于本实验，需要另测价格访问分布和价位插入/删除次数。
+
+## 用户示例图与后续顺序（补充核对）
+
+用户截图是讲义印刷第 31 页：普通 map 与 randomized allocations 的半透明频数直方图，横轴为 ns，纵轴为样本数量，各自 median 用同色竖虚线标出。它属于第 30–31 页的测量真实性检查，**不是一次加速优化**。讲义没有给出 randomized allocs 的具体实现；本项目将另行定义自己的分配布局实验，不声称直接复刻其 allocator。[官方讲义](https://github.com/CppCon/CppCon2024/blob/main/Presentations/When_Nanoseconds_Matter.pdf)
+
+主线依次为：vector + lower_bound（33–37）→ 分析价位更新分布、最佳价放末端（38–41）→ 热点 perf/top-down（44–48）→ branchless 二分（49–53）→ 线性搜索（54）。后面才是 likely/unlikely（57–58）、cold/noinline（59–61）、lambda/functor vs std::function（62）。本项目按此顺序设置[关卡](order_book_plan.md)，不再把 hash reserve/pool 排在主线前面。[官方讲义](https://github.com/CppCon/CppCon2024/blob/main/Presentations/When_Nanoseconds_Matter.pdf)
+
+本地绘图采用相同的分布表达，但显示本机真实的样本数与 median；不移植讲义 33/63 ns 等数值。默认单个明确编号的独立进程，使用共享 bins，并披露横轴显示范围之外的样本，保留完整尾部分布。

@@ -70,7 +70,25 @@ python3 scripts/run_order_book_campaign.py --variant NEW_VARIANT --label 'v1 sin
 python3 tools/plot_order_book.py --campaign results/raw/order-book-v0 --campaign results/raw/order-book-v1 --output results/processed/order-book-v0-v1
 ```
 
-绘图工具支持多版叠加，检查 trace hash、编译器、flags、CPU/系统信息、warmup、样本数及语义计数；不兼容时拒绝比较。环境负载、频率和温度仍可能变化，工具检查不是因果证明。输出 summary PNG/SVG（逐事件 mean/p99/p999 和吞吐，三轮中位数及 min–max）与逐轮尾部分布图，不捏造 before/after。图和证据文件名保留版本身份。
+绘图工具支持多版叠加，检查 trace hash、编译器、flags、CPU/系统信息、warmup、样本数及语义计数；不兼容时拒绝比较。环境负载、频率和温度仍可能变化，工具检查不是因果证明。默认输出每个初始深度的延迟直方图、summary PNG/SVG（逐事件 mean/p99/p999 和吞吐，三轮中位数及 min–max）与逐轮尾部分布图，不捏造 before/after。图和证据文件名保留版本身份。
+
+## CppCon 风格直方图
+
+基线 commit 为 `e82ed12`。主图使用同一轮逐事件原始样本：半透明频数直方图、共享分箱、同色 median 虚线。当前只画真实 v0；未来提供第二个 `--campaign` 即可叠加黄/蓝分布。
+
+```bash
+python3 tools/plot_order_book.py --campaign results/raw/order-book-v0-20260927 --style histogram --hist-round 0 --bin-width-ns 5 --output results/processed/order-book-v0-histograms
+# 未来测得 v1 后：
+python3 tools/plot_order_book.py --campaign results/raw/order-book-v0 --campaign results/raw/order-book-v1 --style histogram --hist-round 0 --bin-width-ns 5 --x-max-ns 500 --output results/processed/order-book-v0-v1-histograms
+```
+
+- 默认显示第 0 轮；`--hist-round 1` / `2` 单独检查其他轮，`all` 显式合并显示并保留各轮 median，不增加独立实验次数。
+- 默认横轴上限取各版本 p99.5 的最大值，再向上取整至完整 bin；`--x-max-ns` 显式指定显示上限，也取整至完整 bin。所有版本共享 bin 边界，不按各自范围自动分箱。
+- median 始终使用完整样本；图下注明超出视窗的数量、比例及 max。尾部原始样本不删除，完整 CCDF 仍可用 `--style all` 生成。
+- 默认纵轴为 frequency，叠图要求样本数相等。`--hist-stat probability` 用全部样本归一化，不能将窗口内柱高重新归一化到 100%。campaign 的 workload/测量配置兼容检查仍然适用。
+- 输出 `order-book-histogram-n*.png/.svg` 与 `histograms.json`，记录分箱、计数、溢出、样本路径、轮次和脚本哈希；输出目录必须不存在，避免覆盖旧证据。
+
+后续顺序为随机化分配测量对照 → vector/lower_bound → 最佳价位放末端 → 热点分析 → branchless 二分 → 线性搜索，具体关卡见[计划](../../docs/order_book_plan.md)。随机化分配对照尚未实现，也不计作加速优化。
 
 ## When help / When hurt
 

@@ -1,6 +1,6 @@
 # Order book：map/hash/list 基线与后续优化关卡
 
-2026-09-27 按新要求推进 `map + unordered_map + list` 基线，代码、测试与测量方式见[实验说明](../benchmarks/order_book/README.md)，实测见[结果](order_book_results.md)。此文继续保留后续优化关卡；三轮优化均未执行。保持单线程、整数价格 ticks、单标的、明确容量边界；不引入 MPSC。
+2026-09-27 按新要求推进 `map + unordered_map + list` 基线，代码、测试与测量方式见[实验说明](../benchmarks/order_book/README.md)，实测见[结果](order_book_results.md)。此文继续保留后续优化关卡；后续优化均未执行。保持单线程、整数价格 ticks、单标的、明确容量边界；不引入 MPSC。
 
 ## 语义对照的共同契约
 
@@ -31,16 +31,29 @@
 - 单事件 steady_clock bracket 产生 mean/p50/p99/p999（含 timer 成本）；另用相同事件流做批量 throughput，避免用 batch p99 充当单事件尾延迟。说明 closed-loop 与计划到达延迟的区别。
 - 同一个事件流、同一个输出 sink，各变体相同校验边界。内存分配是否在计时内需要逐版本记录。
 
-## 三轮独立改动的测量关卡
+## 按 CppCon 顺序推进的测量与优化关卡
 
-先测 baseline，定位瓶颈，记录假设，才开始下一轮修改。以下是**候选**改动，不预设收益，也不把三次重复运行当成三轮优化。
+基线 commit：`e82ed12`（包含前序容器实验依赖和 v0 原始证据）。按用户新的图形与顺序要求，主线遵循 CppCon 2024 讲义顺序。讲义是行情价位聚合簿，本项目仍保留撮合/FIFO 语义；每一步需要自己的正确性和测量证据。先前提出的 hash reserve、bounded array 和 pool 改为可选支线，不插入以下主线。
 
-| 轮次 | before → after；仅改变的主要因素 | 验证重点 | 状态 |
+| 阶段 / 讲义印刷页 | before → after；仅改变的主要因素 | 验证重点 | 状态 |
 |---|---|---|---|
-| 1 | 相同 map/hash/list，仅预留 ID hash 容量 | 验证 rehash 是否与观测尾部相关；计时外预留与内存代价 | NOT MEASURED |
-| 2 | 保留 ID 索引和 FIFO，将 map 价位目录替换为连续价位目录 | 按分布选 sorted vector 或 bounded price array；处理价位移动后的引用有效性，不同时改搜索算法 | NOT MEASURED |
-| 3 | 保留价位目录、ID 索引和 FIFO 算法，仅替换订单节点分配资源为预分配可回收 pool | 相同拒绝规则；对齐、生命周期、复用；无隐藏 fallback malloc | NOT MEASURED |
+| 测量前置，30–31 | 相同 map/hash/list、相同逻辑事件流，普通分配 → 明确定义的随机化分配布局 | 截图即此对照；只改变物理分配布局，不打乱事件/FIFO；独立 allocation seed；不能算加速优化 | NOT MEASURED |
+| 优化 1，33–37 | map 价位目录 → 有序 vector + lower_bound | 保留订单 list/FIFO、拒绝和撮合语义；解决 vector 移动后的 ID→价位关联有效性 | NOT MEASURED |
+| 优化 2，38–41 | 同样 vector，反转价位排序，把最佳价位放末端 | 先记录更新/插入位置分布；只调整存储方向，观察搬移数量 | NOT MEASURED |
+| 分析前置，44–48 | 使用热点区间 perf/top-down/调用栈定位 | 排除初始化及 oracle；记录可用计数与边界 | NOT MEASURED |
+| 优化 3，49–53 | lower_bound → branchless 二分 | 价位布局和语义不变；匹配命中/未命中、边界、汇编与计数器 | NOT MEASURED |
+| 优化 4，54 | branchless 二分 → 线性搜索 | 固定相同布局与查找方向；依据价位访问分布测试，保留变慢结果 | NOT MEASURED |
+
+讲义后面的 likely/unlikely（57–58）、cold/noinline 错误路径（59–61）、lambda/functor vs std::function（62）仅在本项目出现对应热点后再考虑。基线没有 std::function 撮合回调，不人为加一个再删掉制造“优化”。官方来源与页码见[参考笔记](order_book_cppcon_reference.md)。
+
+随机化分配的具体实现未在讲义中给出，下一轮需先写清本实验的扰动对象（价位节点、订单节点或其他节点）、时机和分配 seed，并单独验证地址布局。不能简单换 event seed 或打乱输入订单，因为那会改变 FIFO、成交及访问分布。保留相同 trace hash；分配布局 seed 作为独立配置记录。参考截图中的 33/63 ns 不作为本机结果或目标承诺。
+
+## 每步的图与留档
+
+主图采用同 workload、同独立轮次的**重叠频数直方图**：横轴单事件 latency(ns)，纵轴真实样本数，共享 bin 边界，半透明填充，每版用同色虚线标出全部样本的 median。默认展示第 0 轮；其他轮分别画，不能择优选一轮。需要合并显示时显式选择 all，标明 pooled，不将其解释为更多独立实验。
+
+显示窗口与统计范围分开：例如裁到 500 ns，只限制图的横轴；中位数/尾部统计仍使用全部样本，图下注明超出范围的数量、比例及 max。保留完整 CCDF、三轮 min–max 概览和原始样本。比较频数时样本量必须相等；不同样本量仅允许显式的全样本概率归一化。未经测量的版本不画第二条分布。
 
 每轮需 before/after 的至少三个独立进程、随机执行顺序、相同编译 flags/CPU/事件流，记录源码与二进制 hash。报告 change、why、真实均值/尾部/吞吐/内存和 perf evidence；变慢也保留，不改成“优化成功”。性能计数优先限定热路径区间；全进程 perf 若含验证和 setup，必须单独标注，不强行归因。缺少权限记 NOT MEASURED。
 
-所有轮次都重新跑同一 semantic differential suite 及 ASan/UBSan。若并发化成为新需求，先补所有权、生命周期、happens-before 证明；MPSC 不属于此三轮。
+所有轮次都重新跑同一 semantic differential suite 及 ASan/UBSan。若并发化成为新需求，先补所有权、生命周期、happens-before 证明；MPSC 不属于此优化主线。

@@ -4,7 +4,7 @@
 
 2026-09-20 后续批次：网络回归增加真实 TCP partial I/O；容器与 AoS/SoA 候选代码进入验证，**本轮保持待验收，不将 Next batch 整体标为已实现**。运行方式与阶段证据见[本批记录](docs/containers_results.md)。Order book 先固定[语义与三轮优化验收方案](docs/order_book_plan.md)，MPSC 仍需正确性证明后再推进。
 
-2026-09-27：OrderBook 开始落地 `map + unordered_map + list` 基线，包含 Add/Cancel/Modify/Match、独立 reference 对照、逐事件延迟、批量吞吐与可复用的版本对比绘图。参见[实验说明](benchmarks/order_book/README.md)、[基线数据与图表](docs/order_book_results.md)和[CppCon 参考边界](docs/order_book_cppcon_reference.md)。后续三轮优化尚未执行。
+2026-09-27：OrderBook 开始落地 `map + unordered_map + list` 基线，包含 Add/Cancel/Modify/Match、独立 reference 对照、逐事件延迟、批量吞吐与可复用的版本对比绘图。参见[实验说明](benchmarks/order_book/README.md)、[基线数据与图表](docs/order_book_results.md)和[CppCon 参考边界](docs/order_book_cppcon_reference.md)。后续优化尚未执行。基线已保存为 commit `e82ed12`；新增与讲义风格一致的[延迟直方图](docs/evidence/order-book/histograms-v0/order-book-histogram-n256.png)，后续按[CppCon 顺序](docs/order_book_plan.md)推进。
 
 ```bash
 ./build/release/lab_bench --benchmark order_book_latency --variant map_list --size 256 --iterations 20000 --warmup 1000 --cpu 0 --format json
