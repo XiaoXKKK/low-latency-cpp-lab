@@ -33,8 +33,14 @@ NETWORK={'network_rtt':['tcp_default','tcp_nodelay','tcp_unbatched','tcp_batched
 PHASE1=list(VARIANTS)[:8]
 PHASE2=['locks']+list(VARIANTS)[8:]
 VARIANTS.update(NETWORK)
-DEFAULT_SIZES={'network_rtt':64,'network_io':64,'page_behavior':2097152,'numa_access':8388608,'cache_patterns':4194304,'arrival_latency':8388608}
+DATA_STRUCTURES={'containers':[f'{container}_{operation}' for container in ['vector','list','deque','map','unordered_map','sorted_vector']
+                               for operation in ['lookup','insert','iterate','erase']], 'data_layout':['aos','soa']}
+VARIANTS.update(DATA_STRUCTURES)
+ORDER_BOOK={'order_book_latency':['map_list'],'order_book_throughput':['map_list']}
+VARIANTS.update(ORDER_BOOK)
+DEFAULT_SIZES={'containers':1024,'network_rtt':64,'network_io':64,'page_behavior':2097152,'numa_access':8388608,'cache_patterns':4194304,'arrival_latency':8388608}
 MULTITHREADED={'false_sharing','locks','spsc','allocation_handoff','rw_locks','network_rtt','network_io'}
+DEFAULT_SIZES.update({name:256 for name in ORDER_BOOK})
 
 def write_summary(output,grouped,skipped):
     lines=['# Measured benchmark summary','',f'Raw data and environment: `{output}`','',
@@ -59,7 +65,7 @@ def main():
     p=argparse.ArgumentParser()
     p.add_argument('--binary',type=Path,default=ROOT/'build/release/lab_bench')
     p.add_argument('--benchmark',choices=list(VARIANTS)+['all'],default='all')
-    p.add_argument('--suite',choices=['phase1','phase2','network','all'],default='all')
+    p.add_argument('--suite',choices=['phase1','phase2','network','data_structures','order_book','all'],default='all')
     p.add_argument('--variant')
     for key,default in [('timeout-ms',1000),('repeats',3),('iterations',100),('warmup',10),('batch',None),('seed',42),
                         ('locks',1),('critical',0),('stride',1),('distance',16),('interval-ns',100000),('read-percent',90),
@@ -87,7 +93,7 @@ def main():
     manifest['source_sha256']={str(f.relative_to(ROOT)):hashlib.sha256(f.read_bytes()).hexdigest() for f in sources}
     for filename in ['CMakeCache.txt','compile_commands.json']:
         if (binary.parent/filename).exists(): (output/filename).write_bytes((binary.parent/filename).read_bytes())
-    suites={'phase1':PHASE1,'phase2':PHASE2,'network':list(NETWORK),'all':list(VARIANTS)}
+    suites={'phase1':PHASE1,'phase2':PHASE2,'network':list(NETWORK),'data_structures':list(DATA_STRUCTURES),'order_book':list(ORDER_BOOK),'all':list(VARIANTS)}
     names=suites[a.suite] if a.benchmark=='all' else [a.benchmark]
     rng=random.Random(a.seed);grouped={};skipped={}
     try:
@@ -97,7 +103,7 @@ def main():
                 threads=a.threads if a.threads is not None else (2 if name in MULTITHREADED else 1)
                 size=a.size if a.size is not None else DEFAULT_SIZES.get(name,32768)
                 command=[str(binary),'--benchmark',name,'--variant',variant,'--threads',str(threads),'--cpu',cpus,'--size',str(size),'--format','json']
-                command+=['--batch',str(a.batch if a.batch is not None else (16 if name in NETWORK else 4096))]
+                command+=['--batch',str(a.batch if a.batch is not None else (16 if name in NETWORK else 64 if name=='containers' else 1000 if name in ORDER_BOOK else 4096))]
                 for key in ['timeout_ms','iterations','warmup','seed','locks','critical','duration','stride','distance','interval_ns','read_percent','memory_node','touch_cpu','background_cpu']:
                     command+=['--'+key.replace('_','-'),str(getattr(a,key))]
                 record={'repeat':repeat,'benchmark':name,'variant':variant,'command':command}

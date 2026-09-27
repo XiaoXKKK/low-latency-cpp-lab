@@ -37,7 +37,8 @@ if(LAB_LTO)
   set(CMAKE_INTERPROCEDURAL_OPTIMIZATION ON)
 endif()
 find_package(Threads REQUIRED)
-add_library(lab_core src/benchmark.cpp src/results.cpp src/linux_memory.cpp src/network.cpp)
+add_library(lab_core src/benchmark.cpp src/results.cpp src/linux_memory.cpp src/network.cpp src/layout.cpp
+  src/order_book.cpp src/order_book_reference.cpp src/order_book_workload.cpp)
 target_include_directories(lab_core PUBLIC include)
 target_link_libraries(lab_core PUBLIC Threads::Threads)
 target_compile_definitions(lab_core PUBLIC _GNU_SOURCE LAB_BUILD_TYPE="${CMAKE_BUILD_TYPE}" LAB_SANITIZER="${LAB_SANITIZER}")
@@ -49,7 +50,8 @@ add_executable(lab_bench src/main.cpp benchmarks/timer/timer_overhead.cpp
   benchmarks/timer/interval_timing.cpp benchmarks/cache/cache_patterns.cpp
   benchmarks/memory/allocator_batch.cpp benchmarks/memory/page_behavior.cpp
   benchmarks/synchronization/atomic_order.cpp benchmarks/synchronization/rw_locks.cpp
-  benchmarks/scheduling/wait_and_arrival.cpp benchmarks/numa/numa_access.cpp benchmarks/network/loopback.cpp)
+  benchmarks/scheduling/wait_and_arrival.cpp benchmarks/numa/numa_access.cpp benchmarks/network/loopback.cpp
+  benchmarks/containers/containers.cpp benchmarks/order_book/order_book.cpp)
 target_link_libraries(lab_bench PRIVATE lab_core)
 # Keep the branch experiment's conditional jump observable. Inspect assembly too.
 if(CMAKE_CXX_COMPILER_ID STREQUAL "GNU")
@@ -75,3 +77,13 @@ target_link_libraries(lab_network_tests PRIVATE lab_core)
 add_test(NAME network_core COMMAND lab_network_tests)
 add_test(NAME network_cli COMMAND ${Python3_EXECUTABLE} ${CMAKE_SOURCE_DIR}/tests/test_network_cli.py $<TARGET_FILE:lab_bench>)
 set_tests_properties(network_core network_cli PROPERTIES TIMEOUT 90)
+add_executable(lab_container_tests tests/test_containers.cpp)
+target_link_libraries(lab_container_tests PRIVATE lab_core)
+add_test(NAME containers_core COMMAND lab_container_tests)
+add_test(NAME containers_cli COMMAND ${Python3_EXECUTABLE} ${CMAKE_SOURCE_DIR}/tests/test_containers_cli.py $<TARGET_FILE:lab_bench>)
+set_tests_properties(containers_core containers_cli PROPERTIES TIMEOUT 120)
+add_executable(lab_order_book_tests tests/test_order_book.cpp)
+target_link_libraries(lab_order_book_tests PRIVATE lab_core)
+add_test(NAME order_book_core COMMAND lab_order_book_tests)
+add_test(NAME order_book_cli COMMAND ${Python3_EXECUTABLE} ${CMAKE_SOURCE_DIR}/tests/test_order_book_cli.py $<TARGET_FILE:lab_bench>)
+set_tests_properties(order_book_core order_book_cli PROPERTIES TIMEOUT 120)

@@ -29,6 +29,8 @@ UDP 使用序号区分窗口，记录重复、过期和乱序回复，按 deadli
 
 测试覆盖小 socket buffer 下的 1 MiB 传输、短读写、EAGAIN、背压超时、半帧 EOF、断连无 SIGPIPE、ET 连续帧与耗尽后重新到达、UDP 截断、真实 TCP/UDP CLI 与 JSON/CSV。
 
+2026-09-20 回归补充：1 MiB 小发送缓冲区传输，以及 LT/ET 连续帧与耗尽后重新到达，同时在 UNIX socketpair 和真实 IPv4 localhost TCP 上运行；不会只用 UNIX socketpair 结果替代 TCP partial I/O 证据。
+
 ## Measurement / Expected hardware behavior
 
 - 单次样本：发送前至完整 echo 收到后，单位 ns/roundtrip；闭环、仅成功 RTT，不能描述开放到达流量的排队尾部。

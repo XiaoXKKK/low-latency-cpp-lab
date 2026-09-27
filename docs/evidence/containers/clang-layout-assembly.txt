@@ -1,0 +1,100 @@
+
+build/clang-release/CMakeFiles/lab_core.dir/src/layout.cpp.o:     file format elf64-x86-64
+
+
+Disassembly of section .text:
+
+0000000000000000 <lab::layout::sum_aos(lab::layout::Order const*, unsigned long)>:
+   0:	48 85 f6             	test   %rsi,%rsi
+   3:	74 0c                	je     11 <lab::layout::sum_aos(lab::layout::Order const*, unsigned long)+0x11>
+   5:	48 83 fe 01          	cmp    $0x1,%rsi
+   9:	75 09                	jne    14 <lab::layout::sum_aos(lab::layout::Order const*, unsigned long)+0x14>
+   b:	31 c9                	xor    %ecx,%ecx
+   d:	31 c0                	xor    %eax,%eax
+   f:	eb 46                	jmp    57 <lab::layout::sum_aos(lab::layout::Order const*, unsigned long)+0x57>
+  11:	31 c0                	xor    %eax,%eax
+  13:	c3                   	ret
+  14:	48 89 f2             	mov    %rsi,%rdx
+  17:	48 83 e2 fe          	and    $0xfffffffffffffffe,%rdx
+  1b:	4c 8d 47 20          	lea    0x20(%rdi),%r8
+  1f:	31 c9                	xor    %ecx,%ecx
+  21:	45 31 c9             	xor    %r9d,%r9d
+  24:	66 66 66 2e 0f 1f 84 	data16 data16 cs nopw 0x0(%rax,%rax,1)
+  2b:	00 00 00 00 00 
+  30:	45 8b 50 e8          	mov    -0x18(%r8),%r10d
+  34:	41 8b 00             	mov    (%r8),%eax
+  37:	4d 0f af 50 e0       	imul   -0x20(%r8),%r10
+  3c:	4d 01 ca             	add    %r9,%r10
+  3f:	49 0f af 40 f8       	imul   -0x8(%r8),%rax
+  44:	4c 01 d0             	add    %r10,%rax
+  47:	48 83 c1 02          	add    $0x2,%rcx
+  4b:	49 83 c0 30          	add    $0x30,%r8
+  4f:	49 89 c1             	mov    %rax,%r9
+  52:	48 39 ca             	cmp    %rcx,%rdx
+  55:	75 d9                	jne    30 <lab::layout::sum_aos(lab::layout::Order const*, unsigned long)+0x30>
+  57:	40 f6 c6 01          	test   $0x1,%sil
+  5b:	74 10                	je     6d <lab::layout::sum_aos(lab::layout::Order const*, unsigned long)+0x6d>
+  5d:	48 8d 0c 49          	lea    (%rcx,%rcx,2),%rcx
+  61:	8b 54 cf 08          	mov    0x8(%rdi,%rcx,8),%edx
+  65:	48 0f af 14 cf       	imul   (%rdi,%rcx,8),%rdx
+  6a:	48 01 d0             	add    %rdx,%rax
+  6d:	c3                   	ret
+  6e:	66 90                	xchg   %ax,%ax
+
+0000000000000070 <lab::layout::sum_soa(unsigned long const*, unsigned int const*, unsigned long)>:
+  70:	48 85 d2             	test   %rdx,%rdx
+  73:	74 0f                	je     84 <lab::layout::sum_soa(unsigned long const*, unsigned int const*, unsigned long)+0x14>
+  75:	48 83 fa 04          	cmp    $0x4,%rdx
+  79:	73 0c                	jae    87 <lab::layout::sum_soa(unsigned long const*, unsigned int const*, unsigned long)+0x17>
+  7b:	31 c9                	xor    %ecx,%ecx
+  7d:	31 c0                	xor    %eax,%eax
+  7f:	e9 ac 00 00 00       	jmp    130 <lab::layout::sum_soa(unsigned long const*, unsigned int const*, unsigned long)+0xc0>
+  84:	31 c0                	xor    %eax,%eax
+  86:	c3                   	ret
+  87:	48 89 d1             	mov    %rdx,%rcx
+  8a:	48 83 e1 fc          	and    $0xfffffffffffffffc,%rcx
+  8e:	66 0f ef c0          	pxor   %xmm0,%xmm0
+  92:	31 c0                	xor    %eax,%eax
+  94:	66 0f ef d2          	pxor   %xmm2,%xmm2
+  98:	66 0f ef c9          	pxor   %xmm1,%xmm1
+  9c:	0f 1f 40 00          	nopl   0x0(%rax)
+  a0:	f3 0f 6f 1c c7       	movdqu (%rdi,%rax,8),%xmm3
+  a5:	f3 0f 6f 64 c7 10    	movdqu 0x10(%rdi,%rax,8),%xmm4
+  ab:	f3 0f 7e 2c 86       	movq   (%rsi,%rax,4),%xmm5
+  b0:	f3 0f 7e 74 86 08    	movq   0x8(%rsi,%rax,4),%xmm6
+  b6:	66 0f 62 e8          	punpckldq %xmm0,%xmm5
+  ba:	66 0f 62 f0          	punpckldq %xmm0,%xmm6
+  be:	66 0f 6f fb          	movdqa %xmm3,%xmm7
+  c2:	66 0f f4 fd          	pmuludq %xmm5,%xmm7
+  c6:	66 0f d4 fa          	paddq  %xmm2,%xmm7
+  ca:	66 0f 73 d3 20       	psrlq  $0x20,%xmm3
+  cf:	66 0f f4 dd          	pmuludq %xmm5,%xmm3
+  d3:	66 0f 73 f3 20       	psllq  $0x20,%xmm3
+  d8:	66 0f 6f d3          	movdqa %xmm3,%xmm2
+  dc:	66 0f d4 d7          	paddq  %xmm7,%xmm2
+  e0:	66 0f 6f dc          	movdqa %xmm4,%xmm3
+  e4:	66 0f f4 de          	pmuludq %xmm6,%xmm3
+  e8:	66 0f d4 d9          	paddq  %xmm1,%xmm3
+  ec:	66 0f 73 d4 20       	psrlq  $0x20,%xmm4
+  f1:	66 0f f4 e6          	pmuludq %xmm6,%xmm4
+  f5:	66 0f 73 f4 20       	psllq  $0x20,%xmm4
+  fa:	66 0f 6f cc          	movdqa %xmm4,%xmm1
+  fe:	66 0f d4 cb          	paddq  %xmm3,%xmm1
+ 102:	48 83 c0 04          	add    $0x4,%rax
+ 106:	48 39 c1             	cmp    %rax,%rcx
+ 109:	75 95                	jne    a0 <lab::layout::sum_soa(unsigned long const*, unsigned int const*, unsigned long)+0x30>
+ 10b:	66 0f d4 ca          	paddq  %xmm2,%xmm1
+ 10f:	66 0f 70 c1 ee       	pshufd $0xee,%xmm1,%xmm0
+ 114:	66 0f d4 c1          	paddq  %xmm1,%xmm0
+ 118:	66 48 0f 7e c0       	movq   %xmm0,%rax
+ 11d:	48 39 d1             	cmp    %rdx,%rcx
+ 120:	74 22                	je     144 <lab::layout::sum_soa(unsigned long const*, unsigned int const*, unsigned long)+0xd4>
+ 122:	66 66 66 66 66 2e 0f 	data16 data16 data16 data16 cs nopw 0x0(%rax,%rax,1)
+ 129:	1f 84 00 00 00 00 00 
+ 130:	44 8b 04 8e          	mov    (%rsi,%rcx,4),%r8d
+ 134:	4c 0f af 04 cf       	imul   (%rdi,%rcx,8),%r8
+ 139:	4c 01 c0             	add    %r8,%rax
+ 13c:	48 ff c1             	inc    %rcx
+ 13f:	48 39 ca             	cmp    %rcx,%rdx
+ 142:	75 ec                	jne    130 <lab::layout::sum_soa(unsigned long const*, unsigned int const*, unsigned long)+0xc0>
+ 144:	c3                   	ret

@@ -4,6 +4,10 @@
 
 第5组 Networking 已实现 TCP/UDP、NODELAY、batching、epoll LT/ET 与用户态忙轮询，见[实测验收](network_results.md)。下一批推进 Data structures / AoS vs SoA，然后 Order book。
 
+2026-09-20 续批状态：保留上面的历史交付记录；本轮网络补充真实 TCP 压力回归，容器/AoS–SoA 候选进入测试与测量，详见[阶段证据](containers_results.md)。按本轮要求，不将这些后续项目整体勾为“已实现/已验收”。Order book 的[语义对照与三轮优化方案](order_book_plan.md)处于设计阶段，尚无实现或性能结果；MPSC 仍为有正确性证明后再推进的可选项。
+
+2026-09-27：按新的分步要求，OrderBook 推进到 map/hash/list 基线，见[本轮结果](order_book_results.md)。ID 索引属于 v0，不能再算第一轮优化；三轮后续优化及 MPSC 的状态不变。每版独立 campaign 与比较绘图工具已接入。
+
 按依赖关系推进，每项延续 question/baseline/单变量/三轮/perf/边界说明。
 
 1. **测量深化**：open-loop 到达模型、background CPU/memory stress、受控 timer bracket、TSC_AUX 迁核过滤、可验证的 cycles、perf 区间计数、跨 GCC/Clang 和 O0/O1/O2/O3/native/LTO 汇编比较。

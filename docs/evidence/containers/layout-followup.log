@@ -1,0 +1,21 @@
+round 1: data_layout/soa: MEASURED
+round 1: data_layout/aos: MEASURED
+round 2: data_layout/soa: MEASURED
+round 2: data_layout/aos: MEASURED
+round 3: data_layout/aos: MEASURED
+round 3: data_layout/soa: MEASURED
+Saved /home/ljw/low-latency-cpp-lab/results/raw/containers-20260920/layout-clang-n100000/summary.md
+round 1: data_layout/soa: MEASURED
+round 1: data_layout/aos: MEASURED
+round 2: data_layout/soa: MEASURED
+round 2: data_layout/aos: MEASURED
+round 3: data_layout/aos: MEASURED
+round 3: data_layout/soa: MEASURED
+Saved /home/ljw/low-latency-cpp-lab/results/raw/containers-20260920/layout-gcc-n1000000/summary.md
+round 1: data_layout/soa: MEASURED
+round 1: data_layout/aos: MEASURED
+round 2: data_layout/soa: MEASURED
+round 2: data_layout/aos: MEASURED
+round 3: data_layout/aos: MEASURED
+round 3: data_layout/soa: MEASURED
+Saved /home/ljw/low-latency-cpp-lab/results/raw/containers-20260920/layout-clang-n1000000/summary.md

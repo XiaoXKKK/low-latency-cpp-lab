@@ -1,0 +1,11 @@
+[ 22%] Built target lab_core
+[ 27%] Built target lab_tests
+[ 32%] Built target lab_network_tests
+[ 37%] Built target lab_phase2_tests
+[ 40%] Building CXX object CMakeFiles/lab_bench.dir/benchmarks/order_book/order_book.cpp.o
+[ 47%] Building CXX object CMakeFiles/lab_order_book_tests.dir/tests/test_order_book.cpp.o
+[ 47%] Built target lab_container_tests
+[ 50%] Linking CXX executable lab_order_book_tests
+[ 50%] Built target lab_order_book_tests
+[ 52%] Linking CXX executable lab_bench
+[100%] Built target lab_bench

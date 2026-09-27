@@ -14,8 +14,8 @@ Pair local_pair() {
     int sockets[2]; CHECK(socketpair(AF_UNIX,SOCK_STREAM|SOCK_CLOEXEC,0,sockets)==0);
     return {Fd(sockets[0]),Fd(sockets[1])};
 }
-void transfer(Mode mode) {
-    auto pair=local_pair(); int small=1024;
+void transfer(Mode mode, bool tcp=false) {
+    auto pair=tcp?loopback_pair(false,true):local_pair(); int small=1024;
     CHECK(setsockopt(pair.client.get(),SOL_SOCKET,SO_SNDBUF,&small,sizeof(small))==0);
     Channel writer(pair.client.get(),mode,2000),reader(pair.server.get(),mode,2000);
     std::vector<std::byte> expected(1024*1024),actual(expected.size());
@@ -61,8 +61,8 @@ void failure_paths(Mode mode) {
     try { writer.send_all(buffer,deadline(20)); } catch(const std::runtime_error&) { disconnected=true; }
     CHECK(disconnected);
 }
-void readiness(Mode mode) {
-    auto pair=local_pair(); Channel reader(pair.server.get(),mode,1000);
+void readiness(Mode mode, bool tcp=false) {
+    auto pair=tcp?loopback_pair(false,true):local_pair(); Channel reader(pair.server.get(),mode,1000);
     std::array<std::byte,16> bytes{};
     // A frame boundary is not an EAGAIN boundary: queued second frame must be
     // read without requiring a fresh edge. Repeat after fully draining the fd.
@@ -77,14 +77,16 @@ void readiness(Mode mode) {
 }
 int main() {
     try {
-        for(auto mode:{Mode::blocking,Mode::epoll_lt,Mode::epoll_et,Mode::busy}) { transfer(mode); failure_paths(mode); }
-        readiness(Mode::epoll_lt); readiness(Mode::epoll_et);
+        for(auto mode:{Mode::blocking,Mode::epoll_lt,Mode::epoll_et,Mode::busy}) {
+            transfer(mode); transfer(mode,true); failure_paths(mode);
+        }
+        for(bool tcp:{false,true}) { readiness(Mode::epoll_lt,tcp); readiness(Mode::epoll_et,tcp); }
         auto udp=loopback_pair(true,false); Channel sender(udp.client.get(),Mode::epoll_et,1000),receiver(udp.server.get(),Mode::epoll_et,1000);
         std::array<std::byte,32> frame{}; sender.send_datagram(frame,deadline(100));
         bool truncated=false;
         try { receiver.receive_datagram(std::span(frame).first(8),deadline(100)); } catch(const std::runtime_error&) { truncated=true; }
         CHECK(truncated);
         sender.send_datagram(frame,deadline(100)); CHECK(receiver.receive_datagram(frame,deadline(100))==32);
-        std::cout<<"network: partial I/O, backpressure, timeout, EOF, SIGPIPE, ET queued frames/rearm, UDP truncation PASS\n";
+        std::cout<<"network: UNIX/TCP partial I/O and ET queued frames/rearm, backpressure, timeout, EOF, SIGPIPE, UDP truncation PASS\n";
     } catch(const std::exception& error) { std::cerr<<error.what()<<'\n'; return 1; }
 }

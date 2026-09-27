@@ -79,4 +79,6 @@ Results atomic_order(const Config&); Results rw_locks(const Config&);
 Results wait_strategy(const Config&); Results arrival_latency(const Config&);
 Results numa_access(const Config&);
 Results network_rtt(const Config&); Results network_io(const Config&);
+Results containers_bench(const Config&); Results data_layout(const Config&);
+Results order_book(const Config&);
 } // namespace lab

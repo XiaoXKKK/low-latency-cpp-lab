@@ -2,6 +2,17 @@
 
 以 **假设 → baseline → 单变量修改 → 多轮测量 → profiler → 有边界的解释** 学习 C++ / CPU / Linux / HFT performance engineering。当前交付包含 **Phase 1 八个实验 + Phase 2 首批测量/Cache/Memory/同步调度/NUMA扩展**。现已扩展 TCP/UDP、epoll LT/ET 与忙轮询实验；数据结构、order book 留在[后续路线图](docs/phase2.md)。[Phase 2 实测与验收](docs/phase2_results.md)记录本次进展。
 
+2026-09-20 后续批次：网络回归增加真实 TCP partial I/O；容器与 AoS/SoA 候选代码进入验证，**本轮保持待验收，不将 Next batch 整体标为已实现**。运行方式与阶段证据见[本批记录](docs/containers_results.md)。Order book 先固定[语义与三轮优化验收方案](docs/order_book_plan.md)，MPSC 仍需正确性证明后再推进。
+
+2026-09-27：OrderBook 开始落地 `map + unordered_map + list` 基线，包含 Add/Cancel/Modify/Match、独立 reference 对照、逐事件延迟、批量吞吐与可复用的版本对比绘图。参见[实验说明](benchmarks/order_book/README.md)、[基线数据与图表](docs/order_book_results.md)和[CppCon 参考边界](docs/order_book_cppcon_reference.md)。后续三轮优化尚未执行。
+
+```bash
+./build/release/lab_bench --benchmark order_book_latency --variant map_list --size 256 --iterations 20000 --warmup 1000 --cpu 0 --format json
+python3 scripts/run_order_book_campaign.py --cpu 0 --output results/raw/order-book-v0
+# Python 环境需 matplotlib；支持重复 --campaign 叠加未来版本。
+python3 tools/plot_order_book.py --campaign results/raw/order-book-v0 --output results/processed/order-book-v0-plots
+```
+
 ## Quick start
 
 依赖：Linux、GCC（或 Clang）、C++20、CMake ≥ 3.20、Python ≥ 3.9、pthread；perf / numactl 可选。无在线 FetchContent、无第三方 benchmark 库。
@@ -44,7 +55,7 @@ include/lab/benchmark.hpp       参数、采样、统计、编译器屏障、aff
 include/lab/structures.hpp      固定容量 SPSC、TTAS spinlock、固定块 pool
 src/                           实现公共框架与实验 registry
 benchmarks/{主题}/*.cpp         单变量 baseline/variant；各实验 README
- tests/                        数据结构/同步/统计测试、八项 CLI 合约
+ tests/                        数据结构/同步/统计测试与 CLI 合约
  tools/                        环境记录、随机顺序重复运行、perf 降级、Markdown 汇总
  scripts/                      Release build/test、完整运行
  docs/                         方法学、CPU/Linux、陷阱、结果、review、后续规划
@@ -53,6 +64,20 @@ benchmarks/{主题}/*.cpp         单变量 baseline/variant；各实验 README
 ```
 
 实验直接链接公共库；添加实验只需新增源文件、registry 项、CMake 源列表、runner 变体表、测试和 README。保持计时、工作负载和结果解释分离；不用复杂注册宏或 UI。源代码、方法学、结果的关系见 [架构与阶段验收](docs/architecture.md)。
+
+## Next batch 候选实验（待验收）
+
+- `containers`：六种容器 × lookup/insert/iterate/erase，共 24 个变体，见[实验说明](benchmarks/containers/README.md)。
+- `data_layout`：相同整数 price×quantity 归约的 AoS/SoA，见[实验说明](benchmarks/containers/README.layout.md)。
+- 两组 `--size` 均表示记录数；容器默认 batch=64，AoS/SoA 每样本完整扫描，忽略 batch。
+
+```bash
+./build/release/lab_bench --benchmark containers --size 1024 --batch 64 --format json
+./build/release/lab_bench --benchmark data_layout --size 100000 --format json
+python3 scripts/run_container_campaign.py --cpu 0 --output results/raw/containers-new --perf
+```
+
+统一 runner 可用 `--suite data_structures`；`--suite all` 也包含这些候选代码。性能记录不等于整个后续批次验收完成。
 
 ## Phase 1 experiments
 
@@ -98,7 +123,7 @@ python3 tools/run_benchmark.py --suite phase1 --cpu 0,1
 
 新增参数：`--stride`（uint64元素数）、`--distance`（indexed prefetch领先访问数）、`--interval-ns`、`--read-percent`、`--memory-node`、`--touch-cpu`、`--background-cpu`。后3项默认-1，按实验规则选择。background默认和被测线程同CPU，明确构造竞争。cache/page/NUMA采用每样本完整pass，batch不控制这些样本长度。具体边界见[方法学](docs/phase2_methodology.md)。
 
-`run_benchmark.py --benchmark all` 现在包含所有已实现实验；`--suite phase1|phase2`限定阶段；`--variant`只能搭配单个benchmark。NUMA/hugepage/perf依能力明确跳过，真正的CLI或代码失败仍使runner返回失败。
+`run_benchmark.py --benchmark all` 包含所有可运行实验（含待验收候选）；`--suite phase1|phase2|network|data_structures`限定范围；`--variant`只能搭配单个benchmark。NUMA/hugepage/perf依能力明确跳过，真正的CLI或代码失败仍使runner返回失败。
 
 ## Parameter and result contract
 

@@ -1,0 +1,4 @@
+/tmp/order-book-plot-check-4a491_xv/comparison/order-book-summary.png
+Compatible campaign overlay: PASS (temporary self-check image, not an optimization result)
+Mismatched trace rejected before rendering: PASS
+ValueError: need >=3 independent compatible rounds

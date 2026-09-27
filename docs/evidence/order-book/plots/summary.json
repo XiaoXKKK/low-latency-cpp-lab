@@ -1,0 +1,174 @@
+{
+  "campaigns": [
+    {
+      "label": "map + hash + list baseline",
+      "metrics": [
+        {
+          "size": 16,
+          "mode": "latency",
+          "metric": "mean",
+          "median": 131.3511,
+          "rounds": [
+            131.3511,
+            131.3162,
+            131.9374
+          ],
+          "unit": "ns/event"
+        },
+        {
+          "size": 256,
+          "mode": "latency",
+          "metric": "mean",
+          "median": 134.64185,
+          "rounds": [
+            134.64185,
+            136.1933,
+            133.8727
+          ],
+          "unit": "ns/event"
+        },
+        {
+          "size": 4096,
+          "mode": "latency",
+          "metric": "mean",
+          "median": 168.23205,
+          "rounds": [
+            168.82895,
+            168.23205,
+            166.75365
+          ],
+          "unit": "ns/event"
+        },
+        {
+          "size": 16,
+          "mode": "latency",
+          "metric": "p99",
+          "median": 380.0,
+          "rounds": [
+            380.0,
+            380.0,
+            371.0
+          ],
+          "unit": "ns/event"
+        },
+        {
+          "size": 256,
+          "mode": "latency",
+          "metric": "p99",
+          "median": 401.0,
+          "rounds": [
+            401.0,
+            421.0,
+            400.0
+          ],
+          "unit": "ns/event"
+        },
+        {
+          "size": 4096,
+          "mode": "latency",
+          "metric": "p99",
+          "median": 651.0,
+          "rounds": [
+            652.0,
+            651.0,
+            642.09
+          ],
+          "unit": "ns/event"
+        },
+        {
+          "size": 16,
+          "mode": "latency",
+          "metric": "p999",
+          "median": 621.001,
+          "rounds": [
+            621.001,
+            631.0,
+            621.0
+          ],
+          "unit": "ns/event"
+        },
+        {
+          "size": 256,
+          "mode": "latency",
+          "metric": "p999",
+          "median": 692.0,
+          "rounds": [
+            692.0,
+            701.0,
+            652.009
+          ],
+          "unit": "ns/event"
+        },
+        {
+          "size": 4096,
+          "mode": "latency",
+          "metric": "p999",
+          "median": 962.0,
+          "rounds": [
+            972.01,
+            962.0,
+            942.0
+          ],
+          "unit": "ns/event"
+        },
+        {
+          "size": 16,
+          "mode": "throughput",
+          "metric": "ops_per_sec",
+          "median": 9.262294089940001,
+          "rounds": [
+            9.17401412184,
+            9.33257629548,
+            9.262294089940001
+          ],
+          "unit": "million events/s"
+        },
+        {
+          "size": 256,
+          "mode": "throughput",
+          "metric": "ops_per_sec",
+          "median": 9.095646958280001,
+          "rounds": [
+            9.12594608683,
+            9.095646958280001,
+            9.0743446996
+          ],
+          "unit": "million events/s"
+        },
+        {
+          "size": 4096,
+          "mode": "throughput",
+          "metric": "ops_per_sec",
+          "median": 6.96960771296,
+          "rounds": [
+            6.953099524310001,
+            7.010080542550001,
+            6.96960771296
+          ],
+          "unit": "million events/s"
+        }
+      ],
+      "files": [
+        "/home/ljw/low-latency-cpp-lab/results/raw/order-book-v0-20260927/n256-throughput/order_book_throughput-map_list-0.json",
+        "/home/ljw/low-latency-cpp-lab/results/raw/order-book-v0-20260927/n256-throughput/order_book_throughput-map_list-1.json",
+        "/home/ljw/low-latency-cpp-lab/results/raw/order-book-v0-20260927/n256-throughput/order_book_throughput-map_list-2.json",
+        "/home/ljw/low-latency-cpp-lab/results/raw/order-book-v0-20260927/n16-throughput/order_book_throughput-map_list-0.json",
+        "/home/ljw/low-latency-cpp-lab/results/raw/order-book-v0-20260927/n16-throughput/order_book_throughput-map_list-1.json",
+        "/home/ljw/low-latency-cpp-lab/results/raw/order-book-v0-20260927/n16-throughput/order_book_throughput-map_list-2.json",
+        "/home/ljw/low-latency-cpp-lab/results/raw/order-book-v0-20260927/n256-latency/order_book_latency-map_list-0.json",
+        "/home/ljw/low-latency-cpp-lab/results/raw/order-book-v0-20260927/n256-latency/order_book_latency-map_list-1.json",
+        "/home/ljw/low-latency-cpp-lab/results/raw/order-book-v0-20260927/n256-latency/order_book_latency-map_list-2.json",
+        "/home/ljw/low-latency-cpp-lab/results/raw/order-book-v0-20260927/n4096-latency/order_book_latency-map_list-0.json",
+        "/home/ljw/low-latency-cpp-lab/results/raw/order-book-v0-20260927/n4096-latency/order_book_latency-map_list-1.json",
+        "/home/ljw/low-latency-cpp-lab/results/raw/order-book-v0-20260927/n4096-latency/order_book_latency-map_list-2.json",
+        "/home/ljw/low-latency-cpp-lab/results/raw/order-book-v0-20260927/n16-latency/order_book_latency-map_list-0.json",
+        "/home/ljw/low-latency-cpp-lab/results/raw/order-book-v0-20260927/n16-latency/order_book_latency-map_list-1.json",
+        "/home/ljw/low-latency-cpp-lab/results/raw/order-book-v0-20260927/n16-latency/order_book_latency-map_list-2.json",
+        "/home/ljw/low-latency-cpp-lab/results/raw/order-book-v0-20260927/n4096-throughput/order_book_throughput-map_list-0.json",
+        "/home/ljw/low-latency-cpp-lab/results/raw/order-book-v0-20260927/n4096-throughput/order_book_throughput-map_list-1.json",
+        "/home/ljw/low-latency-cpp-lab/results/raw/order-book-v0-20260927/n4096-throughput/order_book_throughput-map_list-2.json"
+      ]
+    }
+  ],
+  "plot_script_sha256": "04b56d61a4cca46191d9404934591deea90e03b34b5c5e7c4313025ab5a34155"
+}

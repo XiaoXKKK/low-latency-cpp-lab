@@ -97,6 +97,14 @@ Config parse(int argc, char** argv) {
         if(!explicit_size) c.size=64;
         if(!explicit_batch) c.batch=16;
     }
+    if(c.benchmark=="containers") {
+        if(!explicit_size) c.size=1024;
+        if(!explicit_batch) c.batch=64;
+    }
+    if(c.benchmark=="order_book_latency" || c.benchmark=="order_book_throughput") {
+        if(!explicit_size) c.size=256;
+        if(!explicit_batch) c.batch=1000;
+    }
     if(c.format!="table" && c.format!="json" && c.format!="csv") throw std::invalid_argument("format: table/json/csv");
     if(c.iterations>10000000 || c.warmup>1000000 || c.batch>100000000 || c.size>1073741824 || c.critical>1000000 || c.locks>100000)
         throw std::invalid_argument("workload exceeds safety bound");
