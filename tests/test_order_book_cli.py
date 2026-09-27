@@ -54,3 +54,17 @@ for name, args in [('order_book_latency', ['--size', '10001']), ('order_book_lat
     p = subprocess.run([exe, '--benchmark', name, *args], capture_output=True, timeout=10)
     assert p.returncode != 0
 print('OrderBook CLI: ratios, same-stream latency/throughput, PMU fallback, JSON/CSV, duration/bounds PASS')
+
+for variant in ['map_slots_ordered', 'map_slots_random', 'vector_front', 'vector_back', 'vector_branchless', 'vector_linear']:
+    for name in rows:
+        row = json.loads(run(name, '--variant', variant))['results'][0]
+        assert row['variant'] == variant
+        assert row['sample_count'] == rows[name]['sample_count']
+        for key in ['trace_hash_hi', 'trace_hash_lo', 'accepted_events', 'trades', 'matched_quantity', 'final_orders_per_replay']:
+            assert row['metrics'][key] == rows[name]['metrics'][key], (variant, name, key)
+        if variant.startswith('map_slots'):
+            assert row['metrics']['allocation_seed'] == 1729
+            assert row['metrics']['level_slot_storage_bytes'] > 0
+        else:
+            assert row['metrics']['final_directory_capacity_bytes'] > 0
+print('All six variants: identical traces, semantic outcomes and sample boundaries PASS')

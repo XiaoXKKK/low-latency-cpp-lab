@@ -1,6 +1,6 @@
 # Order book：map/hash/list 基线与后续优化关卡
 
-2026-09-27 按新要求推进 `map + unordered_map + list` 基线，代码、测试与测量方式见[实验说明](../benchmarks/order_book/README.md)，实测见[结果](order_book_results.md)。此文继续保留后续优化关卡；后续优化均未执行。保持单线程、整数价格 ticks、单标的、明确容量边界；不引入 MPSC。
+2026-09-27 按新要求推进 `map + unordered_map + list` 基线，代码、测试与测量方式见[实验说明](../benchmarks/order_book/README.md)，实测见[结果](order_book_results.md)。此文保留优化关卡；本轮实现和验证进度见[逐轮报告](order_book_cppcon_results.md)，性能状态以报告中的实测证据为准。保持单线程、整数价格 ticks、单标的、明确容量边界；不引入 MPSC。
 
 ## 语义对照的共同契约
 

@@ -9,7 +9,7 @@ int main(int argc,char** argv) {
                        "tsc_interval|perf_interval|cache_patterns|allocator_batch|allocation_handoff|page_behavior\n"
                        "atomic_order|rw_locks|wait_strategy|arrival_latency|numa_access|network_rtt|network_io\n"
                        "containers|data_layout (size is record count; containers batch defaults to 64)\n"
-                       "order_book_latency|order_book_throughput --variant map_list (--size=initial orders)\n"
+                       "order_book_latency|order_book_throughput --variant map_list|map_slots_ordered|map_slots_random|vector_front|vector_back|vector_branchless|vector_linear (--size=initial orders)\n"
                        "--iterations 100 --warmup 10 --threads 1 --cpu -1|0,1 --duration 0\n"
                        "--batch 4096 --size 32768 --seed 42 --critical 0 --locks 1\n"
                        "--stride 1 --distance 16 --interval-ns 100000 --read-percent 90\n"

@@ -1,4 +1,6 @@
 #include "lab/order_book.hpp"
+#include "lab/order_book_layout.hpp"
+#include "lab/order_book_vector.hpp"
 #include "lab/order_book_reference.hpp"
 #include "lab/order_book_workload.hpp"
 #include <algorithm>
@@ -10,8 +12,8 @@
 #define CHECK(value) do { if(!(value)) throw std::runtime_error(#value); } while(false)
 using namespace lab::book;
 
-struct Harness {
-    MapBook book;
+template<class Book> struct Harness {
+    Book book;
     ReferenceBook oracle;
     std::vector<Trade> actual, expected;
     std::vector<Trade> last;
@@ -36,8 +38,8 @@ struct Harness {
         return got;
     }
 };
-void matching() {
-    Harness h;
+template<class Book> void matching() {
+    Harness<Book> h;
     h.apply({Kind::add, 1, Side::sell, 101, 10});
     h.apply({Kind::add, 2, Side::sell, 101, 20});
     h.apply({Kind::add, 3, Side::sell, 102, 7});
@@ -56,8 +58,8 @@ void matching() {
     CHECK(h.apply({Kind::cancel, 6}).status == Status::ok);
     CHECK(h.apply({Kind::cancel, 6}).status == Status::not_found);
 }
-void priority() {
-    Harness h;
+template<class Book> void priority() {
+    Harness<Book> h;
     h.apply({Kind::add, 1, Side::sell, 101, 10}); h.apply({Kind::add, 2, Side::sell, 101, 10});
     h.apply({Kind::modify, 1, Side::buy, 101, 5}); // Modify ignores event side.
     h.apply({Kind::match, 0, Side::buy, 0, 5});
@@ -77,8 +79,8 @@ void priority() {
     h.apply({Kind::modify, 3, Side::sell, 0, 0}); // Zero cancels, price ignored.
     CHECK(h.book.size() == 0);
 }
-void bounds() {
-    Harness h({10, 20, 2});
+template<class Book> void bounds() {
+    Harness<Book> h({10, 20, 2});
     CHECK(h.apply({Kind::add, 0, Side::buy, 10, 1}).status == Status::invalid);
     CHECK(h.apply({Kind::add, 1, Side::buy, 9, 1}).status == Status::invalid);
     CHECK(h.apply({Kind::add, 1, Side::buy, 10, 0}).status == Status::invalid);
@@ -95,9 +97,9 @@ void bounds() {
     CHECK(h.apply({Kind::match, 0, static_cast<Side>(3), 0, 1}).status == Status::invalid);
     CHECK(h.apply({static_cast<Kind>(9), 1}).status == Status::invalid);
 }
-void differential() {
+template<class Book> void differential() {
     for(std::uint64_t seed : {0, 42, 9187, 123456}) {
-        Harness h({1, 50, 128}); std::mt19937_64 rng(seed);
+        Harness<Book> h({1, 50, 128}); std::mt19937_64 rng(seed);
         for(unsigned i = 0; i < 8000; ++i) {
             Event e{static_cast<Kind>(rng() % 4), rng() % 200,
                     rng() % 2 ? Side::buy : Side::sell, static_cast<Price>(rng() % 52), static_cast<Quantity>(rng() % 50)};
@@ -110,7 +112,7 @@ void differential() {
         const auto duplicate = make_trace(n, 300, 718);
         CHECK(trace.events == duplicate.events && trace.fingerprint == duplicate.fingerprint);
         CHECK(trace.fingerprint != make_trace(n, 300, 719).fingerprint);
-        Harness h(trace.limits);
+        Harness<Book> h(trace.limits);
         for(const auto& event : trace.initial) h.apply(event);
         std::array<unsigned, 4> counts{};
         for(const auto& event : trace.events) { h.apply(event); ++counts[static_cast<unsigned>(event.kind)]; }
@@ -118,8 +120,8 @@ void differential() {
         CHECK(h.book.snapshot() == trace.final_state);
     }
 }
-void rehash_and_levels() {
-    Harness h({1, 200, 3000});
+template<class Book> void rehash_and_levels() {
+    Harness<Book> h({1, 200, 3000});
     for(Id id = 1; id <= 2000; ++id) h.apply({Kind::add, id, Side::sell, static_cast<Price>(100 + id % 4), 1});
     for(Id id = 1; id <= 2000; id += 3) h.apply({Kind::cancel, id});
     const auto expected = h.book.snapshot();
@@ -128,10 +130,66 @@ void rehash_and_levels() {
     for(std::size_t i = 0; i < expected.size(); ++i) CHECK(h.last[i].maker == expected[i].id);
     CHECK(h.book.size() == 0 && !h.book.best_ask());
 }
+template<class Book> void directory_boundaries() {
+    // Exhaust all insertion gaps for short directories, including powers of two
+    // and their neighbours. Every operation checks full FIFO state and trades.
+    for(unsigned n = 0; n <= 65; ++n) {
+        Harness<Book> h({1, 1000, 300});
+        for(unsigned i = 0; i < n; ++i) {
+            h.apply({Kind::add, 1 + i, Side::buy, 2 + 2*i, 2});
+            h.apply({Kind::add, 101 + i, Side::sell, 502 + 2*i, 2});
+        }
+        for(unsigned i = 0; i <= n; ++i) {
+            h.apply({Kind::add, 201, Side::buy, 1 + 2*i, 1});
+            h.apply({Kind::cancel, 201});
+            h.apply({Kind::add, 202, Side::sell, 501 + 2*i, 1});
+            h.apply({Kind::cancel, 202});
+        }
+        for(unsigned i = 0; i < n; ++i) {
+            h.apply({Kind::modify, 1 + i, Side::buy, 301 + i, 3});
+            h.apply({Kind::modify, 101 + i, Side::sell, 701 + i, 3});
+        }
+        h.apply({Kind::match, 0, Side::buy, 0, 1000});
+        h.apply({Kind::match, 0, Side::sell, 0, 1000});
+    }
+}
+void allocation_layout() {
+    LevelSlots ordered(128, false), random(128, true), repeat(128, true), other(128, true, 1730);
+    std::vector<void*> a, b, c;
+    for(unsigned i = 0; i < 128; ++i) {
+        a.push_back(ordered.allocate(64, 8)); b.push_back(random.allocate(64, 8)); c.push_back(repeat.allocate(64, 8));
+        (void)other.allocate(64, 8);
+        if(i) CHECK(static_cast<std::byte*>(a[i]) - static_cast<std::byte*>(a[i-1]) == 64);
+        for(unsigned j = 0; j < i; ++j) CHECK(b[j] != b[i]);
+    }
+    CHECK(random.permutation_hash() == repeat.permutation_hash());
+    CHECK(random.permutation_hash() != other.permutation_hash());
+    CHECK(random.permutation_hash() != ordered.permutation_hash());
+    CHECK(random.mean_initial_gap() > ordered.mean_initial_gap());
+    bool exhausted = false;
+    try { (void)random.allocate(64, 8); } catch(const std::bad_alloc&) { exhausted = true; }
+    CHECK(exhausted);
+    random.deallocate(b[37], 64, 8); CHECK(random.allocate(64, 8) == b[37]);
+    // Relative address order, not merely PRNG state, must reproduce the layout.
+    for(unsigned i = 0; i < 128; ++i)
+        CHECK(static_cast<std::byte*>(b[i]) - static_cast<std::byte*>(b[0]) ==
+              static_cast<std::byte*>(c[i]) - static_cast<std::byte*>(c[0]));
+}
 int main() {
     try {
         static_assert(!std::is_copy_constructible_v<MapBook> && !std::is_move_constructible_v<MapBook>);
-        matching(); priority(); bounds(); differential(); rehash_and_levels();
+        allocation_layout();
+        const auto check = []<class Book>(const char* name) {
+            matching<Book>(); priority<Book>(); bounds<Book>(); differential<Book>(); rehash_and_levels<Book>(); directory_boundaries<Book>();
+            std::cout << name << ": 32000 differential events + deterministic FIFO/bounds/rehash PASS\n";
+        };
+        check.template operator()<MapBook>("map_list");
+        check.template operator()<SequentialMapBook>("map_slots_ordered");
+        check.template operator()<RandomizedMapBook>("map_slots_random");
+        check.template operator()<VectorFrontBook>("vector_front");
+        check.template operator()<VectorBackBook>("vector_back");
+        check.template operator()<BranchlessBook>("vector_branchless");
+        check.template operator()<LinearBook>("vector_linear");
         std::cout << "OrderBook FIFO/cross-price/partial fills/modify/ID reuse/capacity/output bounds; 32000 differential events PASS\n";
     } catch(const std::exception& error) { std::cerr << error.what() << '\n'; return 1; }
 }

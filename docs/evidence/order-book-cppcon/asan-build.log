@@ -1,0 +1,26 @@
+[  2%] Building CXX object CMakeFiles/lab_core.dir/src/order_book_reference.cpp.o
+[  4%] Building CXX object CMakeFiles/lab_core.dir/src/order_book.cpp.o
+[  6%] Building CXX object CMakeFiles/lab_core.dir/src/order_book_workload.cpp.o
+[  9%] Linking CXX static library liblab_core.a
+[ 20%] Built target lab_core
+[ 22%] Linking CXX executable lab_phase2_tests
+[ 25%] Linking CXX executable lab_tests
+[ 27%] Linking CXX executable lab_network_tests
+[ 29%] Building CXX object CMakeFiles/lab_bench.dir/benchmarks/order_book/order_book.cpp.o
+[ 31%] Built target lab_network_tests
+[ 34%] Built target lab_tests
+[ 36%] Built target lab_phase2_tests
+[ 38%] Linking CXX executable lab_container_tests
+[ 40%] Building CXX object CMakeFiles/lab_order_book_allocation_tests.dir/tests/test_order_book_allocation.cpp.o
+[ 43%] Building CXX object CMakeFiles/lab_order_book_tests.dir/tests/test_order_book.cpp.o
+[ 45%] Built target lab_container_tests
+[ 47%] Building CXX object CMakeFiles/lab_bench.dir/src/main.cpp.o
+[ 50%] Building CXX object CMakeFiles/lab_order_book_diagnostics.dir/tools/order_book_diagnostics.cpp.o
+[ 52%] Linking CXX executable lab_order_book_allocation_tests
+[ 52%] Built target lab_order_book_allocation_tests
+[ 54%] Linking CXX executable lab_order_book_diagnostics
+[ 54%] Built target lab_order_book_diagnostics
+[ 56%] Linking CXX executable lab_order_book_tests
+[ 56%] Built target lab_order_book_tests
+[ 59%] Linking CXX executable lab_bench
+[100%] Built target lab_bench

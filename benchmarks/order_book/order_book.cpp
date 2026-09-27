@@ -1,5 +1,7 @@
 #include "lab/benchmark.hpp"
 #include "lab/order_book.hpp"
+#include "lab/order_book_layout.hpp"
+#include "lab/order_book_vector.hpp"
 #include "lab/order_book_perf.hpp"
 #include "lab/order_book_reference.hpp"
 #include "lab/order_book_workload.hpp"
@@ -10,17 +12,17 @@
 
 namespace lab {
 namespace {
-class Replay {
+template<class Book> class Replay {
     const book::Trace& trace_;
 public:
-    std::unique_ptr<book::MapBook> book;
+    std::unique_ptr<Book> book;
     std::vector<book::Outcome> outcomes;
     std::vector<book::Trade> trades;
     std::size_t filled = 0;
     explicit Replay(const book::Trace& trace) : trace_(trace), outcomes(trace.events.size()),
         trades(trace.trades.size() + trace.limits.max_orders) {}
     void reset() {
-        book = std::make_unique<book::MapBook>(trace_.limits);
+        book = std::make_unique<Book>(trace_.limits);
         filled = 0;
         for(const auto& e : trace_.initial) {
             const auto result = book->apply(e, trades);
@@ -82,19 +84,19 @@ void annotate(Result& result, const book::Trace& trace, std::size_t prefix, std:
         m["minimum_orders_per_replay"] = trace.minimum_orders;
         m["final_orders_per_replay"] = trace.final_state.size();
     }
-    result.notes += " map_list baseline: map price levels + list FIFO + unordered_map ID->stable iterators; default allocation and hash growth remain timed. Synthetic 60/25/10/5 exact per full 100-event block; not exchange statistics. price ticks 1..20000. size=initial orders, NOT bytes (legacy JSON config key size_bytes). Hash identifies full initial+event stream. Setup/generation/reset/validation/warmup excluded. Closed-loop replay; no queueing/network latency. All outcomes/trades/final state checked against independent vector oracle outside timing. Baseline stages Add/priority-changing Modify nodes before matching for allocation-failure rollback; even fully crossing Add allocates a node. ";
+    result.notes += " List FIFO + unordered_map ID index; hash growth remains timed. Synthetic 60/25/10/5 exact per full 100-event block; not exchange statistics. price ticks 1..20000. size=initial orders, NOT bytes (legacy JSON config key size_bytes). Hash identifies full initial+event stream. Setup/generation/reset/validation/warmup excluded. Closed-loop replay; no queueing/network latency. All outcomes/trades/final state checked against independent vector oracle outside timing. Baseline stages Add/priority-changing Modify nodes before matching for allocation-failure rollback; even fully crossing Add allocates a node. ";
 }
 } // namespace
 
-Results order_book(const Config& c) {
+template<class Book> Results run_book(const Config& c, const std::string& variant) {
     require_threads(c, 1);
-    if(!selected(c, "map_list")) return {};
+    if(!selected(c, variant)) return {};
     const bool latency = c.benchmark == "order_book_latency";
     if(c.warmup > 100000) throw std::invalid_argument("order book warmup <=100000 required");
     const auto trace = book::make_trace(c.size, latency ? c.iterations : c.batch, c.seed);
-    Replay replay(trace);
+    Replay<Book> replay(trace);
     Result result;
-    result.benchmark = c.benchmark; result.variant = "map_list";
+    result.benchmark = c.benchmark; result.variant = variant;
     if(latency) {
         // Warm up using the same trace, but restore initial state afterwards.
         std::size_t remaining = c.warmup;
@@ -131,8 +133,9 @@ Results order_book(const Config& c) {
         try { counters = std::make_unique<book::ReplayCounters>(); }
         catch(const std::runtime_error& error) { pmu_reason = error.what(); }
         double cycles = 0, instructions = 0, enabled = 0, running = 0;
+        double branches = 0, branch_misses = 0, cache_misses = 0;
         Config measured = c; measured.warmup = 0;
-        result = measure(measured, c.benchmark, "map_list", trace.events.size(), [&] {
+        result = measure(measured, c.benchmark, variant, trace.events.size(), [&] {
             for(std::size_t i = 0; i < trace.events.size(); ++i) replay.event(i);
             do_not_optimize(replay.filled);
         }, "throughput", "replay_mean", [&] {
@@ -143,6 +146,7 @@ Results order_book(const Config& c) {
             if(counters) try {
                 const auto counts = counters->end();
                 cycles += counts.cycles; instructions += counts.instructions;
+                branches += counts.branches; branch_misses += counts.branch_misses; cache_misses += counts.cache_misses;
                 enabled += counts.enabled; running += counts.running;
             } catch(const std::runtime_error& error) { pmu_reason = error.what(); counters.reset(); }
             replay.validate(trace.events.size());
@@ -152,17 +156,52 @@ Results order_book(const Config& c) {
         result.metrics["pmu_measured"] = counters ? 1 : 0;
         if(counters) {
             result.metrics["cycles_raw"] = cycles; result.metrics["instructions_raw"] = instructions;
+            result.metrics["branches_raw"] = branches; result.metrics["branch_misses_raw"] = branch_misses;
+            result.metrics["cache_misses_raw"] = cache_misses;
             result.metrics["time_enabled_ns"] = enabled; result.metrics["time_running_ns"] = running;
             result.metrics["pmu_running_ratio"] = running / enabled;
             if(enabled == running) {
                 result.metrics["cycles_per_event"] = cycles / result.total_operations;
                 result.metrics["instructions_per_event"] = instructions / result.total_operations;
+                result.metrics["branches_per_event"] = branches / result.total_operations;
+                result.metrics["branch_misses_per_event"] = branch_misses / result.total_operations;
+                result.metrics["cache_misses_per_event"] = cache_misses / result.total_operations;
                 if(cycles > 0) result.metrics["ipc"] = instructions / cycles;
             } else if(cycles > 0) result.metrics["scheduled_count_ipc"] = instructions / cycles;
             result.notes += "PMU: calling-thread user-space replay interval only, includes timer/control overhead, excludes reset/validation/warmup; per-event counters omitted when multiplexed.";
         } else result.notes += "PMU NOT MEASURED: " + pmu_reason + ".";
         result.notes += " --batch=events/replay, iterations=replay samples, warmup=discarded full replays. Timed throughput includes event loop/outcome journal writes. Replay mean p99 is NOT individual event p99.";
     }
+    if constexpr(requires { replay.book->slots(); }) {
+        const auto& slots = replay.book->slots();
+        result.metrics["allocation_seed"] = 1729;
+        result.metrics["level_slot_storage_bytes"] = slots.storage_bytes();
+        result.metrics["level_slot_free_list_bytes"] = slots.free_list_bytes();
+        result.metrics["level_slot_stride_bytes"] = slots.stride();
+        result.metrics["level_slot_mean_initial_gap_bytes"] = slots.mean_initial_gap();
+        result.metrics["allocation_permutation_hi"] = static_cast<std::uint32_t>(slots.permutation_hash() >> 32);
+        result.metrics["allocation_permutation_lo"] = static_cast<std::uint32_t>(slots.permutation_hash());
+        result.notes += "Layout control: only map level nodes use prefaulted fixed slots; identical allocation/recycling cost, independent seed 1729. Arena setup excluded; list/hash allocation remains timed. NOT an isolated default-malloc vs layout comparison.";
+    }
+    if constexpr(requires { replay.book->directory_capacity_bytes(); }) {
+        result.metrics["final_directory_capacity_bytes"] = replay.book->directory_capacity_bytes();
+        result.notes += "Vector owns lists by value; stable list iterators in ID index; erase re-finds price after directory moves. No upfront vector/hash reserve. Directory bytes exclude list/hash nodes.";
+    }
     return {std::move(result)};
+}
+Results order_book(const Config& c) {
+    Results result;
+    const auto append = [&]<class Book>(const char* name) {
+        auto rows = run_book<Book>(c, name);
+        for(auto& row : rows) result.push_back(std::move(row));
+    };
+    append.template operator()<book::MapBook>("map_list");
+    append.template operator()<book::SequentialMapBook>("map_slots_ordered");
+    append.template operator()<book::RandomizedMapBook>("map_slots_random");
+    append.template operator()<book::VectorFrontBook>("vector_front");
+    append.template operator()<book::VectorBackBook>("vector_back");
+    append.template operator()<book::BranchlessBook>("vector_branchless");
+    append.template operator()<book::LinearBook>("vector_linear");
+    return result;
 }
 } // namespace lab

@@ -7,11 +7,14 @@ namespace lab::book {
 namespace {
 bool valid(Side side) { return side == Side::buy || side == Side::sell; }
 }
-MapBook::MapBook(Limits limits) : limits_(limits) {
+template<class Allocator>
+BasicMapBook<Allocator>::BasicMapBook(Limits limits, const Allocator& allocator)
+    : limits_(limits), bids_(allocator), asks_(allocator) {
     if(!limits.min_price || limits.min_price > limits.max_price || !limits.max_orders)
         throw std::invalid_argument("invalid order book limits");
 }
-MapBook::Handle MapBook::stage(Order order) {
+template<class Allocator>
+typename BasicMapBook<Allocator>::Handle BasicMapBook<Allocator>::stage(Order order) {
     // Prepare all potentially allocating nodes before matching. An allocation
     // failure rolls back the newly-created level and leaves the book unchanged.
     std::list<Order> pending;
@@ -24,14 +27,16 @@ MapBook::Handle MapBook::stage(Order order) {
     level->second.splice(level->second.end(), pending);
     return handle;
 }
-void MapBook::erase(std::unordered_map<Id, Handle>::iterator it) {
+template<class Allocator>
+void BasicMapBook<Allocator>::erase(typename std::unordered_map<Id, Handle>::iterator it) {
     auto handle = it->second;
     auto& side = levels(handle.order->side);
     index_.erase(it);
     handle.level->second.erase(handle.order);
     if(handle.level->second.empty()) side.erase(handle.level);
 }
-Outcome MapBook::cross(Side side, Price limit, Quantity quantity, Id taker, std::span<Trade> output) {
+template<class Allocator>
+Outcome BasicMapBook<Allocator>::cross(Side side, Price limit, Quantity quantity, Id taker, std::span<Trade> output) {
     Outcome result{Status::ok, quantity, 0};
     auto& opposite = side == Side::buy ? asks_ : bids_;
     while(result.remaining && !opposite.empty()) {
@@ -46,14 +51,16 @@ Outcome MapBook::cross(Side side, Price limit, Quantity quantity, Id taker, std:
     }
     return result;
 }
-Outcome MapBook::finish(Handle handle, std::span<Trade> output) {
+template<class Allocator>
+Outcome BasicMapBook<Allocator>::finish(Handle handle, std::span<Trade> output) {
     const Order incoming = *handle.order;
     auto result = cross(incoming.side, incoming.price, incoming.quantity, incoming.id, output);
     if(result.remaining) handle.order->quantity = result.remaining;
     else erase(index_.find(incoming.id));
     return result;
 }
-Outcome MapBook::apply(const Event& e, std::span<Trade> output) {
+template<class Allocator>
+Outcome BasicMapBook<Allocator>::apply(const Event& e, std::span<Trade> output) {
     const auto valid_price = [&](Price p) { return p >= limits_.min_price && p <= limits_.max_price; };
     if(e.kind == Kind::match) {
         if(!valid(e.side) || !e.quantity) return {Status::invalid};
@@ -92,15 +99,18 @@ Outcome MapBook::apply(const Event& e, std::span<Trade> output) {
     if(old.level->second.empty()) levels(side).erase(old.level);
     return finish(replacement, output);
 }
-std::optional<Price> MapBook::best_bid() const {
+template<class Allocator>
+std::optional<Price> BasicMapBook<Allocator>::best_bid() const {
     if(bids_.empty()) return std::nullopt;
     return bids_.rbegin()->first;
 }
-std::optional<Price> MapBook::best_ask() const {
+template<class Allocator>
+std::optional<Price> BasicMapBook<Allocator>::best_ask() const {
     if(asks_.empty()) return std::nullopt;
     return asks_.begin()->first;
 }
-std::vector<Order> MapBook::snapshot() const {
+template<class Allocator>
+std::vector<Order> BasicMapBook<Allocator>::snapshot() const {
     std::vector<Order> result;
     result.reserve(size());
     for(auto it = bids_.rbegin(); it != bids_.rend(); ++it)
@@ -111,7 +121,8 @@ std::vector<Order> MapBook::snapshot() const {
     }
     return result;
 }
-bool MapBook::invariant() const {
+template<class Allocator>
+bool BasicMapBook<Allocator>::invariant() const {
     if(size() > limits_.max_orders || (best_bid() && best_ask() && *best_bid() >= *best_ask())) return false;
     std::size_t count = 0;
     for(Side side : {Side::buy, Side::sell}) {
@@ -129,4 +140,6 @@ bool MapBook::invariant() const {
     }
     return count == size();
 }
+template class BasicMapBook<std::allocator<LevelValue>>;
+template class BasicMapBook<std::pmr::polymorphic_allocator<LevelValue>>;
 } // namespace lab::book

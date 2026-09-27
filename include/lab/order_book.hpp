@@ -4,6 +4,7 @@
 #include <list>
 #include <map>
 #include <optional>
+#include <memory_resource>
 #include <span>
 #include <unordered_map>
 #include <vector>
@@ -38,23 +39,25 @@ struct Outcome {
 // Single-threaded owner. Maps own levels, lists own orders, ID index contains
 // stable map/list iterators. Copy/move are forbidden: a copied index would refer
 // to another book. Snapshots are detached values, ordered bids/asks best-first.
-class MapBook {
-    using Levels = std::map<Price, std::list<Order>>;
-    struct Handle { Levels::iterator level; std::list<Order>::iterator order; };
+using LevelValue = std::pair<const Price, std::list<Order>>;
+template<class Allocator = std::allocator<LevelValue>>
+class BasicMapBook {
+    using Levels = std::map<Price, std::list<Order>, std::less<Price>, Allocator>;
+    struct Handle { typename Levels::iterator level; std::list<Order>::iterator order; };
     Limits limits_;
     Levels bids_, asks_;
     std::unordered_map<Id, Handle> index_;
     Levels& levels(Side side) { return side == Side::buy ? bids_ : asks_; }
     Handle stage(Order order);
-    void erase(std::unordered_map<Id, Handle>::iterator it);
+    void erase(typename std::unordered_map<Id, Handle>::iterator it);
     Outcome cross(Side side, Price limit, Quantity quantity, Id taker, std::span<Trade> output);
     Outcome finish(Handle handle, std::span<Trade> output);
 public:
-    explicit MapBook(Limits limits = {});
-    MapBook(const MapBook&) = delete;
-    MapBook& operator=(const MapBook&) = delete;
-    MapBook(MapBook&&) = delete;
-    MapBook& operator=(MapBook&&) = delete;
+    explicit BasicMapBook(Limits limits = {}, const Allocator& allocator = {});
+    BasicMapBook(const BasicMapBook&) = delete;
+    BasicMapBook& operator=(const BasicMapBook&) = delete;
+    BasicMapBook(BasicMapBook&&) = delete;
+    BasicMapBook& operator=(BasicMapBook&&) = delete;
     // For operations capable of matching, output.size() >= size() is required
     // before any state change (conservative bound: one trade per resting order).
     // Add at capacity is rejected even when it could immediately execute.
@@ -65,4 +68,6 @@ public:
     std::vector<Order> snapshot() const;
     bool invariant() const;
 };
+using MapBook = BasicMapBook<>;
+using ResourceMapBook = BasicMapBook<std::pmr::polymorphic_allocator<LevelValue>>;
 } // namespace lab::book

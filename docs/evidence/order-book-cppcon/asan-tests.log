@@ -1,0 +1,32 @@
+Internal ctest changing into directory: /home/ljw/low-latency-cpp-lab/build/asan
+Test project /home/ljw/low-latency-cpp-lab/build/asan
+      Start  1: core
+ 1/13 Test  #1: core .............................   Passed    0.17 sec
+      Start  2: cli_contract
+ 2/13 Test  #2: cli_contract .....................   Passed    1.15 sec
+      Start  3: perf_reporting
+ 3/13 Test  #3: perf_reporting ...................   Passed    0.10 sec
+      Start  4: phase2_core
+ 4/13 Test  #4: phase2_core ......................   Passed    0.07 sec
+      Start  5: phase2_cli
+ 5/13 Test  #5: phase2_cli .......................   Passed    2.11 sec
+      Start  6: network_core
+ 6/13 Test  #6: network_core .....................   Passed    0.59 sec
+      Start  7: network_cli
+ 7/13 Test  #7: network_cli ......................   Passed    0.40 sec
+      Start  8: containers_core
+ 8/13 Test  #8: containers_core ..................   Passed    2.98 sec
+      Start  9: containers_cli
+ 9/13 Test  #9: containers_cli ...................   Passed    0.61 sec
+      Start 10: order_book_core
+10/13 Test #10: order_book_core ..................   Passed   98.45 sec
+      Start 11: order_book_cli
+11/13 Test #11: order_book_cli ...................   Passed    1.00 sec
+      Start 12: order_book_plot_contract
+12/13 Test #12: order_book_plot_contract .........   Passed    0.07 sec
+      Start 13: order_book_allocation
+13/13 Test #13: order_book_allocation ............   Passed    0.02 sec
+
+100% tests passed, 0 tests failed out of 13
+
+Total Test time (real) = 107.72 sec

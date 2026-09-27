@@ -89,3 +89,10 @@ add_test(NAME order_book_cli COMMAND ${Python3_EXECUTABLE} ${CMAKE_SOURCE_DIR}/t
 set_tests_properties(order_book_core order_book_cli PROPERTIES TIMEOUT 120)
 add_test(NAME order_book_plot_contract COMMAND ${Python3_EXECUTABLE} ${CMAKE_SOURCE_DIR}/tests/test_order_book_plot.py)
 set_tests_properties(order_book_plot_contract PROPERTIES TIMEOUT 30)
+add_executable(lab_order_book_allocation_tests tests/test_order_book_allocation.cpp)
+target_link_libraries(lab_order_book_allocation_tests PRIVATE lab_core)
+add_test(NAME order_book_allocation COMMAND lab_order_book_allocation_tests)
+set_tests_properties(order_book_allocation PROPERTIES TIMEOUT 30)
+# Instrumented structural replay is separate from the timed variants.
+add_executable(lab_order_book_diagnostics tools/order_book_diagnostics.cpp)
+target_link_libraries(lab_order_book_diagnostics PRIVATE lab_core)

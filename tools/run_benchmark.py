@@ -36,7 +36,8 @@ VARIANTS.update(NETWORK)
 DATA_STRUCTURES={'containers':[f'{container}_{operation}' for container in ['vector','list','deque','map','unordered_map','sorted_vector']
                                for operation in ['lookup','insert','iterate','erase']], 'data_layout':['aos','soa']}
 VARIANTS.update(DATA_STRUCTURES)
-ORDER_BOOK={'order_book_latency':['map_list'],'order_book_throughput':['map_list']}
+ORDER_BOOK_VARIANTS=['map_list','map_slots_ordered','map_slots_random','vector_front','vector_back','vector_branchless','vector_linear']
+ORDER_BOOK={name:ORDER_BOOK_VARIANTS for name in ['order_book_latency','order_book_throughput']}
 VARIANTS.update(ORDER_BOOK)
 DEFAULT_SIZES={'containers':1024,'network_rtt':64,'network_io':64,'page_behavior':2097152,'numa_access':8388608,'cache_patterns':4194304,'arrival_latency':8388608}
 MULTITHREADED={'false_sharing','locks','spsc','allocation_handoff','rw_locks','network_rtt','network_io'}
@@ -89,7 +90,7 @@ def main():
     cpus=a.cpu or ','.join(map(str,sorted(os.sched_getaffinity(0))[:2]))
     manifest={'binary':str(binary),'binary_sha256':hashlib.sha256(binary.read_bytes()).hexdigest(),
               'arguments':{k:str(v) if isinstance(v,Path) else v for k,v in vars(a).items()},'runs':[]}
-    sources=list(ROOT.glob('src/*.cpp'))+list(ROOT.glob('include/lab/*.hpp'))+list(ROOT.glob('benchmarks/**/*.cpp'))+[ROOT/'CMakeLists.txt']+list(ROOT.glob('tools/*.py'))
+    sources=list(ROOT.glob('src/*.cpp'))+list(ROOT.glob('include/lab/*.hpp'))+list(ROOT.glob('benchmarks/**/*.cpp'))+[ROOT/'CMakeLists.txt']+list(ROOT.glob('tools/*.py'))+list(ROOT.glob('tools/*.cpp'))+list(ROOT.glob('scripts/*.py'))
     manifest['source_sha256']={str(f.relative_to(ROOT)):hashlib.sha256(f.read_bytes()).hexdigest() for f in sources}
     for filename in ['CMakeCache.txt','compile_commands.json']:
         if (binary.parent/filename).exists(): (output/filename).write_bytes((binary.parent/filename).read_bytes())
